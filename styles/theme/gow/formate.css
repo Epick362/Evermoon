@@ -1,0 +1,441 @@
+/** Edit Color here **/
+ * 
+#.ui-widget-header{
+	background-color:#D20000;
+}
+.res_name{
+	color:#D20000;
+}
+
+body {
+	background:url("img/bkd_page.jpg") no-repeat fixed top center #000;
+}
+
+body,input,select,button,textarea,a,td,th,tr,table,a:visited{
+	color:#DDD;
+}
+
+body.mceContentBody,input,button,select,option,textarea, .ui-widget-content{
+	background: #0D1014;
+}
+
+input[type="submit"], input[type="button"] {
+	background: -webkit-gradient(linear, left top, left bottom, from(#141e26), to(#10181f));
+	background: -moz-linear-gradient(top,  #141e26,  #10181f);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#141e26', endColorstr='#10181f');
+	color: #FFF;
+	padding: 7px 14px 7px 14px;
+	border: 2px solid #6F9FC8;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	-moz-box-shadow: 0 0 5px #000;
+	-webkit-box-shadow: 0 0 5px #000;
+	box-shadow: 0 0 5px #000;
+	min-width: 80px;
+}
+
+input[type="submit"]:hover, input[type="button"]:hover {
+	background: -webkit-gradient(linear, left top, left bottom, from(#223344), to(#10181f));
+	background: -moz-linear-gradient(top,  #223344,  #10181f);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#223344', endColorstr='#10181f');
+	border: 2px solid #9c0;
+	text-decoration: none;
+}
+
+input[type="submit"]:disabled, input[type="button"]:disabled {
+	background: -webkit-gradient(linear, left top, left bottom, from(#c62500), to(#9b1d00));
+	background: -moz-linear-gradient(top,  #c62500,  #9b1d00);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#c62500', endColorstr='#9b1d00');
+	border: 2px solid #ee2f03;
+}
+
+input.small {
+	padding: 3px 7px 3px 7px;
+	min-width: 0;
+}
+
+input[type="radio"] {
+	background:transparent;
+	border:0 none;
+}
+
+
+#menu li:first-child, #menu li:last-child{
+	background-color:transparent;
+}
+
+a {
+	text-shadow: black 1px 1px 1px;
+}
+
+a:hover {
+	color:red;
+	text-decoration:none
+}
+
+table,td,th {
+	font-weight:400
+}
+
+table table,img {
+	border:0;
+}
+
+input, select, textarea, #userpic, input, button{
+	border:1px solid #1C1F23;
+}
+
+td, th input, .tip {
+	border:1px solid #000;
+}
+
+td, .tip {
+	text-align:center;
+	background: #0D1014;
+	background: rgba(0, 0, 0, 0.7);
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+}
+
+input,button {
+	text-align:center
+}
+
+th, .ui-widget-header  {
+	background: #141e26; /* Old browsers */
+	background: -moz-linear-gradient(top,  #141e26 0%, #141e26 50%, #10181f 51%, #10181f 99%, #0a0f13 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#141e26), color-stop(50%,#141e26), color-stop(51%,#10181f), color-stop(99%,#10181f), color-stop(100%,#0a0f13)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #141e26 0%,#141e26 50%,#10181f 51%,#10181f 99%,#0a0f13 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #141e26 0%,#141e26 50%,#10181f 51%,#10181f 99%,#0a0f13 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #141e26 0%,#141e26 50%,#10181f 51%,#10181f 99%,#0a0f13 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #141e26 0%,#141e26 50%,#10181f 51%,#10181f 99%,#0a0f13 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#141e26', endColorstr='#0a0f13',GradientType=0 ); /* IE6-9 */
+	color: #FFF;
+	font-weight: 700;
+	text-align: left;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+
+th a:hover, .ui-widget-header a:hover, #menu a:hover  {
+	color:#FFF;
+}
+
+th a:hover, .ui-widget-header a:hover {
+	text-decoration:underline;
+}
+
+textarea {
+	background:transparent;
+}
+
+select {
+	border:1px solid #212121
+}
+
+/*Global Messgae */
+
+.admin {
+	color:red;
+}
+.mod {
+	color:yellow;
+}
+.ops {
+	color:skyblue;
+}
+
+.messages_body .admin {
+	font-weight:700;
+	color:red;
+}
+.messages_body .mod {
+	font-weight:700;
+	color:yellow;
+}
+.messages_body .ops {
+	font-weight:700;
+	color:skyblue;
+}
+
+.res_max {
+	color:#0F0
+}
+
+.res_name {
+	color:red;
+	font-weight:700
+}
+
+.galaxy-short-noob,
+.galaxy-username-noob{
+	color:#a0ffa0
+}
+
+.galaxy-short-strong,
+.galaxy-username-strong {
+	color:#ffa0a0
+}
+
+.galaxy-short-vacation,
+.galaxy-username-vacation {
+	color:#659ec7
+}
+
+.galaxy-short-inactive,
+.galaxy-username-inactive {
+	color:#ccc
+}
+
+.galaxy-short-longinactive,
+.galaxy-username-longinactive {
+	color:#999
+}
+
+.galaxy-short-banned {
+	text-decoration:line-through
+}
+
+.ownattack {
+	color:#6c3
+}
+
+.owncolony {
+	color:#c1c1c1
+}
+
+.owndeploy {
+	color:#666
+}
+
+.owndestroy {
+	color:#ff9
+}
+
+.ownfederation {
+	color:#c66
+}
+
+.ownharvest {
+	color:#ceff68
+}
+
+.ownhold {
+	color:#80a0c0
+}
+
+.destroy {
+	color:#d4a017
+}
+
+.hold {
+	color:#39c
+}
+
+.warning {
+	color:#FF8040
+}
+
+.notice {
+	color:#FF0
+}
+
+.return {
+	color:#444
+}
+
+.allymember,.colony,.deploy,.harvest,.transport,.success {
+	color:lime
+}
+
+.owntransport {
+	color:#a0ffa0
+}
+
+.ownespionage,.ownmissile {
+	color:#fc6
+}
+
+.espionage,.missile {
+	color:#f60
+}
+
+.build_submit {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    color: lime;
+}
+.onlist{
+    color: #DDD;
+}
+
+/** HEADER **/
+
+#header {
+	background: transparent;
+}
+
+#resourcesdiv{
+	text-align:center;
+}
+
+/** MENU **/
+
+#menu a {
+	background: #0D1014;
+	background: rgba(13, 16, 20, 0.95);
+	border-top:1px solid black;
+}
+
+#menu a:hover {
+	background: #212428;
+}
+
+#nav li a {
+	color: #6F9FC8;
+	font-weight: bold;
+	font-size: 11px;
+	font-family: Tahoma, sans-serif;
+}
+
+#nav li a:hover {
+	text-decoration:underline;
+	color:#9c0;
+}
+
+
+#topnav td {
+	background: #141e26; /* Old browsers */
+	background: -moz-linear-gradient(top,  #141e26 0%, #141e26 50%, #10181f 51%, #10181f 99%, #0a0f13 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#141e26), color-stop(50%,#141e26), color-stop(51%,#10181f), color-stop(99%,#10181f), color-stop(100%,#0a0f13)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #141e26 0%,#141e26 50%,#10181f 51%,#10181f 99%,#0a0f13 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #141e26 0%,#141e26 50%,#10181f 51%,#10181f 99%,#0a0f13 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #141e26 0%,#141e26 50%,#10181f 51%,#10181f 99%,#0a0f13 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #141e26 0%,#141e26 50%,#10181f 51%,#10181f 99%,#0a0f13 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#141e26', endColorstr='#0a0f13',GradientType=0 ); /* IE6-9 */
+}
+
+.menu-head a{
+	height:78px;
+	background:none !important;
+	padding:0 !important;
+	text-indent: -1000em;
+}
+
+.menu-head {
+	background: url('./img/menu-top.png') no-repeat scroll 0 -22px transparent;
+}
+
+.menucat1-head {
+	background-image: url('./img/menu_wirt.png');
+}
+
+.menucat2-head {
+	background-image: url('./img/menu_com.png');
+}
+
+.menucat3-head {
+	background-image: url('./img/menu_acc.png');
+}
+
+.menu-footer{
+	background-image: url('./img/menu-foot.png');
+}
+
+/* PLANETMENU */
+
+#planet_menu_link{
+	font-weight:700;
+}
+
+#planet_menu_header{
+	text-align:right;
+}
+
+#planet_menu_content li {
+	text-align:center;
+}
+
+
+/* CONTENT */
+
+.tip th{
+	text-align:center
+}
+
+.top {
+	vertical-align:top
+}
+
+.mes_unread td {
+	font-weight:700;
+}
+
+a {
+	text-decoration:none
+}
+
+th a,.res_current{
+	color: #A6B8CB;
+}
+
+.res_current_max,.attack,.federation,.error {
+	color:red;
+	text-shadow: red 0 0 5px;
+}
+
+#fleetstatustable td{
+	background: transparent;
+	background-image: none;
+	border: 0 none
+}
+
+.raportWin {
+	color:lime;
+}
+
+.raportLose {
+	color:red;
+}
+
+.ui-progressbar-value {
+	background-image: url(img/processbar.gif);
+	background-position:top left;
+	border-color:#000;
+}
+
+.spyRaportContainerRow {
+	border-bottom:1px solid #DDD;
+}
+
+.ui-autocomplete, .ui-state-hover, .ui-state-default, .ui-tabs-nav, .ui-tabs, .ui-progressbar, .ui-progressbar-value {
+	-webkit-border-radius:0;
+	-khtml-border-radius:0;
+	border-radius:0;
+}
+
+.ui-state-default{
+	border:1px solid #000 !important;
+	background: #0D1014 !important;
+}
+.ui-state-default > a{
+	cursor:pointer !important;
+}
+
+.ui-state-hover, .ui-progressbar{
+	border:1px solid #000 !important;
+	background: #212428 !important;
+}
+
+.ui-tabs-nav {
+	padding: 0;
+	height: 30px;
+}
+
+.ui-tabs {
+	border:1px solid #000;
+	background:transaprent;
+}
