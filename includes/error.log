@@ -167,3 +167,4 @@
 [30-Dec-2012 17:25:27] PHP Fatal error:  Call to undefined function curl_init() in C:\xampp\htdocs\2Moons\includes\pages\adm\ShowVertify.php on line 46
 [30-Dec-2012 17:25:27] PHP Fatal error:  Call to undefined function curl_init() in C:\xampp\htdocs\2Moons\includes\pages\adm\ShowVertify.php on line 46
 [30-Dec-2012 17:25:27] PHP Fatal error:  Call to undefined function curl_init() in C:\xampp\htdocs\2Moons\includes\pages\adm\ShowVertify.php on line 46
+[04-Jan-2013 19:25:34] PHP Parse error:  syntax error, unexpected ')', expecting ']' in C:\xampp\htdocs\Evermoon\includes\classes\class.PlanetRessUpdate.php on line 271

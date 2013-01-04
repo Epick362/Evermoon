@@ -169,7 +169,7 @@ class ShowResourcesPage extends AbstractPage
 			901 => $temp[901]['plus'] * $USER['factor']['Resource'],
 			902 => $temp[902]['plus'] * $USER['factor']['Resource'],
 			903	=> $temp[903]['plus'] * $USER['factor']['Resource'],
-			911	=> $temp[911]['plus'] * $USER['factor']['Energy'],
+			911	=> $temp[911]['plus'] * ($USER['factor']['Energy'] + 0.03 * $USER[$resource[113]]),
 		);
 		
 		$dailyProduction	= array(
