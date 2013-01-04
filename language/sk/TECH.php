@@ -23,7 +23,6 @@ $LNG['shortNames'] = array (
 217 => 'Evolved Transporter',
 218 => 'Avatar',
 219 => 'Giga Recycler',
-220 => 'Inter. DM-Collector',
 
 
 401 => "Raketový K.",
@@ -36,7 +35,6 @@ $LNG['shortNames'] = array (
 408 => "V. Štít",
 409 => 'A. Štít',
 410 => 'Gravitonový K.',
-411 => 'Orbital Defence Platform',
 );
 
 $LNG['bonus'] = array(
@@ -98,9 +96,6 @@ $LNG['tech'] = array(
 122 => "Plazmové technológie",
 123 => "Intergalaktická výskumná sieť",
 124 => "Astrofyzika",
-131 => 'Mineral Research',
-132 => 'Semi-Crystals Research',
-133 => 'Fuel Research',
 199 => "Gravitonové technológie",
 
 200 => "Lode",
@@ -122,7 +117,6 @@ $LNG['tech'] = array(
 217 => 'Evolved Transporter',
 218 => 'Avatar',
 219 => 'Giga Recycler',
-220 => 'Dark Matter Collector',
 
 400 => "Obrana",
 401 => "Raketový komplet",
@@ -135,7 +129,6 @@ $LNG['tech'] = array(
 408 => "Veľký planetárny štít ",
 409 => 'Atmosferický štít',
 410 => 'Gravitonový kanón',
-411 => 'Orbital Defence Platform',
 
 502 => "Protiraketové strely",
 503 => "Medziplanetárne rakety",
@@ -210,9 +203,6 @@ $LNG['shortDescription'] = array(
 122 => 'A further development of ion technology which accelerates high-energy Plasma, a result of super-heating Ions. This has a devastating effect when striking an object.',
 123 => 'Researchers on different planets communicate via this network.',
 124 => 'With an astrophysics research module, ships can undertake long expeditions. Every second level of this technology will allow you to colonise an extra planet.',
-131 => 'Increases the production of Metal by 2%',
-132 => 'Increases the production of Crystal by 2%',
-133 => 'Increases the production of Deuterium by 2%',
 199 => 'Firing a concentrated charge of graviton particles can create an artificial gravity field, which can destroy ships or even moons.',
 
 202 => 'The light cargo is an agile ship which can quickly transport resources to other planets.',
@@ -233,7 +223,6 @@ $LNG['shortDescription'] = array(
 217 => 'Is a development of the large cargo, it has more carry capacity and flies faster with the right techonology.',
 218 => 'The absolute worst case scenario, albeit very slowly.',
 219 => 'Is a huge cargo space and new engines, enable it to fly faster and gather more in debris fields .',
-220 => 'After long years of research dark matter is now collectable from the moon.',
 
 401 => 'The Rocket Launcher is a simple but cost-effective defense.',
 402 => 'Light Lasers are simple ground based weapons that utilize special targeting systems to track the enemy and fire a high intensity laser designed to cut through the hull of the target.',
@@ -245,7 +234,6 @@ $LNG['shortDescription'] = array(
 408 => 'The development of the Large Shield Dome needs substantially more energy to endur attacks.',
 409 => 'The evolution of the Great Shield Dome Shield technology. It uses much more energy but can endur even more attacks than any other shield.',
 410 => 'After years of research at the gravitational force, researchers where able to develop a Graviation cannon that generate small concentrated Gravition field that can be shoot at the enemy.',
-411 => 'There is an immovable defensive platform. It has no direct power, and is held by Gravity in a stable orbit of the planet. The start of this process requires high masses of energy.',
 
 502 => 'Interceptor missiles are used to destroy attacking Interplanetary missiles.',
 503 => 'Interplanetary missiles are used to destroy the opponents defenses.',
@@ -311,9 +299,6 @@ $LNG['longDescription'] = array(
 122 => 'A further development of ion technology which accelerates high-energy Plasma, a result of super-heating Ions. This has a devastating effect when striking an object.',
 123 => 'Researchers on different planets communicate via this network.',
 124 => 'With an astrophysics research module, ships can undertake long expeditions. Every second level of this technology will allow you to colonise an extra planet.',
-131 => 'Increases the production of Metal by 2%',
-132 => 'Increases the production of Crystal by 2%',
-133 => 'Increases the production of Deuterium by 2%',
 199 => 'Firing a concentrated charge of graviton particles can create an artificial gravity field, which can destroy ships or even moons.',
 
 202 => 'The light cargo is an agile ship which can quickly transport resources to other planets.',
@@ -334,7 +319,6 @@ $LNG['longDescription'] = array(
 217 => 'Is a development of the large cargo, it has more carry capacity and flies faster with the right techonology.',
 218 => 'The absolute worst case scenario, albeit very slowly.',
 219 => 'Is a huge cargo space and new engines, enable it to fly faster and gather more in debris fields .',
-220 => 'After long years of research dark matter is now collectable from the moon.',
 
 401 => 'The Rocket Launcher is a simple but cost-effective defense.',
 402 => 'Light Lasers are simple ground based weapons that utilize special targeting systems to track the enemy and fire a high intensity laser designed to cut through the hull of the target.',
@@ -346,7 +330,6 @@ $LNG['longDescription'] = array(
 408 => 'The development of the Large Shield Dome needs substantially more energy to endur attacks.',
 409 => 'The evolution of the Great Shield Dome Shield technology. It uses much more energy but can endur even more attacks than any other shield.',
 410 => 'After years of research at the gravitational force, researchers where able to develop a Graviation cannon that generate small concentrated Gravition field that can be shoot at the enemy.',
-411 => 'There is an immovable defensive platform. It has no direct power, and is held by Gravity in a stable orbit of the planet. The start of this process requires high masses of energy.',
 
 502 => 'Interceptor missiles are used to destroy attacking Interplanetary missiles.',
 503 => 'Interplanetary missiles are used to destroy the opponents defenses.',
