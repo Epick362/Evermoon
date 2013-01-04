@@ -28,7 +28,7 @@
 							<tr>
 								<td class="transparent">{$LNG.sys_ship_type}</td>
 								{foreach $Player.ships as $ShipID => $ShipData}
-								<td class="transparent">{$LNG.shortNames.{$ShipID}}</td>
+								<th>{$LNG.shortNames.{$ShipID}}</th>
 								{/foreach}
 							</tr>
 							<tr>
@@ -84,7 +84,7 @@
 						<table width="100%">
 						{if !empty($Player.ships)}
 							<tr>
-								<td class="transparent">{$LNG.sys_ship_type}</td>
+								<th>{$LNG.sys_ship_type}</th>
 								{foreach $Player.ships as $ShipID => $ShipData}
 								<td class="transparent">{$LNG.shortNames.{$ShipID}}</td>
 								{/foreach}
