@@ -46,15 +46,11 @@ $(document).ready(function () {
 			top : e.pageY - tip.outerHeight() / 2,
 			left : e.pageX - tip.outerWidth() / 2
 		});
-		setTimeout(function() {
-			tip.show();
-		}, 200);
+		tip.show();
 	});
 	$(".tooltip_sticky_div").live('mouseleave', function () {
 		var tip = $('#tooltip');
 		tip.removeClass('tooltip_sticky_div');
-		setTimeout(function() {
-			tip.hide();
-		}, 200);
+		tip.hide();
 	});
 });

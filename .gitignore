@@ -1,4 +1,5 @@
 includes/config.php
+cache/*.php
 
 #################
 ## Eclipse

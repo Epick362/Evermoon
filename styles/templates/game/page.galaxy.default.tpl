@@ -10,9 +10,9 @@
 						<th colspan="3">{$LNG.gl_galaxy}</th>
 					</tr>
 					<tr>
-						<td><input type="button" name="galaxyLeft" value="&lt;-" onclick="galaxy_submit('galaxyLeft')"></td>
+						<td><input type="button" class="small" name="galaxyLeft" value="&lt;-" onclick="galaxy_submit('galaxyLeft')"></td>
 						<td><input type="text" name="galaxy" value="{$galaxy}" size="5" maxlength="3" tabindex="1"></td>
-						<td><input type="button" name="galaxyRight" value="-&gt;" onclick="galaxy_submit('galaxyRight')"></td>
+						<td><input type="button" class="small" name="galaxyRight" value="-&gt;" onclick="galaxy_submit('galaxyRight')"></td>
 					</tr>
 				</table>
 			</td>
@@ -22,9 +22,9 @@
 						<th colspan="3">{$LNG.gl_solar_system}</th>
 					</tr>
 					<tr>
-						<td><input type="button" name="systemLeft" value="&lt;-" onclick="galaxy_submit('systemLeft')"></td>
+						<td><input type="button" class="small" name="systemLeft" value="&lt;-" onclick="galaxy_submit('systemLeft')"></td>
 						<td><input type="text" name="system" value="{$system}" size="5" maxlength="3" tabindex="2"></td>
-						<td><input type="button" name="systemRight" value="-&gt;" onclick="galaxy_submit('systemRight')"></td>
+						<td><input type="button" class="small" name="systemRight" value="-&gt;" onclick="galaxy_submit('systemRight')"></td>
 					</tr>
 				</table>
 			</td>
