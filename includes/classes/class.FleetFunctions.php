@@ -294,6 +294,9 @@ class FleetFunctions
 			if (!$UsedPlanet) {
 				if (isset($MissionInfo['Ship'][208]) && $MissionInfo['planettype'] == 1 && isModulAvalible(MODULE_MISSION_COLONY))
 					$avalibleMissions[]	= 7;
+
+				if (isset($MissionInfo['Ship'][220]) && $MissionInfo['planettype'] == 1 && isModulAvalible(MODULE_MISSION_COLONY))
+					$avalibleMissions[]	= 12;
 			} else {
 				if(isModulAvalible(MODULE_MISSION_TRANSPORT))
 					$avalibleMissions[]	= 3;

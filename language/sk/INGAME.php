@@ -26,7 +26,7 @@ $LNG['type_mission'][7]  					= 'Osídliť';
 $LNG['type_mission'][8]  					= 'Recyklovať';
 $LNG['type_mission'][9]  					= 'Zničiť';
 $LNG['type_mission'][10]  					= 'Raketový útok';
-$LNG['type_mission'][11]  					= 'Výskum Temnej Hmoty';
+$LNG['type_mission'][12]  					= 'Pokr. Osídlenie';
 $LNG['type_mission'][15] 					= 'Expedícia';
 
 $LNG['type_planet'][1]  					= 'Planéta';

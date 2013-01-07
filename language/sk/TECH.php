@@ -23,6 +23,7 @@ $LNG['shortNames'] = array (
 217 => 'Evolved Transporter',
 218 => 'Avatar',
 219 => 'Giga Recycler',
+220 => 'Kol. Loď II',
 
 
 401 => "Raketový K.",
@@ -117,6 +118,7 @@ $LNG['tech'] = array(
 217 => 'Evolved Transporter',
 218 => 'Avatar',
 219 => 'Giga Recycler',
+220 => 'Kolonizačná loď II. generácie',
 
 400 => "Obrana",
 401 => "Raketový komplet",
@@ -223,6 +225,7 @@ $LNG['shortDescription'] = array(
 217 => 'Is a development of the large cargo, it has more carry capacity and flies faster with the right techonology.',
 218 => 'The absolute worst case scenario, albeit very slowly.',
 219 => 'Is a huge cargo space and new engines, enable it to fly faster and gather more in debris fields .',
+220 => 'Desc.',
 
 401 => 'The Rocket Launcher is a simple but cost-effective defense.',
 402 => 'Light Lasers are simple ground based weapons that utilize special targeting systems to track the enemy and fire a high intensity laser designed to cut through the hull of the target.',
@@ -319,6 +322,7 @@ $LNG['longDescription'] = array(
 217 => 'Is a development of the large cargo, it has more carry capacity and flies faster with the right techonology.',
 218 => 'The absolute worst case scenario, albeit very slowly.',
 219 => 'Is a huge cargo space and new engines, enable it to fly faster and gather more in debris fields .',
+220 => 'Desc .',
 
 401 => 'The Rocket Launcher is a simple but cost-effective defense.',
 402 => 'Light Lasers are simple ground based weapons that utilize special targeting systems to track the enemy and fire a high intensity laser designed to cut through the hull of the target.',

@@ -115,7 +115,7 @@ class ShowFleetStep3Page extends AbstractPage
 		
 		$targetPlanetData  	= $GLOBALS['DATABASE']->uniquequery("SELECT id, id_owner, der_metal, der_crystal, destruyed, ally_deposit FROM ".PLANETS." WHERE universe = ".$UNI." AND galaxy = ".$targetGalaxy." AND system = ".$targetSystem." AND planet = ".$targetPlanet." AND planet_type = '".($targetType == 2 ? 1 : $targetType)."';");
 
-		if ($targetMission == 15 || $targetMission == 7) {
+		if ($targetMission == 15 || $targetMission == 7 || $targetMission == 12) {
 			$targetPlanetData	= array('id' => 0, 'id_owner' => 0, 'planettype' => 1);
 		} else {
 			if ($targetPlanetData["destruyed"] != 0) {
@@ -161,7 +161,7 @@ class ShowFleetStep3Page extends AbstractPage
 		$usedPlanet	= isset($targetPlanetData['id_owner']);
 		$myPlanet	= $usedPlanet && $targetPlanetData['id_owner'] == $USER['id'];
 		
-		if($targetMission == 7 || $targetMission == 15) {
+		if($targetMission == 7 || $targetMission == 15 || $targetMission == 12) {
 			$targetPlayerData	= array(
 				'id'				=> 0,
 				'onlinetime'		=> TIMESTAMP,

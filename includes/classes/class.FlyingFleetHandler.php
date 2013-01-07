@@ -43,6 +43,7 @@ class FlyingFleetHandler
 		9	=> 'MissionCaseDestruction',
 		10	=> 'MissionCaseMIP',
 		11	=> 'MissionCaseFoundDM',
+		12  => 'MissionCaseAdvColonisation',
 		15	=> 'MissionCaseExpedition',
 	);
 		
