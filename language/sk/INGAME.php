@@ -138,7 +138,7 @@ $LNG['ov_teamspeak_v2']						= '<a href="teamspeak://%s:%s?nickname=%s" title="T
 $LNG['ov_teamspeak_v3']						= '<a href="ts3server://%s?port=%d&amp;nickname=%s&amp;password=%s" title="Teamspeak Connect">Connect</a>&nbsp;&bull;&nbsp;Online: %d/%d &bull; Channels: %d &bull; Traffic ges.: %s MB';
 $LNG['ov_closed']							= 'Tento vesmír je práve uzavretý';
 $LNG['ov_reflink']							= 'Pozvánky';
-$LNG['ov_noreflink']						= 'Žiadne pozvánky niesú k dispozícií';
+$LNG['ov_noreflink']						= 'Nikto ešte neprijal tvoje pozvanie.';
 $LNG['ov_chat_online']						= 'Hráči na chat-e:';
 
 //----------------------------------------------------------------------------//
