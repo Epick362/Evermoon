@@ -1,10 +1,29 @@
 {extends file="index.tpl"}
 {block name="title" prepend}{$LNG.menu_index}{/block}
 {block name="content"}
+<div id="logo"><h1>{$welcome_to} <span class="bold">{$servername}</span></h1></div>
+<nav>
+	<ul id="menu">
+		<li><a href="index.php">{$LNG.menu_index}</a></li>
+		<li><a href="{$forum_url}" target="board">{$LNG.forum}</a></li>
+		<li><a href="index.php?page=news">{$LNG.menu_news}</a></li>
+		<li><a href="index.php?page=rules">{$LNG.menu_rules}</a></li>
+		<li><a href="index.php?page=top100">{$LNG.menu_top100}</a></li>
+		<li><a href="index.php?page=pranger">{$LNG.menu_pranger}</a></li>
+		<li><a href="index.php?page=disclamer">{$LNG.menu_disclamer}</a></li>
+	</ul>
+</nav>
+<div style="clear:both;"></div>
 <section>
-	<h1>{$welcome_to} {$servername}</h1>
-	<p class="desc">{$server_description}</p>
-	<p class="desc"><ul id="desc_list">{foreach item=InfoRow from=$server_infos}<li>{$InfoRow}</li>{/foreach}</ul>
+	<div id="promo">
+		<img src="styles/images/login/promo.jpg" alt="Evermoon | Slovenská browser hra" width="580"/>
+	</div>
+	<div id="message">
+		<div id="surround">		
+			<p class="desc">{$server_description}</p>
+			<p class="desc"><ul id="desc_list">{foreach item=InfoRow from=$server_infos}<li>{$InfoRow}</li>{/foreach}</ul>
+		</div>
+	</div>
 </section>
 <section>
 	<table class="contentbox">

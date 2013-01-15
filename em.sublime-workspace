@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"font",
+				"font-size"
+			],
+			[
+				"text",
+				"text-decoration"
+			],
+			[
 				"lo",
 				"loď"
 			],
@@ -64,16 +72,8 @@
 				"products_q"
 			],
 			[
-				"font",
-				"font-weight"
-			],
-			[
 				"di",
 				"display"
-			],
-			[
-				"text",
-				"text-transform"
 			],
 			[
 				"data",
@@ -171,6 +171,46 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "styles/css/ingame.css",
+			"settings":
+			{
+				"buffer_size": 7180,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "language/sk/INGAME.php",
+			"settings":
+			{
+				"buffer_size": 58423,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "includes/config.php",
+			"settings":
+			{
+				"buffer_size": 390,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "includes/libs/Smarty/sysplugins/smarty_internal_resource_extends.php",
+			"settings":
+			{
+				"buffer_size": 6485,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "includes/libs/Smarty/Smarty.class.php",
+			"settings":
+			{
+				"buffer_size": 45103,
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -208,6 +248,9 @@
 	},
 	"file_history":
 	[
+		"/C/xampp/htdocs/Evermoon/includes/libs/Smarty/Smarty.class.php",
+		"/C/Users/Epick/AppData/Local/Temp/Rar$DI03.737/Smarty.class.php",
+		"/C/xampp/htdocs/Evermoon/includes/libs/Smarty/sysplugins/smarty_config_source.php",
 		"/C/xampp/htdocs/Evermoon/includes/pages/game/class.ShowBanListPage.php",
 		"/C/xampp/htdocs/Evermoon/styles/templates/game/page.officier.default.tpl",
 		"/C/xampp/htdocs/Evermoon/includes/pages/game/class.ShowPaypalPage.php",
@@ -332,10 +375,7 @@
 		"/C/Users/Epick/Desktop/TrinityCore/TrinityCore/sql/create/create_mysql.sql",
 		"/C/xampp/htdocs/giraffebakery/application/language/english/product_lang.php",
 		"/C/xampp/htdocs/giraffebakery/application/views/product.php",
-		"/C/xampp/htdocs/giraffebakery/application/views/category.php",
-		"/C/xampp/htdocs/giraffebakery/application/language/english/template_lang.php",
-		"/C/xampp/htdocs/giraffebakery/application/controllers/products.php",
-		"/C/Program Files (x86)/Mp3tag/help/index.html"
+		"/C/xampp/htdocs/giraffebakery/application/views/category.php"
 	],
 	"find":
 	{
@@ -425,8 +465,144 @@
 	"groups":
 	[
 		{
+			"selected": 2,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "styles/css/ingame.css",
+					"settings":
+					{
+						"buffer_size": 7180,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								160,
+								160
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "language/sk/INGAME.php",
+					"settings":
+					{
+						"buffer_size": 58423,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5910,
+								5910
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1386.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "includes/config.php",
+					"settings":
+					{
+						"buffer_size": 390,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								390,
+								390
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "includes/libs/Smarty/sysplugins/smarty_internal_resource_extends.php",
+					"settings":
+					{
+						"buffer_size": 6485,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3531,
+								3531
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1092.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "includes/libs/Smarty/Smarty.class.php",
+					"settings":
+					{
+						"buffer_size": 45103,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								10644,
+								10644
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],

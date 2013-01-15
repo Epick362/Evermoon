@@ -95,7 +95,7 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource {
 
         foreach ($_components as $_component) {
             // register dependency
-            if ($_component != $_first) {
+            if ($_component !== $_first) {
                 $source->template->properties['file_dependency'][$_component->uid] = array($_component->filepath, $_component->timestamp, $_component->type);
             }
 
@@ -104,7 +104,7 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource {
             $_content = $_component->content;
 
             // extend sources
-            if ($_component != $_last) {
+            if ($_component !== $_last) {
                 if (preg_match_all("!({$_ldl}block\s(.+?){$_rdl})!", $_content, $_open) !=
                 preg_match_all("!({$_ldl}/block{$_rdl})!", $_content, $_close)) {
                     throw new SmartyException("unmatched {block} {/block} pairs in template {$_component->type} '{$_component->name}'");
