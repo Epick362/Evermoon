@@ -1,31 +1,36 @@
 {extends file="index.tpl"}
 {block name="title" prepend}{$LNG.menu_index}{/block}
 {block name="content"}
-<div id="logo"><h1>{$welcome_to} <span class="bold">{$servername}</span></h1></div>
-<nav>
-	<ul id="menu">
-		<li><a href="index.php">{$LNG.menu_index}</a></li>
-		<li><a href="{$forum_url}" target="board">{$LNG.forum}</a></li>
-		<li><a href="index.php?page=news">{$LNG.menu_news}</a></li>
-		<li><a href="index.php?page=rules">{$LNG.menu_rules}</a></li>
-		<li><a href="index.php?page=top100">{$LNG.menu_top100}</a></li>
-		<li><a href="index.php?page=pranger">{$LNG.menu_pranger}</a></li>
-		<li><a href="index.php?page=disclamer">{$LNG.menu_disclamer}</a></li>
-	</ul>
-</nav>
-<div style="clear:both;"></div>
-<section>
-	<div id="promo">
-		<img src="styles/images/login/promo.jpg" alt="Evermoon | Slovenská browser hra" width="580"/>
-	</div>
-	<div id="message">
-		<div id="surround">		
-			<p class="desc">{$server_description}</p>
-			<p class="desc"><ul id="desc_list">{foreach item=InfoRow from=$server_infos}<li>{$InfoRow}</li>{/foreach}</ul>
+<div class="header">
+	<div id="logo"><h1>{$welcome_to} <span class="bold">{$servername}</span></h1></div>
+	<nav>
+		<ul id="menu">
+			<li><a href="index.php">{$LNG.menu_index}</a></li>
+			<li><a href="{$forum_url}" target="board">{$LNG.forum}</a></li>
+			<li><a href="index.php?page=news">{$LNG.menu_news}</a></li>
+			<li><a href="index.php?page=rules">{$LNG.menu_rules}</a></li>
+			<li><a href="index.php?page=top100">{$LNG.menu_top100}</a></li>
+			<li><a href="index.php?page=pranger">{$LNG.menu_pranger}</a></li>
+			<li><a href="index.php?page=disclamer">{$LNG.menu_disclamer}</a></li>
+		</ul>
+	</nav>
+	<div style="clear:both;"></div>
+	<section>
+		<div id="promo">
+			<img src="styles/images/login/promo.jpg" alt="Evermoon | Slovenská browser hra" width="580"/>
 		</div>
-	</div>
-</section>
-<section>
+		<div id="message">
+			<div id="surround">		
+				<p class="desc">{$server_description}</p>
+				<p class="desc"><ul id="desc_list">{foreach item=InfoRow from=$server_infos}<li>- {$InfoRow}</li>{/foreach}</ul></p>
+				<p class="desc">
+					<a class="punch" href="#" onclick="return Content('register');">{$LNG.register_now}</a>
+				</p>
+			</div>
+		</div>
+	</section>
+</div>
+<section class="wrapper">
 	<table class="contentbox">
 		<tr class="contentbox-header">
 			<td class="contentbox-header-left"></td><td class="contentbox-header-center"></td><td class="contentbox-header-right"></td>
@@ -77,8 +82,6 @@
 			<td class="contentbox-footer-left"></td><td class="contentbox-footer-center"></td><td class="contentbox-footer-right"></td>
 		</tr>
 	</table>
-</section>
-<section>
 	<div class="button-box">
 		<div class="button-box-inner">
 			<div class="button-important multi">
@@ -120,5 +123,8 @@
 			</div>
 		</div>
 	</div>
+	<footer>
+			<a href="index.php?page=disclamer">{$LNG.menu_disclamer}</a><br>2009-2011 <a href="http://2moons.cc" title="2Moons" target="copy">2Moons</a>
+	</footer>
 </section>
 {/block}

@@ -26,10 +26,10 @@ $LNG['lost_not_exists']		= 'A user could not be found in connection with this em
 $LNG['lost_mail_title']		= 'New Password';
 $LNG['mail_sended']				= 'Your password has been sent successfully!';
 $LNG['server_infos']			= array(
-	"A space strategy game in real time.",
-	"Play along with hundreds of Users.",
-	"No downloading, it will require only a standard browser.",
-	"Free registration",
+	"Vesmírna stratégia v reálnom čase.",
+	"Hraj spolu so stovkami hráčov.",
+	"Bez sťahovania, hra je v prehliadači.",
+	"Registrácia je zadarmo!",
 );
 
 //case default
@@ -51,12 +51,12 @@ $LNG['user']					= 'User';
 $LNG['pass']					= 'Password';
 $LNG['remember_pass']			= 'Auto-Login';
 $LNG['lostpassword']			= 'Forgot Password?';
-$LNG['welcome_to']				= 'Welcome to';
-$LNG['server_description']		= '<strong>%s</strong> is a space strategy game with hundreds of players simultaneously trying to be the best. All you need to play is a standard web browser (FireFox is recommended).';
+$LNG['welcome_to']				= 'Vitajte vo svete';
+$LNG['server_description']		= '<strong>%s</strong> je vesmírna strategická hra odohrávajúca sa v roku 4216. Ovládni vesmír!';
 $LNG['server_register']			= 'Please register now!';
 $LNG['server_message']			= 'Sign up now and experience a new and exciting in the world of';
 $LNG['login']					= 'Login';
-$LNG['disclamer']				= 'Contact';
+$LNG['disclamer']				= 'Kontakt';
 $LNG['login_info']				= 'By logging in I accept the <a href="index.php?page=rules">Rules</a> and the <a href="index.php?page=agb">Terms & Conditions</a>';
 
 /* ------------------------------------------------------------------------------------------ */

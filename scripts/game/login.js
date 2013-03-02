@@ -24,35 +24,62 @@ function setLNG(LNG, Query) {
 		document.location.href = document.location.href+Query;
 }
 
+function initLangs() {
+	$.each(CONF['Lang'], function(key, name) {
+		$('#lang').prepend('<li><a href="javascript:setLNG(\''+key+'\')"><span class="flags '+key+'" title="'+name+'"></span></a></li>');
+		$('select.lang').append('<option value="'+key+'">'+name+'</option>');
+		CONF['avaLangs'].push(key);
+	});
+}
+
+function initCloseReg() {
+	$('#reg_universe option').text(function(i, name) {
+		return (CONF.RegClosedUnis[$(this).val()] == 1 && name.search(LANG['uni_closed']) == -1) ? name+' '+LANG['uni_closed'] : name;
+	});
+}
+
+function changeUni(uni) {
+	$.cookie('uni', uni);
+	document.location.reload();
+}
+
 function Content(action) {
-	$('#regbox').hide();
-	$('#loginbox').hide();
-	$('#lostbox').hide();
+	$('#reg').hide();
+	$('#login').hide();
+	$('#info').hide();
+	$('#lost').hide();
+	$('#news').hide();
+	$('#rules').hide();
+	$('#disclaimer').hide();
 	switch(action) {
-		case 'login':
-			$('#loginbox').show();
-			$('.contentbox').animate({width: '360px', height: '205px'}, 300);
-			$('.contentbox label').css('width', '100px');
-		break;
 		case 'register':
 			showRecaptcha();
-			$('#regbox').show();
-			$('.contentbox').animate({width: '560px', height: CONF['IsCaptchaActive'] == 0 ? '341px' : '417px'}, 300);		
-			$('.contentbox label').animate({width: '257px'}, 300);
-		break;
-		case 'register_fast':
-			showRecaptcha();
-			$('#regbox').show();
-			$('.contentbox').css({width: '560px', height: CONF['IsCaptchaActive'] == 0 ? '341px' : '417px'});		
-			$('.contentbox label').css('width', '257px');
+			showElement('#reg', '340');
 		break;
 		case 'lost':
-			$('#lostbox').show();
-			$('.contentbox').animate({width: '360px', height: '175px'}, 300);
-			$('.contentbox label').css('width', '100px');
+			showElement('#lost', '150');
 		break;
+		case 'back':
+			showElement('#info', '180');
+			showElement('#login', '150');	
+		break;
+		case 'news':
+			$('#news').show();
+		break;
+		case 'rules':
+			$('#rules').show();
+		break;
+		case 'disclaimer':
+			$('#disclaimer').show();
+		break;		
 	}
 	return false;
+}
+
+function showElement(element, width) {
+	$(element).css('height', 0);
+	$(element).show();
+	$(element).animate({height: width+'px'}, 400);
 }
 
 function Submit(action) {
@@ -111,105 +138,14 @@ function initFormHandler() {
 	});
 }
 
-function initLangs() {
-	$.each(CONF['Lang'], function(key, name) {
-		$('#lang').prepend('<li><a href="javascript:setLNG(\''+key+'\')"><span class="flags '+key+'" title="'+name+'"></span></a></li>');
-		$('select.lang').append('<option value="'+key+'">'+name+'</option>');
-		CONF['avaLangs'].push(key);
-	});
-}
-
-function initCloseReg() {
-	$('#reg_universe option').text(function(i, name) {
-		return (CONF.RegClosedUnis[$(this).val()] == 1 && name.search(LANG['uni_closed']) == -1) ? name+' '+LANG['uni_closed'] : name;
-	});
-}
-
-function changeUni(uni) {
-	$.cookie('uni', uni);
-	document.location.reload();
-}
-
-function RefRegister() {
-	Content('register_fast');
-	$('.fb_login').remove();
-}
-
-/** FB Functions **/
-
-
-function FBinit() {
-    FB.init({
-		appId      : CONF['FBKey'],
-		status     : false,
-		cookie     : true,
-		xfbml      : false
-    });
-	
-	if(document.location.search == '?extauth=facebook') {
-		FBlogin();
-	}
-}
-function FBlogin() {
-	FBUniverse	= $('#universe').val();
-	FB.getLoginStatus(function(response) {
-		if (response.status === 'connected') {
-			FBCheckIfKnownUser();
-		} else {
-			FB.login(function(response) {
-				if (response.authResponse) {
-					FBCheckIfKnownUser();
-				}
-			}, {scope:'email'});
-		}
-	});
-}
-
-function FBCheckIfKnownUser() {
-	$.getJSON('?uni='+FBUniverse+'&page=reg&action=check&mode=fbid&value='+response.authResponse.userID, function(data) {
-		if(data.exists === true) {
-			FBRediectToGame();
-		} else {
-			FBRegUser();
-		}
-	});
-}
-
-function FBRediectToGame() {
-	document.location.href = '?uni='+FBUniverse+'&page=extauth&method=facebook';
-}
-
-function FBRegUser() {
-	FB.api('/me', function(response) {
-		FBUniverse	= $('#universe').val();
-		$.getJSON('?uni='+FBUniverse+'&page=reg&action=check&mode=email&value='+response.email, function(data) {
-			if(data.exists) {
-				document.location.href = '?uni='+FBUniverse+'&page=fblogin&mode=register';
-			} else {
-				if(response.locale.substr(0, 2) != CONF['lang'] && $.inArray(response.locale.substr(0, 2), CONF['avaLangs']) !== -1)
-					setLNG(response.locale.substr(0, 2), '?fb=reg');
-				else
-					FBRegister(response);
-			}
-		});
-	});
-}
-
-function FBRegister(data) {
-	console.log(data);
-	Content('register_fast');
-	$('.fb_login').remove();
-	$('#fb_id').val(data.id);
-	$('#reg_email').val(data.email);
-	$('#reg_email_2').val(data.email);
-}
-
 $(function() {
 	initFormHandler();
 	initLangs();
 	initCloseReg();
+	showElement('#info', '180');
+	showElement('#login', '150');
 	if(CONF['ref_active'] == 1 && document.location.search.search('/?ref=') !== -1) {
-		RefRegister();
+		Content('register');
 	}
 	
 	if(CONF.htaccess) {
@@ -224,5 +160,16 @@ $(function() {
 				return old.replace(/.*index\.php/, '../uni'+$this.val()+'/index.php');
 			});
 		});
+	}
+
+	if (navigator.userAgent.toLowerCase().indexOf("chrome") >= 0) {
+	    $(window).load(function(){
+	        $('input:-webkit-autofill').each(function(){
+	            var text = $(this).val();
+	            var name = $(this).attr('name');
+	            $(this).after(this.outerHTML).remove();
+	            $('input[name=' + name + ']').val(text);
+	        });
+	    });
 	}
 });

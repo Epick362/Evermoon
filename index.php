@@ -39,7 +39,7 @@ if(!file_exists(ROOT_PATH.'includes/config.php')) {
 require(ROOT_PATH . 'includes/common.php');
 	
 $template	= new template();
-$LANG->GetLangFromBrowser();
+$LANG->setDefault('sk');
 $LANG->includeLang(array('L18N', 'INGAME', 'PUBLIC', 'CUSTOM'));
 
 $THEME->isHome();
@@ -348,20 +348,15 @@ switch ($page) {
 			break;
 		}
 		break;
-	case 'rules' :
-		$template->assign_vars(array(
-			'contentbox'		=> true,
-			'rules'				=> $LANG->getExtra('rules'),
-		));
-		$template->show('index_rules.tpl');
-		break;
+	/*
 	case 'screens':
 		$template->assign_vars(array(
 			'contentbox'			=> true,
 			'screenshots'           => $LNG['screenshots'],
 		));
 		$template->show('index_screens.tpl');
-		break;
+		break; */
+	/*
 	case 'top100' :
 		$top = $GLOBALS['DATABASE']->query("SELECT *, (
 			SELECT DISTINCT
@@ -412,7 +407,8 @@ switch ($page) {
 		));
 			
 		$template->show('index_top100.tpl');
-		break;
+		break; */
+		/*
 	case 'pranger' :
 		$PrangerRAW 	= $GLOBALS['DATABASE']->query("SELECT * FROM ".BANNED." WHERE universe = '".$UNI."' ORDER BY id DESC;");
 		$PrangerList	= array();
@@ -454,35 +450,7 @@ switch ($page) {
 		
 		$template->show('index_pranger.tpl');
 		break;
-	case 'disclamer':
-		$template->assign_vars(array(
-			'contentbox'		=> true,
-			'disclamer'			=> $LNG['disclamer'],
-			'disclamer_name'	=> $LNG['disclamer_name'],
-			'disclamer_adress'	=> $LNG['disclamer_adress'],
-			'disclamer_tel'		=> $LNG['disclamer_tel'],
-			'disclamer_email'	=> $LNG['disclamer_email'],
-		));
-		$template->show('index_disclamer.tpl');
-		break;
-	case 'news' :
-		$NewsRAW	= $GLOBALS['DATABASE']->query ("SELECT date,title,text,user FROM ".NEWS." ORDER BY id DESC;");
-		$NewsList	= array();
-		while ($NewsRow = $GLOBALS['DATABASE']->fetch_array($NewsRAW)) {
-			$NewsList[]	= array(
-				'title' => $NewsRow['title'],
-				'from' 	=> sprintf($LNG['news_from'], _date($LNG['php_tdformat'], $NewsRow['date']), $NewsRow['user']),
-				'text' 	=> makebr($NewsRow['text']),
-			);
-		}
-		$template->assign_vars(array(
-			'contentbox'			=> true,
-			'NewsList'				=> $NewsList,
-			'news_overview'			=> $LNG['news_overview'],
-			'news_does_not_exist'	=> $LNG['news_does_not_exist'],
-		));
-		
-		$template->show('index_news.tpl');
+		*/
 	break;
 	case 'extauth':
 		$method			= HTTP::_GP('method', '');
@@ -553,6 +521,16 @@ switch ($page) {
 			));
 		}
 
+		$NewsRAW	= $GLOBALS['DATABASE']->query ("SELECT date,title,text,user FROM ".NEWS." ORDER BY id DESC;");
+		$NewsList	= array();
+		while ($NewsRow = $GLOBALS['DATABASE']->fetch_array($NewsRAW)) {
+			$NewsList[]	= array(
+				'title' => $NewsRow['title'],
+				'from' 	=> sprintf($LNG['news_from'], _date($LNG['php_tdformat'], $NewsRow['date']), $NewsRow['user']),
+				'text' 	=> makebr($NewsRow['text']),
+			);
+		}
+
 		if($CONF['ref_active'] && isset($_REQUEST['ref']) && is_numeric($_REQUEST['ref'])) {
 			$RefUser	= $GLOBALS['DATABASE']->countquery("SELECT universe FROM ".USERS." WHERE id = '".(int) $_REQUEST['ref']."';");
 			if(isset($RefUser)) {
@@ -589,6 +567,16 @@ switch ($page) {
 			'planetname'			=> $LNG['planet_reg'],
 			'language'				=> $LNG['lang_reg'],
 			'captcha_reg'			=> $LNG['captcha_reg'],
+			'contentbox'			=> true,
+			'NewsList'				=> $NewsList,
+			'news_overview'			=> $LNG['news_overview'],
+			'news_does_not_exist'	=> $LNG['news_does_not_exist'],
+			'rules'					=> $LANG->getExtra('rules'),
+			'disclamer'			=> $LNG['disclamer'],
+			'disclamer_name'	=> $LNG['disclamer_name'],
+			'disclamer_adress'	=> $LNG['disclamer_adress'],
+			'disclamer_tel'		=> $LNG['disclamer_tel'],
+			'disclamer_email'	=> $LNG['disclamer_email'],
 		));
 		$template->show('index_main.tpl');
 	break;
