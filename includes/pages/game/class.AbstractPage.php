@@ -102,7 +102,8 @@ abstract class AbstractPage
 		
 		foreach($USER['PLANETS'] as $CurPlanetID => $PlanetQuery)
 		{
-			$PlanetSelect[$PlanetQuery['id']]	= $PlanetQuery['name'].(($PlanetQuery['planet_type'] == 3) ? " (" . $LNG['fcm_moon'] . ")":"")." [".$PlanetQuery['galaxy'].":".$PlanetQuery['system'].":".$PlanetQuery['planet']."]";
+			$PlanetSelect[$PlanetQuery['id']]   = $PlanetQuery;
+			//$PlanetSelect[$PlanetQuery['id']]	= $PlanetQuery['name'].(($PlanetQuery['planet_type'] == 3) ? " (" . $LNG['fcm_moon'] . ")":"")." [".$PlanetQuery['galaxy'].":".$PlanetQuery['system'].":".$PlanetQuery['planet']."]";
 		}
 		
 		if($USER['urlaubs_modus'] == 1 || $PLANET['planet_type'] != 1)

@@ -7,7 +7,7 @@
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="{$lang}" class="no-js"> <!--<![endif]-->
 <head>
 	<title>{$game_name} | {block name="title"} | {$uni_name} {/block}</title>
-	<meta name="generator" content="2Moons {$VERSION}">
+	<meta name="generator" content="Evermoon {$VERSION}">
 	<!-- 
 		This website is powered by 2Moons {$VERSION}
 		2Moons is a free Space Browsergame initially created by Jan Kröpke and licensed under GNU/GPL.

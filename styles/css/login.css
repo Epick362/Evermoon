@@ -43,7 +43,7 @@ button:focus {
 	border-bottom: 1px solid #0c0c1c;
 	border-left: 1px solid #0c0c1c;
 	border-right: 1px solid #0c0c1c;
-	background: #070711;
+	background: rgba(7, 7, 17, 0.9);
 	-webkit-border-bottom-left-radius: 8px;
 	-webkit-border-bottom-right-radius: 8px;
 	-moz-border-radius-bottomleft: 8px;
@@ -75,7 +75,7 @@ button:focus {
 	border-top: 1px solid #0c0c1c;
 	border-left: 1px solid #0c0c1c;
 	border-right: 1px solid #0c0c1c;
-	background: #070711;
+	background: rgba(7, 7, 17, 0.9);
 	-webkit-border-top-left-radius: 8px;
 	-webkit-border-top-right-radius: 8px;
 	-moz-border-radius-topleft: 8px;
@@ -116,7 +116,7 @@ button:focus {
 
 	padding: 20px;
 	border: 1px solid #0c0c1c;
-	background: #070711;
+	background: rgba(7, 7, 17, 0.9);
 	-moz-border-radius: 8px;
 	-webkit-border-radius: 8px;
 	border-radius: 8px;

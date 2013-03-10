@@ -14,7 +14,7 @@
 						{if isModulAvalible($smarty.const.MODULE_SUPPORT)}<li><a href="game.php?page=ticket">{$LNG.lm_support}</a></li>{/if}
 						<li><a href="game.php?page=settings">{$LNG.lm_options}</a></li>
 						<li><a href="game.php?page=logout">{$LNG.lm_logout}</a></li>
-						<li><a href="game.php?page=changelog">Evermoon v2.0</a></li>
+						<li><a href="game.php?page=changelog">Evermoon</a></li>
 					</ul>
 				</td>
 			</tr>
@@ -22,14 +22,6 @@
 		<table id="headerTable">
 			<tbody>
 				<tr>
-					<td id="planetImage">
-						<img src="{$dpath}planeten/small/s_{$image}.jpg" alt=""> 
-					</td>
-					<td id="planetSelectorWrapper">
-						<select id="planetSelector">
-							{html_options options=$PlanetSelect selected=$current_pid}
-						</select>
-					</td>
 					<td id="resourceWrapper">
 						<table id="resourceTable">
 							<tbody>

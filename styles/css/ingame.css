@@ -282,9 +282,40 @@ textarea.tinymce{
 	filter: none !important;
 }
 
-#leftmenu {
-	width:200px;
-	float:left;
+.planet-wrapper {
+	position: absolute;
+	top: 40px;
+	right: 60px;
+}
+
+.planet-wrapper th.img {
+	background: transparent;
+}
+
+.planet-wrapper img {
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border: 2px solid #6F9FC8;
+}
+
+.planet-wrapper th.active img {
+	border: 2px solid #9c0;
+}
+
+.planet-wrapper img:hover {
+	border: 2px solid #9c0;
+}
+
+.planet-wrapper td {
+	border: none;
+	background: transparent;
+	color: #6f9fc8;
+}
+
+.planet-wrapper td.active {
+	color: #9c0;
+	font-weight: bold;
 }
 
 #menu {
