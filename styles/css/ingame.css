@@ -12,6 +12,8 @@ body {
 
 body.popup {
 	min-width:0px;
+	color: #000;
+	font-weight: bold;
 }
 
 body,input,button,select,textarea,td,th,tr,table,button {

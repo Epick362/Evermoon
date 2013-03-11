@@ -135,7 +135,8 @@ class MissionCaseSpy extends MissionFunctions
 				
 		$spyRaport	= $template->fetch('shared.mission.spyraport.tpl');
 
-		SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_start_time'], 0, $LNG['sys_mess_qg'], $LNG['sys_mess_spy_report'], $spyRaport);
+		// SENDING SPYREPORT ONLY IF THE FLEET SURVIVED
+		//SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_start_time'], 0, $LNG['sys_mess_qg'], $LNG['sys_mess_spy_report'], $spyRaport);
 		
 		$LNG		    = $LANG->GetUserLang($targetUser['lang']);
 		$targetMessage  = $LNG['sys_mess_spy_ennemyfleet'] ." ". $ownPlanet['name'];
@@ -162,6 +163,7 @@ class MissionCaseSpy extends MissionFunctions
 		}
 		else
 		{
+			SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_start_time'], 0, $LNG['sys_mess_qg'], $LNG['sys_mess_spy_report'], $spyRaport);
 			$this->setState(FLEET_RETURN);
 			$this->SaveFleet();
 		}
