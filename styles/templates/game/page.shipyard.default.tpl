@@ -36,7 +36,14 @@
 	{foreach $elementList as $ID => $Element}
 	<tr>
 		<th colspan="2">
-			<a href="#" onclick="return Dialog.info({$ID})">{$LNG.tech.{$ID}}</a><span id="val_{$ID}">{if $Element.available != 0} ({$LNG.bd_available} {$Element.available|number}){/if}</span>
+			<a href="#" onclick="return Dialog.info({$ID})">{$LNG.tech.{$ID}}</a>
+			<span id="val_{$ID}">{if $Element.available != 0} ({$LNG.bd_available} {$Element.available|number}){/if}</span>
+			<span>
+				{if $Element.damaged != 0} 
+					({$LNG.bd_damaged} {$Element.damaged|number}) 
+					<input type="text" name="damaged[{$ID}]" id="input_d_{$ID}" size="{$maxlength}" maxlength="{$maxlength}" value="0" />
+				{/if}
+			</span>
 		</th>
 	</tr>
 	<tr>

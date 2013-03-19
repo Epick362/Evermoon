@@ -81,7 +81,7 @@ class ShowShipyardPage extends AbstractPage
 		}
 	}
 	
-	private function BuildAuftr($fmenge)
+	private function BuildAuftr($fmenge, $damaged = array())
 	{
 		global $USER, $PLANET, $reslist, $CONF, $resource;	
 		
@@ -90,8 +90,29 @@ class ShowShipyardPage extends AbstractPage
 			503	=> $PLANET[$resource[503]],
 		);
 
+		foreach($damaged as $Element => $Count) {
+			$MaxElements = BuildFunctions::getMaxConstructibleElements($USER, $PLANET, $Element, NULL, true);
+			$MaxElements2= $PLANET[$resource[$Element].'_d'];
+			$Count			= is_numeric($Count) ? round($Count) : 0;
+			$Count 			= max(min($Count, $CONF['max_fleet_per_build']), 0);
+			$Count 			= min($Count, $MaxElements);
+			$Count 			= min($Count, $MaxElements2);
+
+			$RepairArray    			= !empty($PLANET['b_hangar_damaged']) ? unserialize($PLANET['b_hangar_damaged']) : array();
+
+			$costRessources	= BuildFunctions::getElementPrice($USER, $PLANET, $Element, false, $Count);
+		
+			if(isset($costRessources[901])) { $PLANET[$resource[901]]	-= $costRessources[901] * DEFENSE_REPAIR_COST; }
+			if(isset($costRessources[902])) { $PLANET[$resource[902]]	-= $costRessources[902] * DEFENSE_REPAIR_COST; }
+			if(isset($costRessources[903])) { $PLANET[$resource[903]]	-= $costRessources[903] * DEFENSE_REPAIR_COST; }
+			$PLANET[$resource[$Element].'_d'] -= $Count;
+			$RepairArray[]				= array($Element, $Count);
+			$PLANET['b_hangar_damaged']	= serialize($RepairArray);
+		}
+
 		foreach($fmenge as $Element => $Count)
 		{
+
 			if(empty($Count)
 				|| !in_array($Element, array_merge($reslist['fleet'], $reslist['defense']))
 				|| !BuildFunctions::isTechnologieAccessible($USER, $PLANET, $Element)
@@ -150,6 +171,7 @@ class ShowShipyardPage extends AbstractPage
 		}
 
 		$fmenge	= isset($_POST['fmenge']) ? $_POST['fmenge'] : array();
+		$damaged = isset($_POST['damaged']) ? $_POST['damaged'] : array();
 		$action	= HTTP::_GP('action', '');
 								
 		$NotBuilding = true;
@@ -171,12 +193,12 @@ class ShowShipyardPage extends AbstractPage
 			$Count	= count($ElementQueue);
 			
 		if($USER['urlaubs_modus'] == 0) {
-			if (!empty($fmenge) && $NotBuilding == true) {
+			if (!empty($fmenge) || !empty($damaged) && $NotBuilding == true) {
 				if ($CONF['max_elements_ships'] != 0 && $Count >= $CONF['max_elements_ships']) {
 					$this->printMessage(sprintf($LNG['bd_max_builds'], $CONF['max_elements_ships']));
 					exit;
 				}
-				$this->BuildAuftr($fmenge);
+				$this->BuildAuftr($fmenge, $damaged);
 			}
 					
 			if ($action == "delete") {
@@ -226,6 +248,12 @@ class ShowShipyardPage extends AbstractPage
 				'maxBuildable'		=> floattostring($maxBuildable),
 				'AlreadyBuild'		=> $AlreadyBuild,
 			);
+
+			if($Element > 300 && !in_array($Element, array(407,408,409))) {
+				$elementList[$Element]['damaged'] = $PLANET[$resource[$Element].'_d'];
+			}else{
+				$elementList[$Element]['damaged'] = 0;
+			}
 		}
 		
 		

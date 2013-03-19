@@ -47,7 +47,7 @@ class BuildFunctions
 		return $overflow;
 	}
 	
-	public static function getElementPrice($USER, $PLANET, $Element, $forDestroy = false, $forLevel = NULL) { 
+	public static function getElementPrice($USER, $PLANET, $Element, $forDestroy = false, $forLevel = NULL, $forRepair = false) { 
 		global $pricelist, $resource, $reslist;
 
 		if (in_array($Element, $reslist['fleet']) || in_array($Element, $reslist['defense'])) {
@@ -86,6 +86,10 @@ class BuildFunctions
 			
 			if($forDestroy === true) {
 				$price[$resType]	/= 2;
+			}
+
+			if($forRepair === true) {
+				$price[$resType]	*= DEFENSE_REPAIR_COST;
 			}
 		}
 		
@@ -170,12 +174,16 @@ class BuildFunctions
 		return count(array_filter($rest)) === 0;
 	}
 	
-	public static function getMaxConstructibleElements($USER, $PLANET, $Element, $elementPrice = NULL)
+	public static function getMaxConstructibleElements($USER, $PLANET, $Element, $elementPrice = NULL, $forRepair = false)
 	{
 		global $resource, $reslist;
 		
 		if(!isset($elementPrice)) {
-			$elementPrice	= self::getElementPrice($USER, $PLANET, $Element);
+			if($forRepair) {
+				$elementPrice	= self::getElementPrice($USER, $PLANET, $Element, false, NULL, TRUE);
+			}else{
+				$elementPrice	= self::getElementPrice($USER, $PLANET, $Element);
+			}
 		}
 
 		$maxElement	= array();
@@ -202,7 +210,7 @@ class BuildFunctions
 		
 		return min($maxElement);
 	}
-	
+
 	public static function getMaxConstructibleRockets($USER, $PLANET, $Missiles = NULL)
 	{
 		global $resource, $CONF;

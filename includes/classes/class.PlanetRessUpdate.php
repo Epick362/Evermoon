@@ -86,6 +86,7 @@ class ResourceUpdate
 		if($this->Build)
 		{
 			$this->ShipyardQueue();
+			$this->RepairQueue();
 			if($this->Tech == true && $this->USER['b_tech'] != 0 && $this->USER['b_tech'] < $this->TIME)
 				$this->ResearchQueue();
 			if($this->PLANET['b_building'] != 0)
@@ -347,6 +348,72 @@ class ResourceUpdate
 			$NewQueue[]	= array($Element, $Count);
 		}
 		$this->PLANET['b_hangar_id']	= !empty($NewQueue) ? serialize($NewQueue) : '';
+
+	}
+
+	private function RepairQueue()
+	{
+		global $resource;
+
+		$BuildQueue 	= unserialize($this->PLANET['b_hangar_damaged']);
+		if (!$BuildQueue) {
+			$this->PLANET['b_hangar'] = 0;
+			$this->PLANET['b_hangar_damaged'] = '';
+			return false;
+		}
+			
+		$AcumTime					= 0;
+		$this->PLANET['b_hangar'] 	+= ($this->TIME - $this->PLANET['last_update']);
+		$BuildArray					= array();
+		foreach($BuildQueue as $Item)
+		{
+			$AcumTime			= BuildFunctions::getBuildingTime($this->USER, $this->PLANET, $Item[0]);
+			$BuildArray[] 		= array($Item[0], $Item[1], $AcumTime);
+		}
+
+		$NewQueue	= array();
+		$Done		= false;
+		foreach($BuildArray as $Item)
+		{
+			$Element   = $Item[0];
+			$Count     = $Item[1];
+
+			if($Done == false) {
+				$BuildTime = $Item[2];
+				$Element   = (int)$Element;
+				if($BuildTime == 0) {			
+					if(!isset($this->Builded[$Element]))
+						$this->Builded[$Element] = 0;
+						
+					$this->Builded[$Element]			+= $Count;
+					$this->PLANET[$resource[$Element]]	+= $Count;
+					continue;					
+				}
+				
+				$Build			= max(min(floor($this->PLANET['b_hangar'] / $BuildTime), $Count), 0);
+
+				if($Build == 0) {
+					$NewQueue[]	= array($Element, $Count);
+					$Done		= true;
+					continue;
+				}
+				
+				if(!isset($this->Builded[$Element]))
+					$this->Builded[$Element] = 0;
+				
+				$this->Builded[$Element]			+= $Build;
+				$this->PLANET['b_hangar']			-= $Build * $BuildTime;
+				$this->PLANET[$resource[$Element]]	+= $Build;
+				$Count								-= $Build;
+				
+				if ($Count == 0)
+					continue;
+				else
+					$Done	= true;
+			}	
+			$NewQueue[]	= array($Element, $Count);
+		}
+		$this->PLANET['b_hangar_damaged']	= !empty($NewQueue) ? serialize($NewQueue) : '';
 
 	}
 	
