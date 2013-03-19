@@ -16,5 +16,3 @@ Stack trace:
 #2 {main}
   thrown in C:\xampp\htdocs\Evermoon\includes\GeneralFunctions.php on line 702
 [09-Mar-2013 21:01:05] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\Evermoon\includes\classes\class.Database.php on line 74
-[19-Mar-2013 21:42:58] PHP Fatal error:  Unsupported operand types in C:\xampp\htdocs\Evermoon\includes\pages\game\class.ShowShipyardPage.php on line 94
-[19-Mar-2013 21:45:32] PHP Fatal error:  Unsupported operand types in C:\xampp\htdocs\Evermoon\includes\pages\game\class.ShowShipyardPage.php on line 95

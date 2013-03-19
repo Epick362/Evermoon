@@ -380,7 +380,6 @@ $LNG['bd_research']							= 'Research for';
 $LNG['bd_shipyard_required']				= 'Na planéte musí byť Hangár';
 $LNG['bd_building_shipyard']				= 'Nemôžeš stavať lode keď sa vylepšuje Hangár';
 $LNG['bd_available']						= 'Dostupné: ';
-$LNG['bd_damaged']							= 'Poškodené: ';
 $LNG['bd_build_ships']						= 'Postaviť';
 $LNG['bd_protection_shield_only_one']		= 'Maximálne jeden štíť!';
 $LNG['bd_build_defenses']					= 'Postaviť obranu';

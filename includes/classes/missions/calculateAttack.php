@@ -28,7 +28,7 @@
  */
 
 
-function calculateAttack(&$attackers, &$defenders, $FleetTF, $DefTF, $targetPlanet)
+function calculateAttack(&$attackers, &$defenders, $FleetTF, $DefTF)
 {
 	global $pricelist, $CombatCaps, $resource;
 
@@ -283,6 +283,7 @@ function calculateAttack(&$attackers, &$defenders, $FleetTF, $DefTF, $targetPlan
 	}
 
 	$DRESDefs = array('metal' => 0, 'crystal' => 0);
+
 	foreach ($defenders as $fleetID => $defender) {
 		foreach ($defender['unit'] as $element => $amount) {
 			if ($element < 300) {							// flotte defenseur en CDR
@@ -296,16 +297,7 @@ function calculateAttack(&$attackers, &$defenders, $FleetTF, $DefTF, $targetPlan
 				$TRES['defender'] -= $pricelist[$element]['cost'][902] * $amount ;
 
 				$lost = $STARTDEF[$element] - $amount;
-
-				$bonus = 0.25 + (0.1 * $targetPlanet[$resource[14]]) + (0.1 * $targetPlanet[$resource[15]]);
-				if($bonus > 60) 
-					$bonus = 60;
-
-				$giveback = round($lost * $bonus);
-
-				if(!in_array($element, array(407,408,409))) {
-					$rebuild[$resource[$element]] = round($lost * 0.3);
-				}
+				$giveback = round($lost * (rand(56, 84) / 100));
 				$defenders[$fleetID]['unit'][$element] += $giveback;
 				$DRESDefs['metal'] 	 += $pricelist[$element]['cost'][901] * ($lost - $giveback) ;
 				$DRESDefs['crystal'] += $pricelist[$element]['cost'][902] * ($lost - $giveback) ;
@@ -326,6 +318,6 @@ function calculateAttack(&$attackers, &$defenders, $FleetTF, $DefTF, $targetPlan
 	$debDefMet = ($DRES['metal'] * ($FleetTF / 100)) + ($DRESDefs['metal'] * ($DefTF / 100));
 	$debDefCry = ($DRES['crystal'] * ($FleetTF / 100)) + ($DRESDefs['crystal'] * ($DefTF / 100));
 
-	return array('won' => $won, 'debris' => array('attacker' => array(901 => $debAttMet, 902 => $debAttCry), 'defender' => array(901 => $debDefMet, 902 => $debDefCry)), 'rw' => $ROUND, 'unitLost' => $totalLost, 'rebuild' => $rebuild);
+	return array('won' => $won, 'debris' => array('attacker' => array(901 => $debAttMet, 902 => $debAttCry), 'defender' => array(901 => $debDefMet, 902 => $debDefCry)), 'rw' => $ROUND, 'unitLost' => $totalLost);
 }
 ?>

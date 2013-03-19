@@ -378,7 +378,6 @@ $LNG['bd_research']							= 'Research for';
 $LNG['bd_shipyard_required']				= 'Its required an Shipyard first';
 $LNG['bd_building_shipyard']				= 'You cant build ships when Shipyard is raising level';
 $LNG['bd_available']						= 'Available: ';
-$LNG['bd_damaged']							= 'Damaged: ';
 $LNG['bd_build_ships']						= 'Build';
 $LNG['bd_protection_shield_only_one']		= 'You can only build the shield 1 time!';
 $LNG['bd_build_defenses']					= 'Build defense';

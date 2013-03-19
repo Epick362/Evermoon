@@ -4,10 +4,6 @@
 		"selected_items":
 		[
 			[
-				"com",
-				"combatResult"
-			],
-			[
 				"fir",
 				"first-child"
 			],
@@ -268,66 +264,34 @@
 	"buffers":
 	[
 		{
-			"file": "includes/pages/game/class.ShowShipyardPage.php",
+			"file": "styles/css/login.css",
 			"settings":
 			{
-				"buffer_size": 8481,
+				"buffer_size": 58128,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "styles/templates/game/page.shipyard.default.tpl",
+			"file": "styles/templates/index/index.tpl",
 			"settings":
 			{
-				"buffer_size": 3226,
+				"buffer_size": 8135,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "includes/classes/missions/calculateAttack.php",
+			"file": "styles/css/ingame.css",
 			"settings":
 			{
-				"buffer_size": 12883,
+				"buffer_size": 7652,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/C/xampp/htdocs/eDocu/application/controllers/upload.php",
+			"file": "styles/theme/gow/formate.css",
 			"settings":
 			{
-				"buffer_size": 4143,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/xampp/htdocs/eDocu/application/views/upload.php",
-			"settings":
-			{
-				"buffer_size": 1804,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/xampp/htdocs/eDocu/application/helpers/db_helper.php",
-			"settings":
-			{
-				"buffer_size": 6088,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/xampp/htdocs/eDocu/application/controllers/search.php",
-			"settings":
-			{
-				"buffer_size": 6735,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/xampp/htdocs/eDocu/application/views/search.php",
-			"settings":
-			{
-				"buffer_size": 4170,
+				"buffer_size": 8308,
 				"line_ending": "Windows"
 			}
 		}
@@ -368,52 +332,9 @@
 	},
 	"file_history":
 	[
-		"/C/xampp/htdocs/eDocu/application/controllers/view.php",
-		"/C/xampp/htdocs/eDocu/application/views/view-menu.php",
-		"/C/xampp/htdocs/eDocu/application/controllers/welcome.php",
-		"/C/xampp/htdocs/eDocu/application/views/welcome.php",
-		"/C/xampp/htdocs/eDocu/application/views/template.php",
-		"/C/Users/Epick/Desktop/db.txt",
-		"/C/Users/Epick/Desktop/Zvolensky zamok/Atest/2_2013.doc",
-		"/C/xampp/htdocs/eDocu/assets/css/styles.css",
-		"/C/xampp/htdocs/eDocu/application/helpers/db_helper.php",
-		"/C/xampp/htdocs/eDocu/assets/js/jquery.filestyle.js",
-		"/C/xampp/htdocs/eDocu/system/libraries/Upload.php",
-		"/C/xampp/htdocs/eDocu/application/views/upload_form.php",
-		"/C/xampp/htdocs/eDocu/application/controllers/test.php",
-		"/C/xampp/htdocs/eDocu/application/views/upload_form.html",
-		"/C/Users/Epick/.ssh/id_rsa_heroku.pub",
-		"/C/xampp/htdocs/eDocu/application/views/search.php",
-		"/C/xampp/htdocs/eDocu/application/views/upload.php",
-		"/C/xampp/htdocs/eDocu/application/views/upload-type.php",
-		"/C/xampp/htdocs/Evermoon/language/sk/INGAME.php",
-		"/C/xampp/htdocs/Evermoon/language/en/INGAME.php",
-		"/C/xampp/htdocs/Evermoon/includes/pages/game/class.AbstractPage.php",
-		"/C/xampp/htdocs/Evermoon/includes/classes/missions/calculateAttack.php",
-		"/C/xampp/htdocs/Evermoon/includes/classes/missions/MissionCaseAttack.php",
-		"/C/xampp/htdocs/eDocu/application/controllers/upload.php",
-		"/C/Users/Epick/Desktop/db_helper.php",
-		"/C/Users/Epick/.ssh/id_rsa_heroku",
-		"/C/xampp/htdocs/eDocu/application/libraries/cimongo/Cimongo_base.php",
-		"/C/xampp/htdocs/eDocu/application/config/cimongo.php",
-		"/C/xampp/htdocs/eDocu/application/libraries/cimongo/Cimongo.php",
-		"/C/xampp/htdocs/eDocu/application/errors/error_db.php",
-		"/C/Users/Epick/.ssh/config",
-		"/C/Users/Epick/.gitconfig",
-		"/C/Users/Epick/AppData/Local/Temp/Rar$DI53.623/buildstats.php",
-		"/C/Users/Epick/AppData/Local/Temp/Rar$DI57.859/class.bot.php",
-		"/C/xampp/htdocs/Evermoon/includes/classes/missions/MissionCaseSpy.php",
-		"/C/xampp/htdocs/Evermoon/styles/templates/game/shared.mission.spyraport.tpl",
 		"/C/xampp/htdocs/Evermoon/styles/theme/gow/formate.css",
-		"/C/xampp/htdocs/Evermoon/styles/templates/game/shared.mission.raport.tpl",
-		"/C/xampp/htdocs/Evermoon/styles/css/ingame.css",
-		"/D/Backup/User/Desktop/Evermoon/uni/includes/classes/class.FlyingFleetHandler.php",
-		"/C/xampp/htdocs/Evermoon/styles/templates/index/index.tpl",
-		"/C/xampp/htdocs/Evermoon/styles/css/login.css",
-		"/C/Users/Epick/AppData/Local/Temp/Rar$DI52.705/bot.php",
-		"/C/Users/Epick/AppData/Local/Temp/Rar$DI36.865/botadd.php",
-		"/D/Backup/User/Desktop/Evermoon/uni/includes/newbot.class.php",
 		"/C/xampp/htdocs/Evermoon/styles/templates/game/main.topnav.tpl",
+		"/C/xampp/htdocs/Evermoon/includes/pages/game/class.AbstractPage.php",
 		"/C/xampp/htdocs/Evermoon/styles/templates/game/main.planetselect.tpl",
 		"/C/xampp/htdocs/Evermoon/styles/templates/game/main.header.tpl",
 		"/C/xampp/htdocs/Evermoon/styles/templates/game/layout.full.tpl",
@@ -438,8 +359,20 @@
 		"/C/xampp/htdocs/Evermoon/styles/css/login2.css",
 		"/C/xampp/htdocs/Evermoon/styles/templates/index/index_main.tpl",
 		"/C/xampp/htdocs/eDocu/application/controllers/search.php",
+		"/C/xampp/htdocs/eDocu/application/views/view-menu.php",
+		"/C/xampp/htdocs/eDocu/application/controllers/view.php",
+		"/C/xampp/htdocs/eDocu/application/libraries/cimongo/Cimongo.php",
+		"/C/xampp/htdocs/eDocu/application/views/upload.php",
+		"/C/xampp/htdocs/eDocu/application/views/upload-type.php",
+		"/C/xampp/htdocs/eDocu/application/controllers/upload.php",
 		"/C/xampp/htdocs/eDocu/application/helpers/upload_helper.php",
+		"/C/xampp/htdocs/eDocu/application/views/welcome.php",
+		"/C/xampp/htdocs/eDocu/application/helpers/db_helper.php",
+		"/C/xampp/htdocs/eDocu/application/views/search.php",
+		"/C/xampp/htdocs/eDocu/application/controllers/welcome.php",
 		"/C/xampp/htdocs/eDocu/application/config/database.php",
+		"/C/xampp/htdocs/eDocu/application/views/template.php",
+		"/C/xampp/htdocs/eDocu/application/config/cimongo.php",
 		"/C/xampp/htdocs/eDocu/application/helpers/qr_helper.php",
 		"/C/xampp/htdocs/eDocu/application/helpers/view_helper.php",
 		"/C/Users/Epick/Desktop/New folder/search_new (2).php",
@@ -450,6 +383,7 @@
 		"/C/Users/Epick/Desktop/jquery.tabify.js",
 		"/C/xampp/htdocs/somCI/application/views/template.php",
 		"/C/xampp/htdocs/eDocu/application/libraries/cimongo/Cimongo_cursor.php",
+		"/C/xampp/htdocs/eDocu/application/libraries/cimongo/Cimongo_base.php",
 		"/C/xampp/htdocs/eDocu/application/libraries/Mongo_db.php",
 		"/C/xampp/htdocs/bqr/application/controllers/welcome.php",
 		"/C/xampp/htdocs/bqr/application/controllers/view.php",
@@ -459,6 +393,7 @@
 		"/C/xampp/htdocs/bqr/application/views/view-menu.php",
 		"/C/xampp/htdocs/bqr/application/views/welcome.php",
 		"/C/xampp/htdocs/bqr/application/controllers/upload.php",
+		"/C/xampp/htdocs/Evermoon/styles/css/login.css",
 		"/C/xampp/htdocs/bqr/assets/css/bootstrap.css",
 		"/C/xampp/htdocs/bqr/assets/css/styles.css",
 		"/C/xampp/htdocs/giraffebakery/.htaccess",
@@ -476,6 +411,8 @@
 		"/C/Users/Epick/AppData/Local/Temp/fz3temp-1/routes.php",
 		"/C/xampp/htdocs/bqr/application/controllers/index.php",
 		"/C/xampp/htdocs/bqr/application/config/autoload.php",
+		"/C/xampp/htdocs/Evermoon/styles/templates/index/index.tpl",
+		"/C/xampp/htdocs/Evermoon/styles/css/ingame.css",
 		"/C/Users/Epick/AppData/Local/Temp/fz3temp-1/database 2.php",
 		"/C/Users/Epick/AppData/Local/Temp/Rar$DI00.295/bqr (2).sql",
 		"/C/Users/Epick/AppData/Local/Temp/Rar$DI09.072/bqr (2).sql",
@@ -495,7 +432,34 @@
 		"/C/xampp/htdocs/bqr/application/errors/error_general.php",
 		"/C/xampp/htdocs/Evermoon/includes/classes/class.Lang.php",
 		"/C/xampp/htdocs/Evermoon/includes/libs/Smarty/Smarty.class.php",
-		"/C/xampp/htdocs/Evermoon/includes/libs/Smarty/sysplugins/smarty_internal_resource_extends.php"
+		"/C/xampp/htdocs/Evermoon/includes/libs/Smarty/sysplugins/smarty_internal_resource_extends.php",
+		"/C/xampp/htdocs/Evermoon/includes/config.php",
+		"/C/xampp/htdocs/Evermoon/language/sk/INGAME.php",
+		"/C/Users/Epick/AppData/Local/Temp/Rar$DI03.737/Smarty.class.php",
+		"/C/xampp/htdocs/Evermoon/includes/libs/Smarty/sysplugins/smarty_config_source.php",
+		"/C/xampp/htdocs/Evermoon/includes/pages/game/class.ShowBanListPage.php",
+		"/C/xampp/htdocs/Evermoon/styles/templates/game/page.officier.default.tpl",
+		"/C/xampp/htdocs/Evermoon/includes/pages/game/class.ShowPaypalPage.php",
+		"/C/xampp/htdocs/Evermoon/language/sk/CUSTOM.php",
+		"/C/xampp/htdocs/Evermoon/includes/classes/class.paypal.php",
+		"/C/xampp/htdocs/Evermoon/paypal.php",
+		"/C/Users/Epick/Desktop/game.php",
+		"/C/xampp/htdocs/Evermoon/game.php",
+		"/C/Users/Epick/Desktop/class.paypal.php",
+		"/C/Users/Epick/Desktop/class.ShowPaypalPage.php",
+		"/C/Users/Epick/Desktop/paypal.php",
+		"/C/Users/Epick/Desktop/officier_overview.tpl",
+		"/D/Backup/User/Desktop/Evermoon/uni/language/slovak/INGAME.mo",
+		"/C/xampp/htdocs/Evermoon/includes/classes/class.FlyingFleetsTable.php",
+		"/C/xampp/htdocs/Evermoon/includes/pages/game/class.ShowFleetStep3Page.php",
+		"/C/xampp/htdocs/Evermoon/includes/pages/adm/ShowAccountEditorPage.php",
+		"/C/xampp/htdocs/Evermoon/language/sk/TECH.php",
+		"/C/xampp/htdocs/Evermoon/includes/classes/class.FlyingFleetHandler.php",
+		"/C/xampp/htdocs/Evermoon/includes/classes/class.FleetFunctions.php",
+		"/C/xampp/htdocs/Evermoon/includes/pages/game/class.ShowFleetStep1Page.php",
+		"/C/xampp/htdocs/Evermoon/includes/classes/class.statbuilder.php",
+		"/C/xampp/htdocs/Evermoon/includes/classes/missions/MissionCaseAdvColonisation.php",
+		"/C/Users/Epick/AppData/Local/Temp/Rar$DI02.397/class.ShowFleetStep1Page.php"
 	],
 	"find":
 	{
@@ -513,9 +477,6 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"\"typeID\" : \"2\",",
-			"\"typeID\" : \"1\",",
-			"bd_ava",
 			"planéty",
 			"form",
 			"login",
@@ -569,8 +530,6 @@
 		"regex": false,
 		"replace_history":
 		[
-			"\"typeID\" : \"3\",",
-			"\"typeID\" : \"2\",",
 			"$input",
 			"['file'.$i]",
 			"/images/",
@@ -603,50 +562,49 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "includes/pages/game/class.ShowShipyardPage.php",
+					"file": "styles/css/login.css",
 					"settings":
 					{
-						"buffer_size": 8481,
+						"buffer_size": 58128,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3367,
-								3367
+								55699,
+								55699
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/CSS/CSS.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1680.0,
+						"translation.y": 630.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "styles/templates/game/page.shipyard.default.tpl",
+					"file": "styles/templates/index/index.tpl",
 					"settings":
 					{
-						"buffer_size": 3226,
+						"buffer_size": 8135,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1373,
-								1400
+								822,
+								822
 							]
 						],
 						"settings":
@@ -656,169 +614,61 @@
 							"word_wrap": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 168.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "includes/classes/missions/calculateAttack.php",
+					"file": "styles/css/ingame.css",
 					"settings":
 					{
-						"buffer_size": 12883,
+						"buffer_size": 7652,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								11730,
-								11730
+								3983,
+								3983
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"syntax": "Packages/CSS/CSS.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 3990.0,
+						"translation.y": 3889.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "/C/xampp/htdocs/eDocu/application/controllers/upload.php",
+					"file": "styles/theme/gow/formate.css",
 					"settings":
 					{
-						"buffer_size": 4143,
+						"buffer_size": 8308,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2320,
-								2320
+								1970,
+								1970
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"syntax": "Packages/CSS/CSS.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 714.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "/C/xampp/htdocs/eDocu/application/views/upload.php",
-					"settings":
-					{
-						"buffer_size": 1804,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								385,
-								385
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 294.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "/C/xampp/htdocs/eDocu/application/helpers/db_helper.php",
-					"settings":
-					{
-						"buffer_size": 6088,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5276,
-								5276
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1638.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "/C/xampp/htdocs/eDocu/application/controllers/search.php",
-					"settings":
-					{
-						"buffer_size": 6735,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1122,
-								1122
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1260.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "/C/xampp/htdocs/eDocu/application/views/search.php",
-					"settings":
-					{
-						"buffer_size": 4170,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1722.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

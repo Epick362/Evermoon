@@ -155,7 +155,7 @@ HTML;
 		$fleetIntoDebris	= $GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['Fleet_Cdr'];
 		$defIntoDebris		= $GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['Defs_Cdr'];
 		
-		$combatResult 		= calculateAttack($fleetAttack, $fleetDefend, $fleetIntoDebris, $defIntoDebris, $targetPlanet);
+		$combatResult 		= calculateAttack($fleetAttack, $fleetDefend, $fleetIntoDebris, $defIntoDebris);
 		
 		$sqlQuery			= "";
 		
@@ -230,15 +230,11 @@ HTML;
 			else
 			{
 				$fleetArray = array();
-				foreach ($combatResult['rebuild'] as $element => $value) {
-					$fleetArray[] = $element."_d = `".$element."_d` + ".$value;	
-				}
-
 				foreach ($fleetDetail['unit'] as $elementID => $amount)
 				{				
 					$fleetArray[] = $resource[$elementID]." = ".$amount;
 				}
-
+				
 				if(!empty($fleetArray))
 				{
 					$sqlQuery .= "UPDATE ".PLANETS." SET ".implode(', ', $fleetArray)." WHERE id = '".$this->_fleet['fleet_end_id']."';";
