@@ -53,7 +53,7 @@
 			<a onclick="Content('register')" class="btn btn-primary btn-block btn-large">{$LNG.register_now}</a>
 		</div>
 
-		<div class="box" id="reg" style="display: none;">
+		<div class="box" id="register" style="display: none;">
 			<form id="reg" name="reg" action="index.php?page=reg&amp;action=send" method="post" onsubmit="return false;">
 				{if $fb_active}<input type="hidden" name="fb_id" id="fb_id">{/if}
 				{if $ref_id}<input type="hidden" name="ref_id" id="ref_id" value="{$ref_id}"><input type="hidden" name="uni" id="ref_uni" value="{$ref_uni}">{else}
@@ -82,7 +82,7 @@
 			</form>
 		</div>
 
-		<div class="box" id="lost" style="display: none;">
+		<div class="box" id="lostpwd" style="display: none;">
 			<form id="lost" name="lost" action="index.php?page=lostpassword" method="post" onsubmit="return false;">
 				<label for="universe_lost">{$universe}</label><select name="uni" id="universe_lost">{html_options options=$AvailableUnis selected=$UNI}</select><br>
 				<label for="username_lost">{$user}</label><input name="username" id="username_lost" type="text">

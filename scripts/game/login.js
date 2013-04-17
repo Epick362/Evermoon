@@ -44,20 +44,20 @@ function changeUni(uni) {
 }
 
 function Content(action) {
-	$('#reg').hide();
+	$('#register').hide();
 	$('#login').hide();
 	$('#info').hide();
-	$('#lost').hide();
+	$('#lostpwd').hide();
 	$('#news').hide();
 	$('#rules').hide();
 	$('#disclaimer').hide();
 	switch(action) {
 		case 'register':
 			showRecaptcha();
-			showElement('#reg', '340');
+			showElement('#register', '340');
 		break;
 		case 'lost':
-			showElement('#lost', '150');
+			showElement('#lostpwd', '150');
 		break;
 		case 'back':
 			showElement('#info', '180');
