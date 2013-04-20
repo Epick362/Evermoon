@@ -1,0 +1,7 @@
+Subject: Účet aktívny
+
+Dobrý deň {USERNAME},
+
+Váš účet na “{SITENAME}” bol aktivovaný administrátorom. Teraz sa môžete prihlásiť.
+
+{EMAIL_SIG}
