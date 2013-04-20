@@ -1,6 +1,6 @@
 includes/config.php
-cache/*
-.svn/*
+cache/
+.svn/
 
 #################
 ## Eclipse
