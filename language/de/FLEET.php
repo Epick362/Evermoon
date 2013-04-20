@@ -1,5 +1,31 @@
 <?php
 
+/**
+ *  2Moons
+ *  Copyright (C) 2012 Jan Kröpke
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package 2Moons
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
+ * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: FLEET.php 2632 2013-03-18 19:05:14Z slaver7 $
+ * @link http://2moons.cc/
+ */
+
 $LNG['and']									= 'und';
 
 //----------------------------------------------------------------------------//
@@ -59,8 +85,9 @@ $LNG['sys_colo_defaultname'] 				= 'Kolonie';
 $LNG['sys_colo_arrival'] 					= '';
 $LNG['sys_colo_maxcolo'] 					= 'Eine deiner Flotten erreicht die Koordinaten %s. Eine Besiedelung ist nicht möglich, da du nicht mehr als %d Planeten haben kannst.';
 $LNG['sys_colo_allisok'] 					= 'Eine deiner Flotten erreicht die Koordinaten %s. Die Siedler beginnen den neuen Planeten zu besiedeln.';
-$LNG['sys_colo_badpos']  					= 'Eine deiner Flotten erreicht die Koordinaten %s. Hier wurde keine Siedlungsmöglichkeit gefunden, entäuscht kehrten deine Siedler zurück.';
+$LNG['sys_colo_badpos']  					= 'Eine deiner Flotten erreicht die Koordinaten %s. Hier wurde keine Siedlungsmöglichkeit gefunden, enttäuscht kehrten deine Siedler zurück.';
 $LNG['sys_colo_notfree'] 					= 'Eine deiner Flotten erreicht die Koordinaten %s. Als deine Siedler auf den Koordinaten ankamen, mussten sie feststellen das es dort bereits eine Kolonie gibt. Völlig demoralisiert kehrten sie um.';
+$LNG['sys_colo_notech'] 					= 'Eine deiner Flotten erreicht die Koordinaten %s. Als sich deine Siedler dem Planeten näherten, mussten sie feststellen, dass ihre Ausrüstung noch nicht für die dort herrschenden Klimabedingungen geeignet war und zuerst weiterentwickelt werden muss. Enttäuscht kehrten die Siedler zurück.';
 
 $LNG['sys_expe_report'] 					= "Expeditionsbericht";
 $LNG['sys_recy_report'] 					= "Recyclerbericht";
@@ -137,6 +164,7 @@ $LNG['sys_expe_attack_2_2_2'] 				= 'Deine Expeditionsflotte hat anscheinend das
 $LNG['sys_expe_attack_2_2_3'] 				= 'Die Verbindung zu unserer Expeditionsflotte wurde kurzfristig gestört. Soweit wir die letzte Botschaft richtig entschlüsselt haben, steht die Flotte unter schwerem Feuer – die Aggressoren konnten nicht identifiziert werden.';
 $LNG['sys_expe_attack_2_3_1'] 				= 'Deine Expedition ist in eine Alien-Invasions-Flotte geraten und meldet schwere Gefechte!';
 $LNG['sys_expe_attack_2_3_2'] 				= 'Ein großer Verband kristalliner Schiffe unbekannter Herkunft hält direkten Kollisionskurs mit unserer Expeditionsflotte. Wir müssen nun wohl vom Schlimmsten ausgehen.';
+$LNG['sys_expe_found_ships_nothing']		= '- Es konnten keine Schiffe repariert werden.';
 $LNG['sys_expe_attackname_1']				= 'Piraten'; 	
 $LNG['sys_expe_attackname_2'] 				= 'Aliens'; 	
 $LNG['sys_expe_back_home'] 					= 'Deine Flotte ist von der Expedition wieder zurükgekehrt.<br>Sie haben %s %s, %s %s, %s %s und %s %s mitgebracht.';
@@ -161,11 +189,11 @@ $LNG['sys_debris'] 							= 'Trümmerfeld';
 $LNG['sys_destruc_title']       		   	= 'Folgende Flotten stehen sich zur Mondzerstörung gegenüber am';
 $LNG['sys_mess_destruc_report']  		  	= 'Bericht: Zerstörung eines Mondes';
 $LNG['sys_raport_not_found']				= 'Ungültige Kampfbericht ID';
+$LNG['sys_raport_lost_contact']				= 'Der Kontakt zur angreifenden Flotte ging verloren (Das bedeutet, sie wurde in der 1. Runde abgeschossen.)';
 $LNG['sys_destruc_lune']          		 	= 'Die Wahrscheinlichkeit einer Mondzerstörung beträgt: %d%% ';
 $LNG['sys_destruc_rip']          			= 'Die Wahrscheinlichkeit der Selbstzerstörung der Flotte beträgt: %d%%';
 $LNG['sys_destruc_stop']      			 	= 'Der Verteidiger hat die Mondzerstörung erfolgreich abgeblockt.';
 $LNG['sys_destruc_mess1']       		   	= 'Die Todessterne richten ihre gewaltigen Energien auf den Mond.';
-$LNG['sys_destruc_mess']        		   	= 'Eine Flotte vom Planeten [%d:%d:%d] erreicht den Mond bei [%d:%d:%d].';
 $LNG['sys_destruc_echec']       		   	= 'Erdbeben erschüttern den Planeten. Doch etwas geht schief: Die Todessterne explodieren und zerfallen in tausende Einzelteile. <br>Die Druckwelle erreicht die komplette Flotte.';
 $LNG['sys_destruc_reussi']      		   	= 'Die Strahlen der Todessterne erreichen den Mond und zerfetzen ihn.<br>Der gesamte Mond wurde zerstört.';
 $LNG['sys_destruc_null']        		   	= 'Die Todessterne können ihre volle Leistung nicht aufbauen und implodieren.<br> Der Mond wird nicht zerstört.';
@@ -185,4 +213,11 @@ $LNG['type_mission'][8]  					= 'Abbauen';
 $LNG['type_mission'][9]  					= 'Zerstören';
 $LNG['type_mission'][11]  					= 'DM Untersuchung';
 $LNG['type_mission'][15] 					= 'Expedition';
-?>
+
+$LNG['type_planet_short'][1]  				= 'P';
+$LNG['type_planet_short'][2]  				= 'T';
+$LNG['type_planet_short'][3]  				= 'M';
+
+$LNG['type_planet'][1]  					= 'Planet';
+$LNG['type_planet'][2]  					= 'Trümmerfeld';
+$LNG['type_planet'][3]  					= 'Mond';

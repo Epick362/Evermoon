@@ -1,9 +1,0 @@
-Vitaj %1$s,
-
-
-Ďakujeme za tvoju registráciu na %2$s
-
-Sme radi, že si sa rozhodol u nás zaregistrovať a dúfame, že sa ti hra bude páčiť.
-
-S pozdravom,
-%2$s Team

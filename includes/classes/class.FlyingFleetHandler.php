@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id: class.FlyingFleetHandler.php 2126 2012-03-11 21:11:32Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: class.FlyingFleetHandler.php 2640 2013-03-23 19:23:26Z slaver7 $
+ * @link http://2moons.cc/
  */
 
 class FlyingFleetHandler
@@ -43,7 +42,6 @@ class FlyingFleetHandler
 		9	=> 'MissionCaseDestruction',
 		10	=> 'MissionCaseMIP',
 		11	=> 'MissionCaseFoundDM',
-		12  => 'MissionCaseAdvColonisation',
 		15	=> 'MissionCaseExpedition',
 	);
 		
@@ -56,7 +54,7 @@ class FlyingFleetHandler
 	function run()
 	{
 				
-		require_once(ROOT_PATH.'includes/classes/class.MissionFunctions.php');
+		require_once('includes/classes/class.MissionFunctions.php');
 		
 		$fleetResult = $GLOBALS['DATABASE']->query("SELECT ".FLEETS.".* 
 		FROM ".FLEETS_EVENT." 
@@ -73,7 +71,7 @@ class FlyingFleetHandler
 			
 			$missionName	= self::$MissionsPattern[$fleetRow['fleet_mission']];
 			
-			require_once(ROOT_PATH.'includes/classes/missions/'.$missionName.'.php');
+			require_once('includes/classes/missions/'.$missionName.'.php');
 			$Mission	= new $missionName($fleetRow);
 			
 			switch($fleetRow['fleet_mess'])
@@ -96,7 +94,7 @@ class FlyingFleetHandler
 	
 	function IfFleetBusy($FleetID)
 	{
-				$FleetInfo	= $GLOBALS['DATABASE']->uniquequery("SELECT fleet_busy FROM ".FLEETS." WHERE `fleet_id` = '".$FleetID."';");
+		$FleetInfo	= $GLOBALS['DATABASE']->getFirstRow("SELECT fleet_busy FROM ".FLEETS." WHERE `fleet_id` = '".$FleetID."';");
 		if($FleetInfo['fleet_busy'] == 1) {
 			return false;
 		} else {
@@ -105,4 +103,3 @@ class FlyingFleetHandler
 		}
 	}
 }
-?>

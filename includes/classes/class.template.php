@@ -23,11 +23,11 @@
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.6.1 (2011-11-19)
- * @info $Id: class.template.php 2332 2012-09-05 20:39:46Z slaver7 $
+ * @info $Id: class.template.php 2641 2013-03-24 13:43:52Z slaver7 $
  * @link http://code.google.com/p/2moons/
  */
 
-require(ROOT_PATH.'includes/libs/Smarty/Smarty.class.php');
+require('includes/libs/Smarty/Smarty.class.php');
 		
 class template extends Smarty
 {
@@ -44,7 +44,7 @@ class template extends Smarty
 	function smartySettings()
 	{	
 		$this->force_compile 			= false;
-		$this->caching 					= false; #Set true for production!
+		$this->caching 					= true; #Set true for production!
 		$this->merge_compiled_includes	= true;
 		$this->compile_check			= true; #Set false for production!
 		$this->php_handling				= Smarty::PHP_REMOVE;
@@ -52,7 +52,6 @@ class template extends Smarty
 		$this->setCompileDir(is_writable(ROOT_PATH.'cache/') ? ROOT_PATH.'cache/' : $this->getTempPath());
 		$this->setCacheDir(ROOT_PATH.'cache/templates');
 		$this->setTemplateDir(ROOT_PATH.'styles/templates/');
-		#$this->loadFilter('output', 'trimwhitespace');
 	}
 	
 	public function loadscript($script)
@@ -68,7 +67,7 @@ class template extends Smarty
 	public function getTempPath()
 	{
 		$this->force_compile 		= true;
-		include(ROOT_PATH.'includes/libs/wcf/BasicFileUtil.class.php');
+		include 'includes/libs/wcf/BasicFileUtil.class.php';
 		return BasicFileUtil::getTempFolder();
 	}
 		
@@ -79,7 +78,7 @@ class template extends Smarty
 	
 	private function adm_main()
 	{
-		global $LNG, $CONF, $LANG, $USER;
+		global $LNG, $USER;
 		
 		$dateTimeServer		= new DateTime("now");
 		if(isset($USER['timezone'])) {
@@ -94,44 +93,21 @@ class template extends Smarty
 		
 		$this->assign_vars(array(
 			'scripts'			=> $this->script,
-			'title'				=> $CONF['game_name'].' - '.$LNG['adm_cp_title'],
+			'title'				=> Config::get('game_name').' - '.$LNG['adm_cp_title'],
 			'fcm_info'			=> $LNG['fcm_info'],
-            'lang'    			=> $LANG->getUser(),
-			'REV'				=> substr($CONF['VERSION'], -4),
+            'lang'    			=> $LNG->getLanguage(),
+			'REV'				=> substr(Config::get('VERSION'), -4),
 			'date'				=> explode("|", date('Y\|n\|j\|G\|i\|s\|Z', TIMESTAMP)),
 			'Offset'			=> $dateTimeUser->getOffset() - $dateTimeServer->getOffset(),
-			'VERSION'			=> $CONF['VERSION'],
-		));
-	}
-	
-	public function login_main()
-	{
-		global $USER, $CONF, $LNG, $LANG, $UNI;
-		$this->assign_vars(array(
-			'cappublic'			=> $CONF['cappublic'],
-			'servername' 		=> $CONF['game_name'],
-			'forum_url' 		=> $CONF['forum_url'],
-			'fb_active'			=> $CONF['fb_on'],
-			'fb_key' 			=> $CONF['fb_apikey'],
-			'mail_active'		=> $CONF['mail_active'],
-			'game_captcha'		=> $CONF['capaktiv'],
-			'reg_close'			=> $CONF['reg_closed'],
-			'ref_active'		=> $CONF['ref_active'],
-			'ga_active'			=> $CONF['ga_active'],
-			'ga_key'			=> $CONF['ga_key'],
-			'getajax'			=> HTTP::_GP('getajax', 0),
-			'lang'				=> $LANG->getUser(),
-			'UNI'				=> $UNI,
-			'VERSION'			=> $CONF['VERSION'],
-			'REV'				=> substr($CONF['VERSION'], -4),
-			'langs'				=> json_encode(Language::getAllowedLangs(false)),
-			'htaccess'			=> (int) (UNIS_HTACCESS === true),
+			'VERSION'			=> Config::get('VERSION'),
+			'dpath'				=> 'styles/theme/gow/',
+			'bodyclass'			=> 'full'
 		));
 	}
 	
 	public function show($file)
 	{		
-		global $USER, $PLANET, $CONF, $LNG, $THEME, $LANG;
+		global $USER, $PLANET, $LNG, $THEME;
 
 		if($THEME->isCustomTPL($file))
 			$this->setTemplateDir($THEME->getTemplatePath());
@@ -143,9 +119,6 @@ class template extends Smarty
 		} elseif(MODE === 'ADMIN') {
 			$this->setTemplateDir($tplDir[0].'adm/');
 			$this->adm_main();
-		} elseif(MODE === 'INDEX') {
-			$this->setTemplateDir($tplDir[0].'index/');
-			$this->login_main();
 		}
 
 		$this->assign_vars(array(
@@ -157,8 +130,15 @@ class template extends Smarty
 			'LNG'			=> $LNG,
 		), false);
 		
-		$this->compile_id	= $LANG->getUser();
+		$this->compile_id	= $LNG->getLanguage();
 		
+		parent::display($file);
+	}
+	
+	public function display($file)
+	{
+		global $LNG;
+		$this->compile_id	= $LNG->getLanguage();
 		parent::display($file);
 	}
 	
@@ -219,7 +199,7 @@ class template extends Smarty
     public function __set($name, $value)
     {
         $allowed = array(
-        'template_dir' => 'setTemplateDirgetTemplateDir',
+        'template_dir' => 'setTemplateDir',
         'config_dir' => 'setConfigDir',
         'plugins_dir' => 'setPluginsDir',
         'compile_dir' => 'setCompileDir',
@@ -233,5 +213,3 @@ class template extends Smarty
         }
     }
 }
-
-?>

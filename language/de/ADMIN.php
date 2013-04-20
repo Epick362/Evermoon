@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id: ADMIN.php 2246 2012-06-16 16:05:09Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: ADMIN.php 2639 2013-03-19 20:00:23Z slaver7 $
+ * @link http://2moons.cc/
  */
 
 //---------------	GENERAL	------------------------// 
@@ -128,42 +127,42 @@ $LNG['ad_editor_authlevels']	= 'verwalte Rechte';
 $LNG['ad_add_not_exist']		= 'ID existiert nicht!';
 
 //	INVESTIGACIONES - RESEARCHS - FORSCHUNGEN
-$LNG['ad_add_succes']			= 'Hinzufügen der Forschungen war erfolgreich!';
-$LNG['ad_delete_succes']		= 'Löschen der Forschungen war erfolgreich!';
+$LNG['ad_add_tech_success']		= 'Hinzufügen der Forschungen war erfolgreich!';
+$LNG['ad_delete_tech_success']	= 'Löschen der Forschungen war erfolgreich!';
 $LNG['ad_research_title']		= 'Forschungen bearbeiten';
-$LNG['ad_research']		= 'Forschung';
+$LNG['ad_research']				= 'Forschung';
 
 //	OFICIALES - OFFICIERS - OFFIZIERE
 $LNG['ad_offi_title']			= 'Offiziere bearbeiten';
 $LNG['ad_offi']					= 'Offiziere';
-$LNG['ad_offi_succes_add']		= 'Hinzufügen der Offiziere war erfolgreich!';
-$LNG['ad_offi_succes_delete']	= 'Löschen der Offiziere war erfolgreich!';
+$LNG['ad_add_offi_success']		= 'Hinzufügen der Offiziere war erfolgreich!';
+$LNG['ad_delete_offi_success']	= 'Löschen der Offiziere war erfolgreich!';
 
 //	RECURSOS - RESOURCES - ROHSTOFFE
-$LNG['ad_add_sucess']		= 'Hinzufügen der Rohstoffe war erfolgreich!';
-$LNG['ad_delete_sucess']	= 'Löschen der Rohstoffe war erfolgreich!';
-$LNG['ad_main_title']		= 'Verwalten der Rohstoffe & Technologie';
+$LNG['ad_add_res_sucess']			= 'Hinzufügen der Rohstoffe war erfolgreich!';
+$LNG['ad_delete_res_sucess']		= 'Löschen der Rohstoffe war erfolgreich!';
+$LNG['ad_main_title']			= 'Verwalten der Rohstoffe & Technologie';
 
 //	NAVES - SHIPS - SCHIFFE
 $LNG['ad_ships_title']			= 'Schiffe bearbeiten';
-$LNG['ad_ships']			= 'Schiffe';
-$LNG['ad_add_sucess_ships']		= 'Hinzufügen der Schiffe war erfolgreich!';
-$LNG['ad_delete_sucess_ships']	= 'Löschen der Schiffe war erfolgreich!';
+$LNG['ad_ships']				= 'Schiffe';
+$LNG['ad_add_ships_sucess']		= 'Hinzufügen der Schiffe war erfolgreich!';
+$LNG['ad_delete_ships_sucess']	= 'Löschen der Schiffe war erfolgreich!';
 
 //	DEFENSAS - DEFENSES - VERTEIDIGUNG
 $LNG['ad_defenses_title']			= 'Verteidigungen bearbeiten';
-$LNG['ad_defenses']			= 'Verteidigung';
-$LNG['ad_add_defenses_succes']		= 'Hinzufügen der Verteidigungen war erfolgreich!';
-$LNG['ad_delete_defenses_succes']	= 'Löschen der Verteidigungen war erfolgreich!';
+$LNG['ad_defenses']					= 'Verteidigung';
+$LNG['ad_add_defenses_success']		= 'Hinzufügen der Verteidigungen war erfolgreich!';
+$LNG['ad_delete_defenses_success']	= 'Löschen der Verteidigungen war erfolgreich!';
 
 //	EDIFICIOS - BUILDINGS - GEBÄUDE
-$LNG['ad_buildings_title']	= 'Gebäude bearbeiten';
-$LNG['ad_buildings']	= 'Gebäude';
-$LNG['ad_planet_id']		= 'ID Planet oder Mond';
-$LNG['ad_levels']			= 'Anzahl der Stufe';
-$LNG['ad_count']			= 'Anzahl';
-$LNG['ad_add_succes']		= 'Hinzufügen der Gebäude war erfolgreich!';
-$LNG['ad_delete_succes']	= 'Löschen der Gebäude war erfolgreich!';
+$LNG['ad_buildings_title']		= 'Gebäude bearbeiten';
+$LNG['ad_buildings']			= 'Gebäude';
+$LNG['ad_planet_id']			= 'ID Planet oder Mond';
+$LNG['ad_levels']				= 'Anzahl der Stufe';
+$LNG['ad_count']				= 'Anzahl';
+$LNG['ad_add_build_success']			= 'Hinzufügen der Gebäude war erfolgreich!';
+$LNG['ad_delete_build_success']		= 'Löschen der Gebäude war erfolgreich!';
 
 // DATOS PERSONALES - PERSONAL DATA
 $LNG['ad_personal_title']		= 'Persönliche Daten bearbeiten';
@@ -290,17 +289,19 @@ $LNG['er_data']			= 'Datum';
 
 //---------------	LISTA DE MENSAJES - MESSAGES LIST	------------------------//
 $LNG['ml_message_list']			= 'Nachrichtenliste';
-$LNG['ml_page']					= 'Seite';
-$LNG['ml_type']					= 'Type';
-$LNG['ml_dlte_selection']		= 'Lösche Markierte';
-$LNG['ml_dlte_since']			= 'Löschen von';
-$LNG['ml_dlte_since_button']	= 'Löschen von';
+$LNG['ml_type_submit']			= 'Absenden';
+$LNG['ml_id']					= '#ID';
+$LNG['ml_sender']				= 'Absender';
+$LNG['ml_receiver']				= 'Empfänger';
 $LNG['ml_date']					= 'Datum';
-$LNG['ml_from']					= 'Von';
-$LNG['ml_to']					= 'Zu';
+$LNG['ml_type']					= 'Nachrichtentyp';
 $LNG['ml_subject']				= 'Betreff';
-$LNG['ml_content']				= 'Inhalt';
-$LNG['ml_see_all_messages']		= 'Sehe alle Nachrichten';
+$LNG['ml_date_range']			= 'Zeitraum';
+
+
+$LNG['ml_page']					= 'Seite';
+
+
 //###########################################################//
 
 
@@ -353,7 +354,8 @@ $LNG['se_normal_speed_fleet']			= 'Normaler Flottenspeed: 1 <br> Maximal empfohl
 $LNG['se_normal_speed_halt']			= 'Normaler Expospeed: 1 <br> Maximal empfohlene Einstellungen: 20';
 $LNG['se_fleet_speed']					= 'Flottenspeed';
 $LNG['se_resources_producion_speed']	= 'Rohstoffspeed';
-$LNG['se_halt_speed']					= 'Expospeed';
+$LNG['se_halt_speed']					= 'Expedition-Factor';
+$LNG['se_energy_speed']					= 'Energie-Factor';
 $LNG['se_forum_link']					= 'Forum link';
 $LNG['se_server_op_close']				= 'Spiel offen?';
 $LNG['se_server_status_message']		= 'Schließ-Grund';
@@ -507,6 +509,15 @@ $LNG['se_ref_minpoints']				= 'Min. Punkte für Bonus';
 $LNG['se_ref_minpoints_info']			= 'Der geworbende User muss diese Mindestpunktzahl erreichen, damit der werbende User seinen Bonus bekommt.';
 $LNG['se_ref_max_referals']				= 'Maximale Referal';
 $LNG['se_ref_max_referals_info']		= 'Maximale Anzahl, der der User an Spielern werben kann';
+$LNG['se_server_colonisation_config'] 	= 'Kolonisationseinstellungen';
+$LNG['se_planets_min'] 					= 'Max. kolonisierbare Planeten ohne Forschungen';
+$LNG['se_planets_min_info'] 			= 'Von Beginn an hat der Spieler die Möglichkeit die Angegebene Anzahl an Planeten zu besiedeln';
+$LNG['se_planets_tech'] 				= 'Max. zusätzliche Planetenzahl durch Foschung. (0 = deaktiviert Limit)';
+$LNG['se_planets_tech_info'] 			= 'Durch Forschung von Astrophysik hat der Spieler die Möglichkeit maximal die angegebene Anzahl an Planeten zusätzlich zu besiedeln.';
+$LNG['se_planets_officier'] 			= 'Max. zusätzliche Planetenzahl durch Offiziere';
+$LNG['se_planets_officier_info'] 		= 'Maximaler Bonus an Planeten durch Offiziere. (0 = deaktiviert Limit)';
+$LNG['se_planets_per_tech'] 			= 'Faktor: Planeten pro Stufe Astrophysik';
+$LNG['se_planets_per_tech_info'] 		= 'Pro geforschter Stufe kann der Spieler die angegebene Anzahl an Planeten zusätzlich besiedeln.';
 $LNG['se_silo_factor']					= 'Raketensilogröße';
 $LNG['se_silo_factor_info']				= 'Faktor für die größe des Silos';
 $LNG['se_timzone']						= 'Zeitzone des Unis';
@@ -515,6 +526,11 @@ $LNG['se_dst_sel'][0]					= 'Nein';
 $LNG['se_dst_sel'][1]					= 'Ja';
 $LNG['se_dst_sel'][2]					= 'Automatisch';
 $LNG['se_max_dm_missions']				= 'Max. Anzahl an parralell laufenden DM-Such Missionen';
+$LNG['se_alliance_create_min_points']   = 'Mindestpunktzahl, um eine Allianz gründen zu können';
+$LNG['se_disclamerAddress']				= 'Adresse';
+$LNG['se_disclamerPhone']				= 'Telefonnummer';
+$LNG['se_disclamerMail']				= 'E-Mail-Adresse';
+$LNG['se_disclamerNotice']				= 'Weitere Informationen';
 
 //###########################################################//
 
@@ -552,13 +568,13 @@ $LNG['ff_fleetid']				= "ID";
 $LNG['ff_mission']				= "Mission";
 $LNG['ff_starttime']			= "Startzeit";
 $LNG['ff_ships']				= "Schiffe";
-$LNG['ff_startuser']			= "Start User";
-$LNG['ff_startplanet']			= "Start Planet";
-$LNG['ff_arrivaltime']			= "Ankunftszeit";
-$LNG['ff_targetuser']			= "Ziel User";
-$LNG['ff_targetplanet']			= "Ziel Planet";
-$LNG['ff_endtime']				= "Rückkehrzeit";
-$LNG['ff_holdtime']				= "Stationszeit";
+$LNG['ff_startuser']			= "Startuser";
+$LNG['ff_startplanet']			= "Startplanet";
+$LNG['ff_arrivaltime']			= "Ankunft";
+$LNG['ff_targetuser']			= "Zieluser";
+$LNG['ff_targetplanet']			= "Zielplanet";
+$LNG['ff_endtime']				= "Rückkehr";
+$LNG['ff_holdtime']				= "Ende Haltezeit";
 $LNG['ff_del']					= "Event deleted";
 $LNG['ff_lock']					= "Lock";
 $LNG['ff_unlock']				= "Unlock";
@@ -615,23 +631,25 @@ $LNG['mu_planets_options']			= 'Options Planets';
 $LNG['mu_user_logs']				= 'Log';
 $LNG['mu_support']                 	= 'Support-Tickets';
 $LNG['mu_module']                 	= 'Module';
-$LNG['mu_update']                 	= 'Game-Updates';
 $LNG['mu_mod_update']              	= 'Mod Versions Control';
 $LNG['mu_fb_options'] 				= 'Facebook Connect';
 $LNG['mu_ts_options'] 				= 'Teamspeak Optionen';
 $LNG['mu_game_info'] 				= 'Informationen';
-$LNG['mu_vaild_users']				= 'Aktivire User'; 
+$LNG['mu_vaild_users']				= 'Aktive User'; 
 $LNG['mu_news']						= 'News'; 
 $LNG['mu_multiip_page']				= 'MultiIP'; 
 $LNG['mu_clear_cache']				= 'Lösche Cache'; 
 $LNG['mu_vertify']					= 'Vertify Game Content'; 
+$LNG['mu_cronjob']					= 'Cronjobs'; 
 $LNG['mu_logs']						= 'Admin-Log';
-$LNG['mu_giveaway']					= 'Geschenke';
+$LNG['mu_giveaway']					= 'Giveaways';
+$LNG['mu_disclamer']				= 'Impressum-Einstellungen';
+$LNG['mu_dump']						= 'Datenbank-Backup';
 
 
 $LNG['vt_error']					= 'HashFile ist nicht verfügbar! - Update durchführen!';
 $LNG['vt_fail']						= 'Geänderte Dateien';
-$LNG['vt_info']						= 'Diese Liste enthält die Dateien, die modifziert worden und nicht dem orginal entsprechen.<br>Wenn Sie selbst nichts am Spiel geändert haben, sollte Sie die Dateien mit dem Orginalen ersetzten.';
+$LNG['vt_info']						= 'Diese Liste enthält die Dateien, die modifziert wurden und nicht dem orginal entsprechen.<br>Wenn Sie selbst nichts am Spiel geändert haben, sollte Sie die Dateien mit dem Orginalen ersetzten.';
 $LNG['vt_head']						= 'Überprüfe Spieldateien';
 $LNG['vt_filephp']					= 'PHP-Dateien';
 $LNG['vt_filetpl']					= 'Template-Dateien';
@@ -909,6 +927,13 @@ $LNG['new_creator_title_l']	= 'Erstelle Monde';
 $LNG['new_creator_coor']	= 'Koordinaten';
 $LNG['new_creator_go_back']	= '[ Zurück zum Menü ]';
 $LNG['new_creator_refresh']	= '[ Neu Laden ]';
+$LNG['uni_reg']				= 'Universum';
+$LNG['user_reg']			= 'Spielername';
+$LNG['pass_reg']			= 'Passwort';
+$LNG['pass2_reg']			= 'Passwort wiederholen';
+$LNG['email_reg']			= 'E-Mail Adresse';
+$LNG['email2_reg']			= 'E-Mail Adresse wiederholen';
+$LNG['lang_reg']			= 'Sprache';
 
 //	CREADOR DE USUARIOS - USERS MAKER
 $LNG['new_title']			= 'Erstelle neuen Spieler';
@@ -1097,8 +1122,8 @@ $LNG['mvc_desc']						= 'Beschreibung';
 //Universe Page
 $LNG['uvs_id']							= 'Universum ID';
 $LNG['uvs_name']						= 'Name';
-$LNG['uvs_speeds']						= 'Spiel Faktoren (G/F/R/E)'; // (Game/Fleet/Resource/Expedition)
-$LNG['uvs_speeds_full']					= 'Spiel Faktoren (Game/Fleet/Resource/Expedition)';
+$LNG['uvs_speeds']						= 'Spiel Faktoren (G/F/R/E/E)'; // (Game/Fleet/Resource/Expedition/Energy)
+$LNG['uvs_speeds_full']					= 'Spiel Faktoren (Game/Fleet/Resource/Expedition/Energy)';
 $LNG['uvs_players']						= 'Spieler';
 $LNG['uvs_inactive']					= 'Inaktive Spieler';
 $LNG['uvs_open']						= 'Status';
@@ -1111,6 +1136,8 @@ $LNG['uvs_new']							= 'Universum hinzufügen';
 $LNG['uvs_planets']						= 'Planeten';
 $LNG['uvs_upload']						= 'Hochladen';
 $LNG['uvs_error']						= 'Ungültige oder Fehlerhafte Importfile!';
+$LNG['uvs_reload']						= 'Neuladen';
+$LNG['uvs_back']						= 'Zurück';
 
 //Update Page
 $LNG['up_weiter']						= 'Weiter';
@@ -1202,8 +1229,57 @@ $LNG['log_usettings']					= 'Uni Konfiguration';
 $LNG['log_statsettings']				= 'Statistik-Optionen';
 $LNG['log_chatsettings']				= 'Chat-Optionen';
 $LNG['log_tssettings']					= 'Teamspeak-Konfiguration';
+$LNG['log_disclamersettings']			= 'Impressum';
 $LNG['log_uni_short']					= 'Uni';
 $LNG['log_universe']					= 'Universum';
+
+
+//Cronjobs
+$LNG['cronName']['referral']		= 'Referral-Bonus';
+$LNG['cronName']['statistic']		= 'Statistiken';
+$LNG['cronName']['daily']			= 'Tägliche Aufgaben';
+$LNG['cronName']['cleaner']			= 'Alte Daten löschen';
+$LNG['cronName']['inactive']		= 'Inaktive löschen';
+$LNG['cronName']['teamspeak']		= 'Teamspeakdaten aktualisieren';
+$LNG['cronName']['tracking']		= 'Statistik an globalen Server senden.';
+$LNG['cronName']['databasedump']	= 'Datenbank-Backup';
+
+
+$LNG['cronjob_id']					= 'ID';
+$LNG['cronjob_name']				= 'Name';
+$LNG['cronjob_min']					= 'Minute';
+$LNG['cronjob_hours']				= 'Stunde';
+$LNG['cronjob_dom']					= 'Tag';
+$LNG['cronjob_month']				= 'Monat';
+$LNG['cronjob_dow']					= 'Wochentag';
+$LNG['cronjob_class']				= 'class';
+$LNG['cronjob_nextTime']			= 'Nächste Ausführung';
+$LNG['cronjob_inActive']			= 'Aktiv';
+$LNG['cronjob_edit']				= 'Bearbeiten';
+$LNG['cronjob_delete']				= 'Löschen';
+$LNG['cronjob_headline']			= 'Cronjob ID';
+$LNG['cronjob_new']					= 'Neuen Cronjob erstellen';
+
+$LNG['cronjob_desc']				= 'Hier folgt die Eingabe der Aufrufezeiten des Cronjobs. Die Bedingungen sind UND-verknüpft, das heißt dass der Cronjob nur ausgeführt wird wenn alle Bedingungen erfüllt sind. Die gleichzeitige Auswahl von einzelnen Werten in \'Wochentag\' und \'Tag\' kann unter Umständen dazu führen dass der Cronjob unregelmäßig ausgeführt wird, hier sollte bei mindestens einer Bedingung die Option \'Alle\' gewählt werden.<br>\'Alle\' wird vorrangig behandelt und überschreibt die Einstellungen der Auswahllisten.';
+$LNG['cronjob_desc_name']			= 'Frei wählbarer Namen zum Identifizieren des Cronjobs.';
+$LNG['cronjob_desc_class']			= 'Eingabe der aufzurufenden Klasse. Soll includes/classes/cronjobs/foo.class.php aufgerufen werden, muss \'foo\' eingetragen werden.';
+
+$LNG['cronjob_error_name']			= 'Es wurde kein Name eingeben!';
+$LNG['cronjob_error_min']			= 'Es wurden keine Minuten definiert!';
+$LNG['cronjob_error_hours']			= 'Es wurden keine Stunden definiert!';
+$LNG['cronjob_error_month']			= 'Es wurden keine Monate definiert!';
+$LNG['cronjob_error_dow']			= 'Es wurden keine Wochentage definiert!';
+$LNG['cronjob_error_dom']			= 'Es wurden keine Tage definiert!';
+$LNG['cronjob_error_class']			= 'Es wurde keine Class angegeben!';
+$LNG['cronjob_error_filenotfound']	= 'Die angegebene Datei wurde nicht gefunden: ';
+$LNG['cronjob_selectall']			= 'Alle';
+
+$LNG['cronjob_lock']				= 'Locked';
+$LNG['cronjob_is_lock']				= 'Ja';
+$LNG['cronjob_is_unlock']			= 'Nein';
+
+$LNG['cronjob_inactive']			= 'Ja';
+$LNG['cronjob_active']				= 'Nein';
 
 // Giveaway
 $LNG['ga_success']						= 'Erfolgreich!';
@@ -1214,7 +1290,6 @@ $LNG['ga_homecoordinates']				= 'Nur Heimatkoordinaten';
 $LNG['ga_no_inactives']					= 'Inaktive Spieler ausschließen';
 
 // Old SupportTicket Keys
-
 $LNG['supp_header'] 						= 'Support-System';
 $LNG['supp_header_g'] 						= 'Geschlossende Tickets';
 $LNG['ticket_id'] 							= '#Ticket-ID';
@@ -1244,4 +1319,11 @@ $LNG['supp_admin_answer'] 					= 'Admin-Antwort';
 $LNG['supp_player_write'] 					= '%s schreib am %s';
 $LNG['supp_player_answer'] 					= 'Spieler-Antwort';
 
-?>
+// SQL-Dumper
+
+$LNG['du_header']					= 'Datenbank-Backup erstellen';
+$LNG['du_submit']					= 'Absenden';
+$LNG['du_select_all_tables']		= 'Alle Tabellen';
+$LNG['du_choose_tables']			= 'Tabellen auswählen';
+$LNG['du_success']					= 'Backup erfolgreich erstellt! Datei: %s';
+$LNG['du_not_tables_selected']		= 'Du hast keine Tabellen zum sichern ausgewählt!';

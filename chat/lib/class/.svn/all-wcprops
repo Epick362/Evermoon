@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/!svn/ver/2646/trunk/chat/lib/class
+END
+AJAXChatEncoding.php
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2635/trunk/chat/lib/class/AJAXChatEncoding.php
+END
+AJAXChatHTTPHeader.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2126/trunk/chat/lib/class/AJAXChatHTTPHeader.php
+END
+AJAXChatMySQLDataBase.php
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2635/trunk/chat/lib/class/AJAXChatMySQLDataBase.php
+END
+AJAXChatMySQLQuery.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2635/trunk/chat/lib/class/AJAXChatMySQLQuery.php
+END
+CustomAJAXChatInterface.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2126/trunk/chat/lib/class/CustomAJAXChatInterface.php
+END
+AJAXChatMySQLiDataBase.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2635/trunk/chat/lib/class/AJAXChatMySQLiDataBase.php
+END
+AJAXChatDataBase.php
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2635/trunk/chat/lib/class/AJAXChatDataBase.php
+END
+AJAXChatMySQLiQuery.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2126/trunk/chat/lib/class/AJAXChatMySQLiQuery.php
+END
+CustomAJAXChatShoutBox.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2126/trunk/chat/lib/class/CustomAJAXChatShoutBox.php
+END
+AJAXChatString.php
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/2635/trunk/chat/lib/class/AJAXChatString.php
+END
+CustomAJAXChat.php
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/2646/trunk/chat/lib/class/CustomAJAXChat.php
+END
+AJAXChatTemplate.php
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2635/trunk/chat/lib/class/AJAXChatTemplate.php
+END
+AJAXChat.php
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/2635/trunk/chat/lib/class/AJAXChat.php
+END
+AJAXChatLanguage.php
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2126/trunk/chat/lib/class/AJAXChatLanguage.php
+END
+AJAXChatFileSystem.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2635/trunk/chat/lib/class/AJAXChatFileSystem.php
+END

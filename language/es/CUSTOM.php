@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,16 +18,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.5 (2011-07-31)
- * @info $Id: CUSTOM.php 2314 2012-08-22 18:07:52Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @info $Id: CUSTOM.php 2464 2012-12-21 20:03:22Z slaver7 $
+ * @link http://2moons.cc/
  */
  
 // If you have custom lang vars, you can include them here. The file ll be not overwrite by updatemanager
 // Also you can overwrite exists var, too. You use the same key.
  
-?>

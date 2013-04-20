@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id: class.ShowBattleSimulatorPage.php 2322 2012-09-01 16:10:24Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: class.ShowBattleSimulatorPage.php 2640 2013-03-23 19:23:26Z slaver7 $
+ * @link http://2moons.cc/
  */
 
 class ShowBattleSimulatorPage extends AbstractPage 
@@ -38,7 +37,7 @@ class ShowBattleSimulatorPage extends AbstractPage
 
 	function send()
 	{
-		global $USER, $PLANET, $reslist, $pricelist, $LNG, $LANG, $CONF;
+		global $USER, $PLANET, $reslist, $pricelist, $LNG, $CONF;
 		
 		if(!isset($_REQUEST['battleinput'])) {
 			$this->sendJSON(0);
@@ -132,13 +131,13 @@ class ShowBattleSimulatorPage extends AbstractPage
 			}
 		}
 		
-		$LANG->includeLang(array('FLEET'));
+		$LNG->includeData(array('FLEET'));
 		
-		require_once(ROOT_PATH.'includes/classes/missions/calculateAttack.php');
-		require_once(ROOT_PATH.'includes/classes/missions/calculateSteal.php');
-		require_once(ROOT_PATH.'includes/classes/missions/GenerateReport.php');
+		require_once('includes/classes/missions/calculateAttack.php');
+		require_once('includes/classes/missions/calculateSteal.php');
+		require_once('includes/classes/missions/GenerateReport.php');
 		
-		$combatResult	= calculateAttack($attackers, $defenders, $CONF['Fleet_Cdr'], $CONF['Defs_Cdr']);
+		$combatResult	= calculateAttack($attackers, $defenders, Config::get('Fleet_Cdr'), Config::get('Defs_Cdr'));
 		
 		if($combatResult['won'] == "a")
 		{
@@ -166,8 +165,8 @@ class ShowBattleSimulatorPage extends AbstractPage
 		
 		$debrisTotal		= array_sum($debris);
 		
-		$moonFactor			= $CONF['moon_factor'];
-		$maxMoonChance		= $CONF['moon_chance'];
+		$moonFactor			= Config::get('moon_factor');
+		$maxMoonChance		= Config::get('moon_chance');
 		
 		$chanceCreateMoon	= round($debrisTotal / 100000 * $moonFactor);
 		$chanceCreateMoon	= min($chanceCreateMoon, $maxMoonChance);
@@ -235,18 +234,20 @@ class ShowBattleSimulatorPage extends AbstractPage
 		);
 		
 		$raportData	= GenerateReport($combatResult, $raportInfo);
-			
-		$sqlQuery	= "INSERT INTO ".RW." SET raport = '".$GLOBALS['DATABASE']->sql_escape(serialize($raportData))."', time = ".TIMESTAMP.";";
+		
+		$raportID	= md5(uniqid('', true).TIMESTAMP);
+		$sqlQuery	= "INSERT INTO ".RW." SET rid = '".$raportID."', raport = '".$GLOBALS['DATABASE']->sql_escape(serialize($raportData))."', time = ".TIMESTAMP.";";
 		$GLOBALS['DATABASE']->query($sqlQuery);
-		$raportID	= $GLOBALS['DATABASE']->GetInsertID();
 		
 		$this->sendJSON($raportID);
 	}
 	
 	function show()
 	{
-		global $USER, $PLANET, $reslist, $pricelist, $resource, $LNG, $LANG, $CONF;
-	
+		global $USER, $PLANET, $reslist, $pricelist, $resource, $LNG, $CONF;
+		
+		require_once('includes/classes/class.FleetFunctions.php');
+		
 		$action			= HTTP::_GP('action', '');
 		$Slots			= HTTP::_GP('slots', 1);
 		
@@ -254,10 +255,22 @@ class ShowBattleSimulatorPage extends AbstractPage
 		$BattleArray[0][0][109]	= $USER[$resource[109]];
 		$BattleArray[0][0][110]	= $USER[$resource[110]];
 		$BattleArray[0][0][111]	= $USER[$resource[111]];
-
-		foreach($reslist['fleet'] as $ID)
+		
+		if(empty($_REQUEST['battleinput']))
 		{
-			$BattleArray[0][0][$ID]	= $PLANET[$resource[$ID]];
+			foreach($reslist['fleet'] as $ID)
+			{
+				if(FleetFunctions::GetFleetMaxSpeed($ID, $USER) > 0)
+				{
+					// Add just flyable elements
+					$BattleArray[0][0][$ID]	= $PLANET[$resource[$ID]];
+				}
+			}
+		}
+		
+		if(isset($_REQUEST['battleinput']))
+		{
+			$BattleArray	= $_REQUEST['battleinput'];
 		}
 		
 		if(isset($_REQUEST['im']))
@@ -280,5 +293,3 @@ class ShowBattleSimulatorPage extends AbstractPage
 		$this->display('page.battleSimulator.default.tpl');   
 	}
 }
-
-?>

@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,18 +18,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id: ShowAccountEditorPage.php 2156 2012-03-17 12:05:10Z fabio.chimienti $
- * @link http://code.google.com/p/2moons/
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: ShowAccountEditorPage.php 2632 2013-03-18 19:05:14Z slaver7 $
+ * @link http://2moons.cc/
  */
 
 # Actions not logged: Planet-Edit, Alliance-Edit 
 
-if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) exit;
+if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) throw new Exception("Permission error!");
 
 function ShowAccountEditorPage() 
 {
@@ -49,9 +48,9 @@ function ShowAccountEditorPage()
 			if ($_POST)
 			{
 				if (!empty($id))
-					$before = $GLOBALS['DATABASE']->uniquequery("SELECT `metal`,`crystal`,`deuterium`,`universe`  FROM ".PLANETS." WHERE `id` = '". $id ."';");
+					$before = $GLOBALS['DATABASE']->getFirstRow("SELECT `metal`,`crystal`,`deuterium`,`universe`  FROM ".PLANETS." WHERE `id` = '". $id ."';");
 				if (!empty($id_dark))
-					$before_dm = $GLOBALS['DATABASE']->uniquequery("SELECT `darkmatter` FROM ".USERS." WHERE `id` = '". $id_dark ."';");
+					$before_dm = $GLOBALS['DATABASE']->getFirstRow("SELECT `darkmatter` FROM ".USERS." WHERE `id` = '". $id_dark ."';");
 				if ($_POST['add'])
 				{
 					if (!empty($id)) {
@@ -116,9 +115,9 @@ function ShowAccountEditorPage()
 				}
 
 				if ($_POST['add']) {
-					$template->message($LNG['ad_add_sucess'], '?page=accounteditor&edit=resources');
+					$template->message($LNG['ad_add_res_sucess'], '?page=accounteditor&edit=resources');
 				} else if ($_POST['delete']) {
-					$template->message($LNG['ad_delete_sucess'], '?page=accounteditor&edit=resources');
+					$template->message($LNG['ad_delete_res_sucess'], '?page=accounteditor&edit=resources');
 				}
 				exit;
 			}
@@ -129,7 +128,7 @@ function ShowAccountEditorPage()
 		case 'ships':
 			if($_POST)
 			{
-				$before1 = $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".PLANETS." WHERE `id` = '". HTTP::_GP('id', 0) ."';");
+				$before1 = $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".PLANETS." WHERE `id` = '". HTTP::_GP('id', 0) ."';");
 				$before = array();
 				$after = array();
 				foreach($reslist['fleet'] as $ID)
@@ -173,9 +172,9 @@ function ShowAccountEditorPage()
 				$LOG->save();
 
 				if ($_POST['add']) {
-					$template->message($LNG['ad_add_sucess'], '?page=accounteditor&edit=resources');
+					$template->message($LNG['ad_add_ships_sucess'], '?page=accounteditor&edit=ships');
 				} else if ($_POST['delete']) {
-					$template->message($LNG['ad_delete_sucess'], '?page=accounteditor&edit=resources');
+					$template->message($LNG['ad_delete_ships_sucess'], '?page=accounteditor&edit=ships');
 				}
 				exit;
 			}
@@ -198,7 +197,7 @@ function ShowAccountEditorPage()
 		case 'defenses':
 			if($_POST)
 			{
-				$before1 = $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".PLANETS." WHERE `id` = '". HTTP::_GP('id', 0) ."';");
+				$before1 = $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".PLANETS." WHERE `id` = '". HTTP::_GP('id', 0) ."';");
 				$before = array();
 				$after = array();
 				foreach($reslist['defense'] as $ID)
@@ -241,9 +240,9 @@ function ShowAccountEditorPage()
 				$LOG->save();
 
 				if ($_POST['add']) {
-					$template->message($LNG['ad_add_sucess'], '?page=accounteditor&edit=resources');
+					$template->message($LNG['ad_add_defenses_success'], '?page=accounteditor&edit=defenses');
 				} else if ($_POST['delete']) {
-					$template->message($LNG['ad_delete_sucess'], '?page=accounteditor&edit=resources');
+					$template->message($LNG['ad_delete_defenses_success'], '?page=accounteditor&edit=defenses');
 				}
 				exit;
 			}
@@ -266,7 +265,7 @@ function ShowAccountEditorPage()
 		case 'buildings':
 			if($_POST)
 			{
-				$PlanetData = $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".PLANETS." WHERE `id` = '". HTTP::_GP('id', 0) ."';");
+				$PlanetData = $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".PLANETS." WHERE `id` = '". HTTP::_GP('id', 0) ."';");
 				if(!isset($PlanetData))
 				{
 					$template->message($LNG['ad_add_not_exist'], '?page=accounteditor&edit=buildings');
@@ -322,9 +321,9 @@ function ShowAccountEditorPage()
 				$LOG->save();
 
 				if ($_POST['add']) {
-					$template->message($LNG['ad_add_succes'], '?page=accounteditor&edit=buildings');
+					$template->message($LNG['ad_add_build_success'], '?page=accounteditor&edit=buildings');
 				} else if ($_POST['delete']) {
-					$template->message($LNG['ad_delete_succes'], '?page=accounteditor&edit=buildings');
+					$template->message($LNG['ad_delete_build_success'], '?page=accounteditor&edit=buildings');
 				}
 				exit;
 			}
@@ -346,7 +345,7 @@ function ShowAccountEditorPage()
 		case 'researchs':
 			if($_POST)
 			{
-				$before1 = $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".USERS." WHERE `id` = '". HTTP::_GP('id', 0) ."';");
+				$before1 = $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".USERS." WHERE `id` = '". HTTP::_GP('id', 0) ."';");
 				$before = array();
 				$after = array();
 				foreach($reslist['tech'] as $ID)
@@ -388,9 +387,9 @@ function ShowAccountEditorPage()
 				$LOG->save();
 				
 				if ($_POST['add']) {
-					$template->message($LNG['ad_add_succes'], '?page=accounteditor&edit=researchs');
+					$template->message($LNG['ad_add_tech_success'], '?page=accounteditor&edit=researchs');
 				} else if ($_POST['delete']) {
-					$template->message($LNG['ad_delete_succes'], '?page=accounteditor&edit=researchs');
+					$template->message($LNG['ad_delete_tech_success'], '?page=accounteditor&edit=researchs');
 				}
 				exit;
 			}
@@ -418,7 +417,7 @@ function ShowAccountEditorPage()
 				$email_2	= HTTP::_GP('email_2', '');				
 				$vacation	= HTTP::_GP('vacation', '');				
 				
-				$before = $GLOBALS['DATABASE']->uniquequery("SELECT `username`,`email`,`email_2`,`password`,`urlaubs_modus`,`urlaubs_until` FROM ".USERS." WHERE `id` = '". HTTP::_GP('id', 0) ."';");
+				$before = $GLOBALS['DATABASE']->getFirstRow("SELECT `username`,`email`,`email_2`,`password`,`urlaubs_modus`,`urlaubs_until` FROM ".USERS." WHERE `id` = '". HTTP::_GP('id', 0) ."';");
 				$after = array();
 				
 				$PersonalQuery    =    "UPDATE ".USERS." SET ";
@@ -479,7 +478,7 @@ function ShowAccountEditorPage()
 		case 'officiers':
 			if($_POST)
 			{
-				$before1 = $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".USERS." WHERE `id` = '". HTTP::_GP('id', 0) ."';");
+				$before1 = $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".USERS." WHERE `id` = '". HTTP::_GP('id', 0) ."';");
 				$before = array();
 				$after = array();
 				foreach($reslist['officier'] as $ID)
@@ -521,9 +520,9 @@ function ShowAccountEditorPage()
 				$LOG->save();
 				
 				if ($_POST['add']) {
-					$template->message($LNG['ad_offi_succes_add'], '?page=accounteditor&edit=officiers');
+					$template->message($LNG['ad_add_offi_success'], '?page=accounteditor&edit=officiers');
 				} else if ($_POST['delete']) {
-					$template->message($LNG['ad_offi_succes_delete'], '?page=accounteditor&edit=officiers');
+					$template->message($LNG['ad_delete_offi_success'], '?page=accounteditor&edit=officiers');
 				}
 				exit;
 			}
@@ -603,7 +602,7 @@ function ShowAccountEditorPage()
 						
 				if ($change_pos == 'on' && $galaxy > 0 && $system > 0 && $planet > 0 && $galaxy <= $GLOBALS['CONFIG'][$_SESSION['adminuni']]['max_galaxy'] && $system <= $GLOBALS['CONFIG'][$_SESSION['adminuni']]['max_system'] && $planet <= $GLOBALS['CONFIG'][$_SESSION['adminuni']]['max_planets'])
 				{
-					$P	=	$GLOBALS['DATABASE']->uniquequery("SELECT galaxy,system,planet,planet_type FROM ".PLANETS." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
+					$P	=	$GLOBALS['DATABASE']->getFirstRow("SELECT galaxy,system,planet,planet_type FROM ".PLANETS." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 					if ($P['planet_type'] == '1')
 					{
 						if (CheckPlanetIfExist($galaxy, $system, $planet, $UNI, $P['planet_type']))
@@ -621,7 +620,7 @@ function ShowAccountEditorPage()
 							exit;
 						}
 						
-						$Target	= $GLOBALS['DATABASE']->uniquequery("SELECT id_luna FROM ".PLANETS." WHERE `galaxy` = '".$galaxy."' AND `system` = '".$system."' AND `planet` = '".$planet."' AND `planet_type` = '1';");
+						$Target	= $GLOBALS['DATABASE']->getFirstRow("SELECT id_luna FROM ".PLANETS." WHERE `galaxy` = '".$galaxy."' AND `system` = '".$system."' AND `planet` = '".$planet."' AND `planet_type` = '1';");
 								
 						if ($Target['id_luna'] != '0')
 						{
@@ -631,7 +630,7 @@ function ShowAccountEditorPage()
 							
 						$GLOBALS['DATABASE']->multi_query("UPDATE ".PLANETS." SET `id_luna` = '0' WHERE `galaxy` = '".$P['galaxy']."' AND `system` = '".$P['system']."' AND `planet` = '".$P['planet']."' AND `planet_type` = '1';UPDATE ".PLANETS." SET `id_luna` = '".$id."'  WHERE `galaxy` = '".$galaxy."' AND `system` = '".$system."' AND `planet` = '".$planet."' AND planet_type = '1';UPDATE ".PLANETS." SET `galaxy` = '".$galaxy."', `system` = '".$system."', `planet` = '".$planet."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 						
-						$QMOON2	=	$GLOBALS['DATABASE']->uniquequery("SELECT id_owner FROM ".PLANETS." WHERE `galaxy` = '".$galaxy."' AND `system` = '".$system."' AND `planet` = '".$planet."';");
+						$QMOON2	=	$GLOBALS['DATABASE']->getFirstRow("SELECT id_owner FROM ".PLANETS." WHERE `galaxy` = '".$galaxy."' AND `system` = '".$system."' AND `planet` = '".$planet."';");
 						$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET `galaxy` = '".$galaxy."', `system` = '".$system."', `planet` = '".$planet."', `id_owner` = '".$QMOON2['id_owner']."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."' AND `planet_type` = '3';");
 					}
 				}
@@ -656,7 +655,7 @@ function ShowAccountEditorPage()
 				$delete			=	HTTP::_GP('delete', '');
 				$delete_u		=	HTTP::_GP('delete_u', '');
 
-				$QueryF	=	$GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".ALLIANCE." WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';");
+				$QueryF	=	$GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".ALLIANCE." WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';");
 
 				if (!empty($name))
 					$GLOBALS['DATABASE']->query("UPDATE ".ALLIANCE." SET `ally_name` = '".$name."' WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';");
@@ -664,7 +663,7 @@ function ShowAccountEditorPage()
 				if (!empty($tag))
 					$GLOBALS['DATABASE']->query("UPDATE ".ALLIANCE." SET `ally_tag` = '".$tag."' WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';");
 
-				$QueryF2	=	$GLOBALS['DATABASE']->uniquequery("SELECT ally_id FROM ".USERS." WHERE `id` = '".$changeleader."';");
+				$QueryF2	=	$GLOBALS['DATABASE']->getFirstRow("SELECT ally_id FROM ".USERS." WHERE `id` = '".$changeleader."';");
 				$GLOBALS['DATABASE']->multi_query("UPDATE ".ALLIANCE." SET `ally_owner` = '".$changeleader."' WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_rank_id` = '0' WHERE `id` = '".$changeleader."';");
 						
 				if (!empty($externo))
@@ -699,4 +698,3 @@ function ShowAccountEditorPage()
 		break;
 	}
 }
-?>

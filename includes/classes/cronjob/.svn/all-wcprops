@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/2661/trunk/includes/classes/cronjob
+END
+CleanerCronjob.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2640/trunk/includes/classes/cronjob/CleanerCronjob.class.php
+END
+TeamSpeakCronjob.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/2505/trunk/includes/classes/cronjob/TeamSpeakCronjob.class.php
+END
+ReferralCronjob.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2527/trunk/includes/classes/cronjob/ReferralCronjob.class.php
+END
+DailyCronjob.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2547/trunk/includes/classes/cronjob/DailyCronjob.class.php
+END
+TrackingCronjob.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2607/trunk/includes/classes/cronjob/TrackingCronjob.class.php
+END
+DumpCronjob.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2640/trunk/includes/classes/cronjob/DumpCronjob.class.php
+END
+InactiveMailCronjob.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/2661/trunk/includes/classes/cronjob/InactiveMailCronjob.class.php
+END
+StatisticCronjob.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/2640/trunk/includes/classes/cronjob/StatisticCronjob.class.php
+END

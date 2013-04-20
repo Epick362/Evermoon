@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id: class.ShowOverviewPage.php 2151 2012-03-16 06:02:47Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: class.ShowOverviewPage.php 2640 2013-03-23 19:23:26Z slaver7 $
+ * @link http://2moons.cc/
  */
 
 class ShowOverviewPage extends AbstractPage 
@@ -39,30 +38,42 @@ class ShowOverviewPage extends AbstractPage
 	private function GetTeamspeakData()
 	{
 		global $CONF, $USER, $LNG;
-		if ($CONF['ts_modon'] == 0)
+		if (Config::get('ts_modon') == 0)
+		{
 			return false;
-		elseif(!file_exists(ROOT_PATH.'cache/teamspeak_cache.php'))
-			return $LNG['ov_teamspeak_not_online'];
-		
-		$Data		= unserialize(file_get_contents(ROOT_PATH.'cache/teamspeak_cache.php'));
-		if(!is_array($Data))
-			return $LNG['ov_teamspeak_not_online'];
-			
-		$Teamspeak 	= '';			
-
-		if($CONF['ts_version'] == 2) {
-			$trafges 	= pretty_number($Data[1]['total_bytessend'] / 1048576 + $Data[1]['total_bytesreceived'] / 1048576);
-			$Teamspeak	= sprintf($LNG['ov_teamspeak_v2'], $CONF['ts_server'], $CONF['ts_udpport'], $USER['username'], $Data[0]["server_currentusers"], $Data[0]["server_maxusers"], $Data[0]["server_currentchannels"], $trafges);
-		} elseif($CONF['ts_version'] == 3){
-			$trafges 	= pretty_number($Data['data']['connection_bytes_received_total'] / 1048576 + $Data['data']['connection_bytes_sent_total'] / 1048576);
-			$Teamspeak	= sprintf($LNG['ov_teamspeak_v3'], $CONF['ts_server'], $CONF['ts_tcpport'], $USER['username'], $Data['data']['virtualserver_password'], ($Data['data']['virtualserver_clientsonline'] - 1), $Data['data']['virtualserver_maxclients'], $Data['data']['virtualserver_channelsonline'], $trafges);
 		}
-		return $Teamspeak;
+		
+		$GLOBALS['CACHE']->add('teamspeak', 'TeamspeakBuildCache');
+		$tsInfo	= $GLOBALS['CACHE']->get('teamspeak', false);
+		
+		if(empty($tsInfo))
+		{
+			return array(
+				'error'	=> $LNG['ov_teamspeak_not_online']
+			);
+		}
+		
+		switch(Config::get('ts_version'))
+		{
+			case 2:
+				$url = 'teamspeak://%s:%s?nickname=%s';
+			break;
+			case 3:
+				$url = 'ts3server://%s?port=%d&amp;nickname=%s&amp;password=%s';
+			break;
+		}
+		
+		return array(
+			'url'		=> sprintf($url, Config::get('ts_server'), Config::get('ts_tcpport'), $USER['username'], $tsInfo['password']),
+			'current'	=> $tsInfo['current'],
+			'max'		=> $tsInfo['maxuser'],
+			'error'		=> false,
+		);
 	}
 
 	private function GetFleets() {
 		global $USER, $PLANET;
-		require_once(ROOT_PATH . 'includes/classes/class.FlyingFleetsTable.php');
+		require_once('includes/classes/class.FlyingFleetsTable.php');
 		$fleetTableObj = new FlyingFleetsTable;
 		$fleetTableObj->setUser($USER['id']);
 		$fleetTableObj->setPlanet($PLANET['id']);
@@ -75,7 +86,7 @@ class ShowOverviewPage extends AbstractPage
 		$password =	HTTP::_GP('password', '', true);
 		if (!empty($password))
 		{
-			$IfFleets	= $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".FLEETS." WHERE 
+			$IfFleets	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".FLEETS." WHERE 
 			(
 				fleet_owner = ".$USER['id']."
 				AND (
@@ -139,19 +150,56 @@ class ShowOverviewPage extends AbstractPage
 			);
 		}
 		
-		if ($PLANET['id_luna'] != 0)
-			$Moon		= $GLOBALS['DATABASE']->uniquequery("SELECT id, name FROM ".PLANETS." WHERE id = '".$PLANET['id_luna']."';");
-
+		if ($PLANET['id_luna'] != 0) {
+			$Moon		= $GLOBALS['DATABASE']->getFirstRow("SELECT id, name FROM ".PLANETS." WHERE id = '".$PLANET['id_luna']."';");
+		}
+			
 		if ($PLANET['b_building'] - TIMESTAMP > 0) {
-			$Queue		= unserialize($PLANET['b_building_id']);
-			$Build		= $LNG['tech'][$Queue[0][0]].' ('.$Queue[0][1].')<br><div id="blc">'.pretty_time($PLANET['b_building'] - TIMESTAMP).'</div>';
-			$Buildtime	= $PLANET['b_building'] - TIMESTAMP;
-			$this->tplObj->execscript('buildTimeTicker();');
+			$Queue			= unserialize($PLANET['b_building_id']);
+			$buildInfo['buildings']	= array(
+				'id'		=> $Queue[0][0],
+				'level'		=> $Queue[0][1],
+				'timeleft'	=> $PLANET['b_building'] - TIMESTAMP,
+				'time'		=> $PLANET['b_building'],
+				'starttime'	=> pretty_time($PLANET['b_building'] - TIMESTAMP),
+			);
 		}
-		else
-		{
-			$Build 		= $LNG['ov_free'];
+		else {
+			$buildInfo['buildings']	= false;
 		}
+		
+		/* As FR#206 (http://tracker.2moons.cc/view.php?id=206), i added the shipyard and research status here, but i add not them the template. */
+		
+		if (!empty($PLANET['b_hangar_id'])) {
+			$Queue	= unserialize($PLANET['b_hangar_id']);
+			$time	= BuildFunctions::getBuildingTime($USER, $PLANET, $Queue[0][0]) * $Queue[0][1];
+			$buildInfo['fleet']	= array(
+				'id'		=> $Queue[0][0],
+				'level'		=> $Queue[0][1],
+				'timeleft'	=> $time - $PLANET['b_hangar'],
+				'time'		=> $time,
+				'starttime'	=> pretty_time($time - $PLANET['b_hangar']),
+			);
+		}
+		else {
+			$buildInfo['fleet']	= false;
+		}
+		
+		if ($USER['b_tech'] - TIMESTAMP > 0) {
+			$Queue			= unserialize($USER['b_tech_queue']);
+			$buildInfo['tech']	= array(
+				'id'		=> $Queue[0][0],
+				'level'		=> $Queue[0][1],
+				'timeleft'	=> $USER['b_tech'] - TIMESTAMP,
+				'time'		=> $USER['b_tech'],
+				'starttime'	=> pretty_time($USER['b_tech'] - TIMESTAMP),
+			);
+		}
+		else {
+			$buildInfo['tech']	= false;
+		}
+		
+		
 		
 		$OnlineAdmins 	= $GLOBALS['DATABASE']->query("SELECT id,username FROM ".USERS." WHERE universe = ".$UNI." AND onlinetime >= ".(TIMESTAMP-10*60)." AND authlevel > '".AUTH_USR."';");
 		while ($AdminRow = $GLOBALS['DATABASE']->fetch_array($OnlineAdmins)) {
@@ -171,15 +219,15 @@ class ShowOverviewPage extends AbstractPage
 
 		$Messages		= $USER['messages'];
 		
-		// Fehler: Wenn Spieler gel�scht werden, werden sie nicht mehr in der Tabelle angezeigt.
+		// Fehler: Wenn Spieler gelöscht werden, werden sie nicht mehr in der Tabelle angezeigt.
 		$RefLinksRAW	= $GLOBALS['DATABASE']->query("SELECT u.id, u.username, s.total_points FROM ".USERS." as u LEFT JOIN ".STATPOINTS." as s ON s.id_owner = u.id AND s.stat_type = '1' WHERE ref_id = ".$USER['id'].";");
 		
-		if($CONF['ref_active']) 
+		if(Config::get('ref_active')) 
 		{
 			while ($RefRow = $GLOBALS['DATABASE']->fetch_array($RefLinksRAW)) {
 				$RefLinks[$RefRow['id']]	= array(
 					'username'	=> $RefRow['username'],
-					'points'	=> min($RefRow['total_points'], $CONF['ref_minpoints'])
+					'points'	=> min($RefRow['total_points'], Config::get('ref_minpoints'))
 				);
 			}
 		}
@@ -187,35 +235,35 @@ class ShowOverviewPage extends AbstractPage
 		if($USER['total_rank'] == 0) {
 			$rankInfo	= "-";
 		} else {
-			$rankInfo	= sprintf($LNG['ov_userrank_info'], pretty_number($USER['total_points']), $LNG['ov_place'], $USER['total_rank'], $USER['total_rank'], $LNG['ov_of'], $CONF['users_amount']);
+			$rankInfo	= sprintf($LNG['ov_userrank_info'], pretty_number($USER['total_points']), $LNG['ov_place'], $USER['total_rank'], $USER['total_rank'], $LNG['ov_of'], Config::get('users_amount'));
 		}
 		
 		$this->tplObj->assign_vars(array(
 			'rankInfo'					=> $rankInfo,
-			'is_news'					=> $CONF['OverviewNewsFrame'],
-			'news'						=> makebr($CONF['OverviewNewsText']),
+			'is_news'					=> Config::get('OverviewNewsFrame'),
+			'news'						=> makebr(Config::get('OverviewNewsText')),
 			'planetname'				=> $PLANET['name'],
 			'planetimage'				=> $PLANET['image'],
 			'galaxy'					=> $PLANET['galaxy'],
 			'system'					=> $PLANET['system'],
 			'planet'					=> $PLANET['planet'],
-			'buildtime'					=> $Buildtime,
+			'planet_type'				=> $PLANET['planet_type'],
 			'username'					=> $USER['username'],
 			'userid'					=> $USER['id'],
-			'build'						=> $Build,
+			'buildInfo'					=> $buildInfo,
 			'Moon'						=> $Moon,
 			'fleets'					=> $this->GetFleets(),
 			'AllPlanets'				=> $AllPlanets,
 			'AdminsOnline'				=> $AdminsOnline,
-			'Teamspeak'					=> $this->GetTeamspeakData(),
+			'teamspeakData'				=> $this->GetTeamspeakData(),
 			'messages'					=> ($Messages > 0) ? (($Messages == 1) ? $LNG['ov_have_new_message'] : sprintf($LNG['ov_have_new_messages'], pretty_number($Messages))): false,
 			'planet_diameter'			=> pretty_number($PLANET['diameter']),
 			'planet_field_current' 		=> $PLANET['field_current'],
 			'planet_field_max' 			=> CalculateMaxPlanetFields($PLANET),
 			'planet_temp_min' 			=> $PLANET['temp_min'],
 			'planet_temp_max' 			=> $PLANET['temp_max'],
-			'ref_active'				=> $CONF['ref_active'],
-			'ref_minpoints'				=> $CONF['ref_minpoints'],
+			'ref_active'				=> Config::get('ref_active'),
+			'ref_minpoints'				=> Config::get('ref_minpoints'),
 			'RefLinks'					=> $RefLinks,
 			'chatOnline'				=> $chatOnline,
 			'servertime'				=> _date("M D d H:i:s", TIMESTAMP, $USER['timezone']),
@@ -262,7 +310,7 @@ class ShowOverviewPage extends AbstractPage
 		
 		if (!empty($password))
 		{
-			$IfFleets	= $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".FLEETS." WHERE 
+			$IfFleets	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".FLEETS." WHERE 
 			(
 				fleet_owner = '".$USER['id']."'
 				AND (
@@ -294,4 +342,3 @@ class ShowOverviewPage extends AbstractPage
 		}
 	}
 }
-?>

@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id: calculateSteal.php 2322 2012-09-01 16:10:24Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: calculateSteal.php 2632 2013-03-18 19:05:14Z slaver7 $
+ * @link http://2moons.cc/
  */
 
 function calculateSteal($attackFleets, $defenderPlanet, $simMode = false)
@@ -54,10 +53,12 @@ function calculateSteal($attackFleets, $defenderPlanet, $simMode = false)
 			$SortFleets[$FleetID]		+= $pricelist[$Element]['capacity'] * $amount;
 		}
 		
+		$SortFleets[$FleetID]	*= (1 + $Attacker['player']['factor']['ShipStorage']);
+		
 		$SortFleets[$FleetID]	-= $Attacker['fleetDetail']['fleet_resource_metal'];
 		$SortFleets[$FleetID]	-= $Attacker['fleetDetail']['fleet_resource_crystal'];
 		$SortFleets[$FleetID]	-= $Attacker['fleetDetail']['fleet_resource_deuterium'];
-		$capacity			+= $SortFleets[$FleetID];
+		$capacity				+= $SortFleets[$FleetID];
 	}
 	
 	$AllCapacity		= $capacity;
@@ -65,7 +66,6 @@ function calculateSteal($attackFleets, $defenderPlanet, $simMode = false)
 	{
 		return $stealResource;
 	}
-
 	
 	// Step 1
 	$stealResource[$firstResource]		= min($capacity / 3, $defenderPlanet[$resource[$firstResource]] / 2);
@@ -109,4 +109,3 @@ function calculateSteal($attackFleets, $defenderPlanet, $simMode = false)
 	return $stealResource;
 }
 	
-?>

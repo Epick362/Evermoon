@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/2648/trunk/language/en/templates
+END
+email_lost_password_changed.txt
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/2648/trunk/language/en/templates/email_lost_password_changed.txt
+END
+email_vaild_reg.txt
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2648/trunk/language/en/templates/email_vaild_reg.txt
+END
+email_lost_password_validation.txt
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/2648/trunk/language/en/templates/email_lost_password_validation.txt
+END
+locked_install.txt
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2496/trunk/language/en/templates/locked_install.txt
+END
+email_reg_done.txt
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2648/trunk/language/en/templates/email_reg_done.txt
+END
+email_inactive.txt
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2648/trunk/language/en/templates/email_inactive.txt
+END
+rules.txt
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/2496/trunk/language/en/templates/rules.txt
+END
+createUniverseInfo.txt
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2509/trunk/language/en/templates/createUniverseInfo.txt
+END

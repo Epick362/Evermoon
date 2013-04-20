@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/2579/trunk/styles/templates/install
+END
+ins_step8error.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2329/trunk/styles/templates/install/ins_step8error.tpl
+END
+ins_convert.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2126/trunk/styles/templates/install/ins_convert.tpl
+END
+ins_license.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2329/trunk/styles/templates/install/ins_license.tpl
+END
+ins_update.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2579/trunk/styles/templates/install/ins_update.tpl
+END
+ins_acc.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2329/trunk/styles/templates/install/ins_acc.tpl
+END
+ins_upgrade.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2579/trunk/styles/templates/install/ins_upgrade.tpl
+END
+ins_req.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2155/trunk/styles/templates/install/ins_req.tpl
+END
+ins_header.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2579/trunk/styles/templates/install/ins_header.tpl
+END
+ins_intro.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2579/trunk/styles/templates/install/ins_intro.tpl
+END
+ins_footer.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2126/trunk/styles/templates/install/ins_footer.tpl
+END
+ins_step4.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2467/trunk/styles/templates/install/ins_step4.tpl
+END
+ins_step5.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2329/trunk/styles/templates/install/ins_step5.tpl
+END
+error_message_body.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2579/trunk/styles/templates/install/error_message_body.tpl
+END
+ins_step8.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2126/trunk/styles/templates/install/ins_step8.tpl
+END
+ins_form.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2329/trunk/styles/templates/install/ins_form.tpl
+END
+ins_doupdate.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2579/trunk/styles/templates/install/ins_doupdate.tpl
+END

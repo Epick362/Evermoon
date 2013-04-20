@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id: class.ShowBattleHallPage.php 2126 2012-03-11 21:11:32Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: class.ShowBattleHallPage.php 2632 2013-03-18 19:05:14Z slaver7 $
+ * @link http://2moons.cc/
  */
 
 class ShowBattleHallPage extends AbstractPage
@@ -37,27 +36,48 @@ class ShowBattleHallPage extends AbstractPage
 	
 	function show()
 	{
-		global $USER, $PLANET, $LNG, $UNI, $LANG;
+		global $USER, $PLANET, $LNG, $UNI;
 		$mode = HTTP::_GP('mode','');
-
+		$order = HTTP::_GP('order', 'units');
+		$sort = HTTP::_GP('sort', 'desc');
+		$sort = strtoupper($sort);
+		
+		$GLOBALS['DATABASE']->query("SET @rank:=0;");
 		$top = $GLOBALS['DATABASE']->query("SELECT *, (
 			SELECT DISTINCT
-			GROUP_CONCAT(username SEPARATOR ' & ') as attacker
-			FROM ".TOPKB_USERS." INNER JOIN ".USERS." ON uid = id AND `role` = 1
-			WHERE ".TOPKB_USERS.".`rid` = ".TOPKB.".`rid`
+			IF(".TOPKB_USERS.".username = '', GROUP_CONCAT(".USERS.".username SEPARATOR ' & '), GROUP_CONCAT(".TOPKB_USERS.".username SEPARATOR ' & '))
+			FROM ".TOPKB_USERS."
+			LEFT JOIN ".USERS." ON uid = ".USERS.".id
+			WHERE ".TOPKB_USERS.".`rid` = ".TOPKB.".`rid` AND `role` = 1
 		) as `attacker`,
 		(
 			SELECT DISTINCT
-			GROUP_CONCAT(username SEPARATOR ' & ') as attacker
-			FROM ".TOPKB_USERS." INNER JOIN ".USERS." ON uid = id AND `role` = 2
-			WHERE ".TOPKB_USERS.".`rid` = ".TOPKB.".`rid`
+			IF(".TOPKB_USERS.".username = '', GROUP_CONCAT(".USERS.".username SEPARATOR ' & '), GROUP_CONCAT(".TOPKB_USERS.".username SEPARATOR ' & '))
+			FROM ".TOPKB_USERS." INNER JOIN ".USERS." ON uid = id
+			WHERE ".TOPKB_USERS.".`rid` = ".TOPKB.".`rid` AND `role` = 2
 		) as `defender`  
+		,@rank:=@rank+1 as rank
 		FROM ".TOPKB." WHERE `universe` = '".$UNI."' ORDER BY units DESC LIMIT 100;");
 		
 		$TopKBList	= array();
-		
-		while($data = $GLOBALS['DATABASE']->fetch_array($top)) {
-			$TopKBList[]	= array(
+		$i = 1;
+		while($data = $GLOBALS['DATABASE']->fetch_array($top))
+		{
+			switch($order)
+			{
+				case 'date':
+					$key = $data['time'];
+				break;
+				case 'owner':
+					$key = $data['attacker'].$data['defender'];
+				break;
+				case 'units':
+				default:
+					$key = $data['units'];
+				break;
+			}
+			
+			$TopKBList[$key][$data['rank']]	= array(
 				'result'	=> $data['result'],
 				'date'		=> _date($LNG['php_tdformat'], $data['time'], $USER['timezone']),
 				'time'		=> TIMESTAMP - $data['time'],
@@ -69,12 +89,24 @@ class ShowBattleHallPage extends AbstractPage
 		}
 		
 		$GLOBALS['DATABASE']->free_result($top);
+		
+		ksort($TopKBList);
+
+		if($sort === "DESC")
+		{
+			$TopKBList	= array_reverse($TopKBList);
+		}
+		else
+		{	
+			$sort = "ASC";
+		}
 
 		$this->tplObj->assign_vars(array(
 			'TopKBList'		=> $TopKBList,
+			'sort'			=> $sort,
+			'order'			=> $order,
 		));
 		
 		$this->display('page.battlehall.default.tpl');
 	}
 }
-?>

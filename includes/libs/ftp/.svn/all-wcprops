@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/2137/trunk/includes/libs/ftp
+END
+ftpexception.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2126/trunk/includes/libs/ftp/ftpexception.class.php
+END
+ftp.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/2126/trunk/includes/libs/ftp/ftp.class.php
+END

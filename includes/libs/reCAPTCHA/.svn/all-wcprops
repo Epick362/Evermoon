@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/2640/trunk/includes/libs/reCAPTCHA
+END
+LICENSE
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/2640/trunk/includes/libs/reCAPTCHA/LICENSE
+END
+recaptchalib.php
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2640/trunk/includes/libs/reCAPTCHA/recaptchalib.php
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/2640/trunk/includes/libs/reCAPTCHA/README
+END

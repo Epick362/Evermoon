@@ -23,7 +23,7 @@
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.4 (2011-07-10)
- * @info $Id: update_1231.php 2126 2012-03-11 21:11:32Z slaver7 $
+ * @info $Id: update_1231.php 2464 2012-12-21 20:03:22Z slaver7 $
  * @link http://code.google.com/p/2moons/
  */
 
@@ -115,4 +115,3 @@ $db->query("INSERT INTO ".CONFIG." (`uni`, `VERSION`, `users_amount`, `game_spee
 '".$CONF['LastSettedPlanetPos']."', '".$CONF['noobprotection']."', '".$CONF['noobprotectiontime']."', '".$CONF['noobprotectionmulti']."', '".$CONF['forum_url']."', '".$CONF['adm_attack']."', '".$CONF['debug']."', '".$CONF['lang']."', '".$CONF['stat']."', '".$CONF['stat_level']."', '".$CONF['stat_last_update']."', '".$CONF['stat_settings']."', '".$CONF['stat_last_update']."', '".$CONF['stat_last_db_update']."', '".$CONF['stats_fly_lock']."', '".$CONF['stat_last_banner_update']."', '".$CONF['stat_banner_update_time']."', '".$CONF['cron_lock']."', '".$CONF['ts_modon']."', '".$CONF['ts_server']."', '".$CONF['ts_tcpport']."', '".$CONF['ts_udpport']."', '".$CONF['ts_timeout']."', '".$CONF['ts_version']."', '".$CONF['reg_closed']."', '".$CONF['OverviewNewsFrame']."', '".$CONF['OverviewNewsText']."', '".$CONF['capaktiv']."', '".$CONF['cappublic']."', '".$CONF['capprivate']."', '".$CONF['min_build_time']."', '".$CONF['smtp_host']."', '".$CONF['smtp_port']."', '".$CONF['smtp_user']."', '".$CONF['smtp_pass']."', '".$CONF['smtp_ssl']."', '".$CONF['smtp_sendmail']."', '".$CONF['user_valid']."', '".$CONF['ftp_server']."', '".$CONF['ftp_user_name']."', '".$CONF['ftp_user_pass']."', '".$CONF['ftp_root_path']."', '".$CONF['fb_on']."', '".$CONF['fb_apikey']."', '".$CONF['fb_skey']."', '".$CONF['ga_active']."', '".$CONF['ga_key']."', '".$CONF['moduls']."');");
 
 exit('OK');
-?>

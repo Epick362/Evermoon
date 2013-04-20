@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/2635/trunk/chat/lib/template
+END
+logs.html
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/2126/trunk/chat/lib/template/logs.html
+END
+loggedIn.html
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/2635/trunk/chat/lib/template/loggedIn.html
+END
+loggedOut.html
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/2126/trunk/chat/lib/template/loggedOut.html
+END
+shoutbox.html
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/2126/trunk/chat/lib/template/shoutbox.html
+END

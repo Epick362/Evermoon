@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id: class.ShowTraderPage.php 2258 2012-06-27 18:26:32Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: class.ShowTraderPage.php 2644 2013-03-26 18:23:11Z slaver7 $
+ * @link http://2moons.cc/
  */
 
 
@@ -45,12 +44,13 @@ class ShowTraderPage extends AbstractPage
 	
 	public function show() 
 	{
-		global $LNG, $CONF, $USER;
+		global $LNG, $CONF, $USER, $resource;
 		
 		$this->tplObj->assign_vars(array(
-			'tr_cost_dm_trader'		=> sprintf($LNG['tr_cost_dm_trader'], pretty_number($CONF['darkmatter_cost_trader']), $LNG['tech'][921]),
+			'tr_cost_dm_trader'		=> sprintf($LNG['tr_cost_dm_trader'], pretty_number(Config::get('darkmatter_cost_trader')), $LNG['tech'][921]),
 			'charge'				=> self::$Charge,
-			'requiredDarkMatter'	=> $USER['darkmatter'] < $CONF['darkmatter_cost_trader'] ? sprintf($LNG['tr_not_enought'], $LNG['tech'][921]) : false,
+			'resource'				=> $resource,
+			'requiredDarkMatter'	=> $USER['darkmatter'] < Config::get('darkmatter_cost_trader') ? sprintf($LNG['tr_not_enought'], $LNG['tech'][921]) : false,
 		));
 		
 		$this->display("page.trader.default.tpl");
@@ -60,22 +60,21 @@ class ShowTraderPage extends AbstractPage
 	{
 		global $USER, $LNG, $CONF, $reslist;
 		
-		if ($USER['darkmatter'] < $CONF['darkmatter_cost_trader']) {
+		if ($USER['darkmatter'] < Config::get('darkmatter_cost_trader')) {
 			$this->redirectTo('game.php?page=trader');
 		}
 		
 		$resourceID	= HTTP::_GP('resource', 0);
 		
-		if(!in_array($resourceID, $reslist['resstype'][1])) {
+		if(!in_array($resourceID, array_keys(self::$Charge))) {
 			$this->printMessage($LNG['invalid_action']);
 		}
 		
-		$tradeResources	= array_values(array_diff($reslist['resstype'][1], array($resourceID)));
-		
+		$tradeResources	= array_values(array_diff(array_keys(self::$Charge[$resourceID]), array($resourceID)));
 		$this->tplObj->loadscript("trader.js");
 		$this->tplObj->assign_vars(array(
-			'resourceID'		=> $resourceID,
-			'tradeRessources'	=> $tradeResources,
+			'tradeResourceID'	=> $resourceID,
+			'tradeResources'	=> $tradeResources,
 			'charge' 			=> self::$Charge[$resourceID],
 		));
 
@@ -86,44 +85,91 @@ class ShowTraderPage extends AbstractPage
 	{
 		global $USER, $PLANET, $LNG, $CONF, $reslist, $resource;
 		
-		if ($USER['darkmatter'] < $CONF['darkmatter_cost_trader']) {
+		if ($USER['darkmatter'] < Config::get('darkmatter_cost_trader')) {
 			$this->redirectTo('game.php?page=trader');
 		}
 		
 		$resourceID	= HTTP::_GP('resource', 0);
 		
-		if(!in_array($resourceID, $reslist['resstype'][1])) {
+		if(!in_array($resourceID, array_keys(self::$Charge))) {
 			$this->printMessage($LNG['invalid_action']);
 		}
 
 		$getTradeResources	= HTTP::_GP('trade', array());
 		
-		$tradeResources		= array_values(array_diff($reslist['resstype'][1], array($resourceID)));
+		$tradeResources		= array_values(array_diff(array_keys(self::$Charge[$resourceID]), array($resourceID)));
 		$tradeSum 			= 0;
 		
 		foreach($tradeResources as $tradeRessID) {
+			if(!isset($getTradeResources[$tradeRessID]))
+			{
+				continue;
+			}
 			$tradeAmount	= max(0, round((float) $getTradeResources[$tradeRessID]));
 			
-			if(empty($tradeAmount))
+			if(empty($tradeAmount) || !isset(self::$Charge[$resourceID][$tradeRessID]))
 			{
 				continue;  
 			}
 			
-			if($tradeAmount * self::$Charge[$resourceID][$tradeRessID] > $PLANET[$resource[$resourceID]])
+			if(isset($PLANET[$resource[$resourceID]]))
 			{
-				$this->printMessage(sprintf($LNG['tr_not_enought'], $LNG['tech'][$tradeRessID]), array("game.php?page=trader", 3));
+				$usedResources	= $tradeAmount * self::$Charge[$resourceID][$tradeRessID];
+				
+				if($usedResources > $PLANET[$resource[$resourceID]])
+				{
+					$this->printMessage(sprintf($LNG['tr_not_enought'], $LNG['tech'][$resourceID]), array("game.php?page=trader", 3));
+				}
+				
+				$tradeSum	  						+= $tradeAmount;
+				$PLANET[$resource[$resourceID]]		-= $usedResources;
+			}
+			elseif(isset($USER[$resource[$resourceID]]))
+			{
+				if($resourceID == 291)
+				{
+					$USER[$resource[$resourceID]]	-= Config::get('darkmatter_cost_trader');
+				}
+				
+				$usedResources	= $tradeAmount * self::$Charge[$resourceID][$tradeRessID];
+				
+				if($usedResources > $USER[$resource[$resourceID]])
+				{
+					$this->printMessage(sprintf($LNG['tr_not_enought'], $LNG['tech'][$resourceID]), array("game.php?page=trader", 3));
+				}
+				
+				$tradeSum	  						+= $tradeAmount;
+				$USER[$resource[$resourceID]]		-= $usedResources;
+				
+				if($resourceID == 291)
+				{
+					$USER[$resource[$resourceID]]	+= Config::get('darkmatter_cost_trader');
+				}
+			}
+			else
+			{
+				throw new Exception('Unknow resource ID #'.$resourceID);
 			}
 			
-			$tradeSum	   += $tradeAmount;
-			
-			$PLANET[$resource[$resourceID]]		-= $tradeAmount * self::$Charge[$resourceID][$tradeRessID];			
-			$PLANET[$resource[$tradeRessID]]	+= $tradeAmount;
+			if(isset($PLANET[$resource[$tradeRessID]]))
+			{
+				$PLANET[$resource[$tradeRessID]]	+= $tradeAmount;
+			}
+			elseif(isset($USER[$resource[$tradeRessID]]))
+			{
+				$USER[$resource[$tradeRessID]]		+= $tradeAmount;
+			}
+			else
+			{
+				throw new Exception('Unknow resource ID #'.$tradeRessID);
+			}
 		}
 		
 		if ($tradeSum > 0)
-			$USER[$resource[921]]	-= $CONF['darkmatter_cost_trader'];
-
+		{
+			$USER[$resource[921]]	-= Config::get('darkmatter_cost_trader');
+		}
+		
 		$this->printMessage($LNG['tr_exchange_done'], array("game.php?page=trader", 3));
 	}
 }
-?>

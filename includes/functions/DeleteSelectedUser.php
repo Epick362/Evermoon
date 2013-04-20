@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,16 +18,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id: DeleteSelectedUser.php 2305 2012-08-16 20:33:14Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: DeleteSelectedUser.php 2640 2013-03-23 19:23:26Z slaver7 $
+ * @link http://2moons.cc/
  */
 
-require_once(ROOT_PATH.'includes/classes/class.FleetFunctions.php');
+require_once('includes/classes/class.FleetFunctions.php');
  
 function DeleteSelectedUser($userID)
 {
@@ -37,12 +36,12 @@ function DeleteSelectedUser($userID)
 		return false;
 	}
 	
-	$userData = $GLOBALS['DATABASE']->uniquequery("SELECT universe, ally_id FROM ".USERS." WHERE id = '".$userID."';");
+	$userData = $GLOBALS['DATABASE']->getFirstRow("SELECT universe, ally_id FROM ".USERS." WHERE id = '".$userID."';");
 	$SQL 	 = "";
 	
 	if ($userData['ally_id'] != 0)
 	{
-		$memberCount =  $GLOBALS['DATABASE']->countquery("SELECT ally_members FROM ".ALLIANCE." WHERE id = ".$userData['ally_id'].";");
+		$memberCount =  $GLOBALS['DATABASE']->getFirstCell("SELECT ally_members FROM ".ALLIANCE." WHERE id = ".$userData['ally_id'].";");
 
 		if ($memberCount >= 2)
 		{
@@ -74,12 +73,12 @@ function DeleteSelectedUser($userID)
 	
 	$GLOBALS['DATABASE']->free_result($fleetData);
 	
-	update_config(array('users_amount' => $CONF['users_amount'] - 1), $userData['universe']);
+	Config::update(array('users_amount' => Config::get('users_amount') - 1), $userData['universe']);
 }
 
 function DeleteSelectedPlanet($planetID)
 {
-	$planetData = $GLOBALS['DATABASE']->uniquequery("SELECT planet_type FROM ".PLANETS." WHERE id = ".$planetID." AND id NOT IN (SELECT id_planet FROM ".USERS.");");
+	$planetData = $GLOBALS['DATABASE']->getFirstRow("SELECT planet_type FROM ".PLANETS." WHERE id = ".$planetID." AND id NOT IN (SELECT id_planet FROM ".USERS.");");
 	
 	if(empty($planetData)) {
 		return false;
@@ -99,5 +98,3 @@ function DeleteSelectedPlanet($planetID)
 		$GLOBALS['DATABASE']->query("DELETE FROM ".PLANETS." WHERE id = ".$planetID." OR id_luna = ".$planetID.";");
 	}
 }
-
-?>

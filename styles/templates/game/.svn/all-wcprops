@@ -1,0 +1,503 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/2671/trunk/styles/templates/game
+END
+shared.information.missiles.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/2194/trunk/styles/templates/game/shared.information.missiles.tpl
+END
+page.officier.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2418/trunk/styles/templates/game/page.officier.default.tpl
+END
+page.playerCard.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.playerCard.default.tpl
+END
+page.questions.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.questions.default.tpl
+END
+page.banList.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.banList.default.tpl
+END
+page.alliance.admin.diplomacy.create.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/2560/trunk/styles/templates/game/page.alliance.admin.diplomacy.create.tpl
+END
+shared.information.storage.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/2151/trunk/styles/templates/game/shared.information.storage.tpl
+END
+page.notes.detail.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.notes.detail.tpl
+END
+page.alliance.admin.mangeApply.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.alliance.admin.mangeApply.tpl
+END
+shared.information.gate.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2556/trunk/styles/templates/game/shared.information.gate.tpl
+END
+page.fleetStep1.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2298/trunk/styles/templates/game/page.fleetStep1.default.tpl
+END
+main.header.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2643/trunk/styles/templates/game/main.header.tpl
+END
+page.fleetStep2.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2246/trunk/styles/templates/game/page.fleetStep2.default.tpl
+END
+page.fleetStep3.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.fleetStep3.default.tpl
+END
+error.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2126/trunk/styles/templates/game/error.default.tpl
+END
+page.alliance.info.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2489/trunk/styles/templates/game/page.alliance.info.tpl
+END
+page.trader.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2608/trunk/styles/templates/game/page.trader.default.tpl
+END
+page.ticket.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.ticket.default.tpl
+END
+page.alliance.admin.detailApply.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/2550/trunk/styles/templates/game/page.alliance.admin.detailApply.tpl
+END
+main.navigation.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2671/trunk/styles/templates/game/main.navigation.tpl
+END
+page.alliance.admin.permissions.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/2497/trunk/styles/templates/game/page.alliance.admin.permissions.tpl
+END
+page.alliance.memberList.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2500/trunk/styles/templates/game/page.alliance.memberList.tpl
+END
+page.changelog.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.changelog.default.tpl
+END
+page.notes.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.notes.default.tpl
+END
+page.records.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.records.default.tpl
+END
+layout.ajax.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2126/trunk/styles/templates/game/layout.ajax.tpl
+END
+page.alliance.admin.rename.name.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.alliance.admin.rename.name.tpl
+END
+page.infomation.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2524/trunk/styles/templates/game/page.infomation.default.tpl
+END
+page.search.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2433/trunk/styles/templates/game/page.search.default.tpl
+END
+page.overview.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2594/trunk/styles/templates/game/page.overview.default.tpl
+END
+page.alliance.apply.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2550/trunk/styles/templates/game/page.alliance.apply.tpl
+END
+page.logout.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.logout.default.tpl
+END
+shared.information.shipInfo.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/2165/trunk/styles/templates/game/shared.information.shipInfo.tpl
+END
+page.resources.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.resources.default.tpl
+END
+page.battlehall.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2552/trunk/styles/templates/game/page.battlehall.default.tpl
+END
+page.fleetDealer.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2148/trunk/styles/templates/game/page.fleetDealer.default.tpl
+END
+page.messages.write.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2517/trunk/styles/templates/game/page.messages.write.tpl
+END
+page.chat.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.chat.default.tpl
+END
+layout.full.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2416/trunk/styles/templates/game/layout.full.tpl
+END
+page.empire.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.empire.default.tpl
+END
+main.footer.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2416/trunk/styles/templates/game/main.footer.tpl
+END
+page.galaxy.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2600/trunk/styles/templates/game/page.galaxy.default.tpl
+END
+page.alliance.create.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.alliance.create.tpl
+END
+page.questions.single.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.questions.single.tpl
+END
+page.alliance.circular.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.alliance.circular.tpl
+END
+shared.mission.spyraport.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2365/trunk/styles/templates/game/shared.mission.spyraport.tpl
+END
+page.research.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2474/trunk/styles/templates/game/page.research.default.tpl
+END
+page.trader.trade.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2609/trunk/styles/templates/game/page.trader.trade.tpl
+END
+page.messages.view.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2388/trunk/styles/templates/game/page.messages.view.tpl
+END
+page.alliance.createSelection.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.alliance.createSelection.tpl
+END
+page.alliance.applyWait.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.alliance.applyWait.tpl
+END
+shared.mission.raport.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2563/trunk/styles/templates/game/shared.mission.raport.tpl
+END
+page.alliance.admin.transfer.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.alliance.admin.transfer.tpl
+END
+page.ticket.create.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.ticket.create.tpl
+END
+shared.statistics.playerTable.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/2143/trunk/styles/templates/game/shared.statistics.playerTable.tpl
+END
+page.fleetTable.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2599/trunk/styles/templates/game/page.fleetTable.default.tpl
+END
+page.alliance.home.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2489/trunk/styles/templates/game/page.alliance.home.tpl
+END
+.htaccess
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/2126/trunk/styles/templates/game/.htaccess
+END
+page.alliance.admin.diplomacy.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/2416/trunk/styles/templates/game/page.alliance.admin.diplomacy.default.tpl
+END
+shared.statistics.allianceTable.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/2143/trunk/styles/templates/game/shared.statistics.allianceTable.tpl
+END
+page.buildings.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2495/trunk/styles/templates/game/page.buildings.default.tpl
+END
+page.settings.vacation.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.settings.vacation.tpl
+END
+page.alliance.admin.overview.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/2550/trunk/styles/templates/game/page.alliance.admin.overview.tpl
+END
+page.shipyard.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2213/trunk/styles/templates/game/page.shipyard.default.tpl
+END
+page.alliance.search.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.alliance.search.tpl
+END
+page.statistics.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2288/trunk/styles/templates/game/page.statistics.default.tpl
+END
+shared.fleetTable.acsTable.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/2545/trunk/styles/templates/game/shared.fleetTable.acsTable.tpl
+END
+page.phalanx.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2237/trunk/styles/templates/game/page.phalanx.default.tpl
+END
+main.topnav.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2630/trunk/styles/templates/game/main.topnav.tpl
+END
+page.alliance.admin.rename.tag.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.alliance.admin.rename.tag.tpl
+END
+page.search.result.ally.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.search.result.ally.tpl
+END
+page.settings.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2538/trunk/styles/templates/game/page.settings.default.tpl
+END
+page.techtree.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.techtree.default.tpl
+END
+page.buddyList.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2416/trunk/styles/templates/game/page.buddyList.default.tpl
+END
+page.alliance.admin.members.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/2500/trunk/styles/templates/game/page.alliance.admin.members.tpl
+END
+page.buddyList.request.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.buddyList.request.tpl
+END
+page.messages.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2346/trunk/styles/templates/game/page.messages.default.tpl
+END
+page.ticket.view.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2613/trunk/styles/templates/game/page.ticket.view.tpl
+END
+page.battleSimulator.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/2571/trunk/styles/templates/game/page.battleSimulator.default.tpl
+END
+layout.popup.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2126/trunk/styles/templates/game/layout.popup.tpl
+END
+shared.information.production.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/2151/trunk/styles/templates/game/shared.information.production.tpl
+END
+page.search.result.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/2126/trunk/styles/templates/game/page.search.result.default.tpl
+END
+page.overview.actions.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2300/trunk/styles/templates/game/page.overview.actions.tpl
+END

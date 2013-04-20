@@ -23,17 +23,19 @@
  * @copyright 2011 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.5 (2011-07-31)
- * @info $Id: INSTALL.php 2263 2012-06-27 22:55:52Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @info $Id: INSTALL.php 2588 2013-01-14 16:51:24Z slaver7 $
+ * @link http://2moons.cc/
  */
 
 $LNG['back']					= 'Wróć';
 $LNG['continue']				= 'Dalej';
+$LNG['continueUpgrade']			= 'Aktualizuj!';
 $LNG['login']					= 'Login';
 
 $LNG['menu_intro']				= 'Intro';
 $LNG['menu_install']			= 'Instalacja';
 $LNG['menu_license']			= 'Licencja';
+$LNG['menu_upgrade']			= 'Uktualizacja';
 
 $LNG['title_install']			= 'Instalator';
 
@@ -41,6 +43,16 @@ $LNG['intro_lang']				= 'Język';
 $LNG['intro_install']			= 'Przejdź do instalacji';
 $LNG['intro_welcome']			= 'Serdecznie witamy w 2Moons!';
 $LNG['intro_text']				= '2Moons to najlepszy klon Ogame.<br>2Moons to najnowsza i najbardziej stabilna wersja Xnova, jaka kiedykolwiek powstała. Cechuje ją przyjazność, elastyczność i dynamiczność jak również jakość obsługi. Mamy nadzieję że jak zawsze sprawimy się lepiej niż oczekiwaliście. System przeprowadzi Cię przez proces instalacji, lub też aktualizacji aktualnej wersji do najnowszej. Jeśli masz jakiekolwiek problemy nie wachaj się zadać pytania na naszym forum poświęconemu rozwojowi i wsparciu.<br><br>2Moons podlega licencji GNU GPL v3. Licencje przeczytasz po kliknięciu odpowiedniego linku w menu.<br><br>Przed instalacją skrypt sprawdzi czy twój serwer spełnia minimalne wymagania.';
+$LNG['intro_upgrade_head']		= 'Zainstalować 2Moons?';
+$LNG['intro_upgrade_text']		= '<p>2Moons zainstalowane, chcesz teraz sprawdzić aktualizację?</p><p>Aktulizacje!</p>';
+
+$LNG['upgrade_success']			= 'Aktualizacja przebiegła pomyślnie, baza danych została zaktualizowana do %s.';
+$LNG['upgrade_nothingtodo']		= 'Baza danych aktualna z wersją %s.';
+$LNG['upgrade_back']			= 'Wróć';
+$LNG['upgrade_intro_welcome']	= 'Witaj w aktualizatorze bazy danych!';
+$LNG['upgrade_available']		= 'Dostępna jest aktualizacja bazy danych. Aktualna wersja bazy to %s i może zostać zaktualizowana do wersji %s.<br><br>Wybierz z menu wersję do której chcesz zaktualizować:';
+$LNG['upgrade_notavailable']	= 'Wersja %s bazy to aktualna wersja!.';
+$LNG['upgrade_required_rev']	= 'Aktualizator bazy danych działa od wersji r2579 (2Moons v1.7) lub wyższej!.';
 
 $LNG['licence_head']			= 'Licencja';
 $LNG['licence_desc']			= 'Prosze przeczytać licencję, przewiń by przeczytać całą!.';
@@ -87,7 +99,6 @@ $LNG['step1_mysql_dbname']		= 'Nazwa bazy danych';
 $LNG['step1_mysql_prefix']		= 'Prefix tabeli:';
 
 $LNG['step2_prefix_invalid']	= 'Prefix może mieć tylko litery i cyfry ewentualnie znak podkreślenia.';
-$LNG['step2_db_error']			= 'Błąd podczas łączenia do bazy danych:';
 $LNG['step2_db_no_dbname']		= 'Nie znaleziono bazy danych o takiej nazwie.';
 $LNG['step2_db_too_long']		= 'Nazwa tabeli jest za długa, maksymalnie 36 znaków.';
 $LNG['step2_db_con_fail']		= 'Nie można połączyć z bazą danych, szczegóły poniżej.';
@@ -98,6 +109,7 @@ $LNG['step2_db_done']			= 'Połączenie z bazą danych ustalone!';
 
 $LNG['step3_head']				= 'Instalacja tabeli';
 $LNG['step3_desc']				= 'Tabele utworzone, przejdź do następnego kroku.';
+$LNG['step3_db_error']			= 'Błąd podczas łączenia do bazy danych:';
 
 $LNG['step4_head']				= 'Dane administratora';
 $LNG['step4_desc']				= 'Kreator instalacji utworzy teraz konto administratora, proszę podać hasło, nazwę użytkownika i adres email.';
@@ -114,5 +126,3 @@ $LNG['step6_info_additional']	= 'Po kliknięciu zostaniesz przeniesiony na stron
 
 $LNG['sql_close_reason']		= 'Gra chwilowo zamknięta';
 $LNG['sql_welcome']				= 'Serdecznie witamy na 2Moons v';
-
-?>

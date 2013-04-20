@@ -1,0 +1,383 @@
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/2643/trunk/styles/templates/adm
+END
+VertifyPageResult.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2437/trunk/styles/templates/adm/VertifyPageResult.tpl
+END
+OverviewBody.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2416/trunk/styles/templates/adm/OverviewBody.tpl
+END
+BanPage.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/2477/trunk/styles/templates/adm/BanPage.tpl
+END
+ConfigBodyUni.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2577/trunk/styles/templates/adm/ConfigBodyUni.tpl
+END
+CreatePageUser.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2476/trunk/styles/templates/adm/CreatePageUser.tpl
+END
+ModerrationRightsPage.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2126/trunk/styles/templates/adm/ModerrationRightsPage.tpl
+END
+MultiIPs.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/2416/trunk/styles/templates/adm/MultiIPs.tpl
+END
+TeamspeakPage.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2505/trunk/styles/templates/adm/TeamspeakPage.tpl
+END
+overall_header.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2643/trunk/styles/templates/adm/overall_header.tpl
+END
+CronjobDetail.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2416/trunk/styles/templates/adm/CronjobDetail.tpl
+END
+ResetPage.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/2154/trunk/styles/templates/adm/ResetPage.tpl
+END
+UpdatePage.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2126/trunk/styles/templates/adm/UpdatePage.tpl
+END
+page.ticket.default.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2307/trunk/styles/templates/adm/page.ticket.default.tpl
+END
+QuickEditorUser.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2246/trunk/styles/templates/adm/QuickEditorUser.tpl
+END
+ModulePage.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2126/trunk/styles/templates/adm/ModulePage.tpl
+END
+ChatConfigBody.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2233/trunk/styles/templates/adm/ChatConfigBody.tpl
+END
+AccountEditorPagePlanets.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2416/trunk/styles/templates/adm/AccountEditorPagePlanets.tpl
+END
+QuickEditorPlanet.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2195/trunk/styles/templates/adm/QuickEditorPlanet.tpl
+END
+AccountEditorPageAlliance.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2416/trunk/styles/templates/adm/AccountEditorPageAlliance.tpl
+END
+StatsPage.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/2416/trunk/styles/templates/adm/StatsPage.tpl
+END
+AccountDataPageIntro.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2126/trunk/styles/templates/adm/AccountDataPageIntro.tpl
+END
+CreatePage.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2416/trunk/styles/templates/adm/CreatePage.tpl
+END
+AccountEditorPageBuilds.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2416/trunk/styles/templates/adm/AccountEditorPageBuilds.tpl
+END
+FacebookPage.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2126/trunk/styles/templates/adm/FacebookPage.tpl
+END
+DisclamerConfigBody.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2416/trunk/styles/templates/adm/DisclamerConfigBody.tpl
+END
+AccountEditorPageResearch.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2416/trunk/styles/templates/adm/AccountEditorPageResearch.tpl
+END
+AccountEditorPageDefenses.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2416/trunk/styles/templates/adm/AccountEditorPageDefenses.tpl
+END
+overall_footer.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2621/trunk/styles/templates/adm/overall_footer.tpl
+END
+ShowInformationPage.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2126/trunk/styles/templates/adm/ShowInformationPage.tpl
+END
+ConfigBasicBody.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2416/trunk/styles/templates/adm/ConfigBasicBody.tpl
+END
+CreatePageMoon.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2150/trunk/styles/templates/adm/CreatePageMoon.tpl
+END
+page.ticket.create.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2126/trunk/styles/templates/adm/page.ticket.create.tpl
+END
+DumpPage.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/2532/trunk/styles/templates/adm/DumpPage.tpl
+END
+SearchPage.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2416/trunk/styles/templates/adm/SearchPage.tpl
+END
+CreatePagePlanet.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2143/trunk/styles/templates/adm/CreatePagePlanet.tpl
+END
+FlyingFleetPage.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2416/trunk/styles/templates/adm/FlyingFleetPage.tpl
+END
+ShowTopnavPage.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2416/trunk/styles/templates/adm/ShowTopnavPage.tpl
+END
+LoginPage.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/2126/trunk/styles/templates/adm/LoginPage.tpl
+END
+AccountDataPageDetail.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2416/trunk/styles/templates/adm/AccountDataPageDetail.tpl
+END
+AccountEditorPageShips.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2416/trunk/styles/templates/adm/AccountEditorPageShips.tpl
+END
+ModerrationRightsPostPage.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2126/trunk/styles/templates/adm/ModerrationRightsPostPage.tpl
+END
+ActivePage.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2485/trunk/styles/templates/adm/ActivePage.tpl
+END
+NewsPage.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/2475/trunk/styles/templates/adm/NewsPage.tpl
+END
+error_message_body.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2126/trunk/styles/templates/adm/error_message_body.tpl
+END
+MessageList.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2623/trunk/styles/templates/adm/MessageList.tpl
+END
+ModVersionPage.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2126/trunk/styles/templates/adm/ModVersionPage.tpl
+END
+CronjobOverview.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2434/trunk/styles/templates/adm/CronjobOverview.tpl
+END
+AccountEditorPageMenu.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2416/trunk/styles/templates/adm/AccountEditorPageMenu.tpl
+END
+VertifyPage.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2126/trunk/styles/templates/adm/VertifyPage.tpl
+END
+AccountEditorPageOfficiers.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/2416/trunk/styles/templates/adm/AccountEditorPageOfficiers.tpl
+END
+AccountEditorPageResources.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/2416/trunk/styles/templates/adm/AccountEditorPageResources.tpl
+END
+UniversePage.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2416/trunk/styles/templates/adm/UniversePage.tpl
+END
+ModerrationUsersPage.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2126/trunk/styles/templates/adm/ModerrationUsersPage.tpl
+END
+ShowMenuPage.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2532/trunk/styles/templates/adm/ShowMenuPage.tpl
+END
+LogDetail.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/2126/trunk/styles/templates/adm/LogDetail.tpl
+END
+AccountEditorPagePersonal.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2416/trunk/styles/templates/adm/AccountEditorPagePersonal.tpl
+END
+ShowIndexPage.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2621/trunk/styles/templates/adm/ShowIndexPage.tpl
+END
+page.ticket.view.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2544/trunk/styles/templates/adm/page.ticket.view.tpl
+END
+LogOverview.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2151/trunk/styles/templates/adm/LogOverview.tpl
+END
+giveaway.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/2151/trunk/styles/templates/adm/giveaway.tpl
+END
+LogList.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/2126/trunk/styles/templates/adm/LogList.tpl
+END
+SendMessagesPage.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2433/trunk/styles/templates/adm/SendMessagesPage.tpl
+END
+PassEncripterPage.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2126/trunk/styles/templates/adm/PassEncripterPage.tpl
+END

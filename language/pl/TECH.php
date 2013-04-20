@@ -1,5 +1,30 @@
 <?php
 
+/**
+ *  2Moons
+ *  Copyright (C) 2012 Jan Kröpke
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package 2Moons
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
+ * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: TECH.php 2632 2013-03-18 19:05:14Z slaver7 $
+ * @link http://2moons.cc/
+ */
 //SHORT NAMES FOR COMBAT REPORTS
 
 $LNG['shortNames'] = array (
@@ -39,20 +64,24 @@ $LNG['shortNames'] = array (
 );
 
 $LNG['bonus'] = array(
-	'Attack'			=> '+%f%% Atak',
-	'Defensive'			=> '+%f%% Obrona',
-	'Shield'			=> '+%f%% Osłona',
-	'BuildTime'			=> '-%f%% Czas budowy',
-	'ResearchTime'		=> '-%f%% Czas badań',
-	'ShipTime'			=> '-%f%% Czas budowy okrętów',
-	'DefensiveTime'		=> '-%f%% Czas budowy obrony',
-	'Resource'			=> '+%f%% prędkość wydobycia',
-	'Energy'			=> '+%f%% produkcja energii',
-	'ResourceStorage'	=> '+%f%% wielkość magazynów',
-	'ShipStorage'		=> '+%f%% ładowność floty',
-	'FlyTime'			=> '+%f%% Czas lotu',
-	'FleetSlots'		=> '+%f%% Ilość możliwych flot',
-	'Planets'			=> '+%f%% Ilość planet',
+	'Attack'			=> 'Atak',
+	'Defensive'			=> 'Obrona',
+	'Shield'			=> 'Osłona',
+	'BuildTime'			=> 'Czas budowy',
+	'ResearchTime'		=> 'Czas badań',
+	'ShipTime'			=> 'Czas budowy okrętów',
+	'DefensiveTime'		=> 'Czas budowy obrony',
+	'Resource'			=> 'Prędkość wydobycia',
+	'Energy'			=> 'Produkcja energii',
+	'ResourceStorage'	=> 'Wielkość magazynów',
+	'ShipStorage'		=> 'Ładowność floty',
+	'FlyTime'			=> 'Czas lotu',
+	'FleetSlots'		=> 'Ilość możliwych flot',
+	'Planets'			=> 'Ilość planet',
+	'SpyPower'			=> 'Moc szpiegowania',
+	'Expedition'		=> 'Ekspedycje',
+	'GateCoolTime'		=> 'Czas ładowania teleportera',
+	'MoreFound'			=> 'Zasoby znajdowane podczas ekspedycji',
 );
 					
 $LNG['tech'] = array(
@@ -73,12 +102,10 @@ $LNG['tech'] = array(
  	33 => 'Terraformer',
  	34 => 'Depozyt sojuszniczy',
  	44 => 'Silos Rakietowy',
-
- 	40 => 'Budynki Księżycowe',
+	40 => 'Budynki Księżycowe',
  	41 => 'Baza Księżycowa',
  	42 => 'Falanga',
  	43 => 'Teleporter',
-
 
 	100 => 'Badania',
 	106 => 'Technologia Szpiegowska',
@@ -101,8 +128,7 @@ $LNG['tech'] = array(
 	133 => 'Technologia Produkcji Deuterium',
 	199 => 'Rozwój Grawitonów',
   
-	
-	200 => 'Statki',
+		200 => 'Statki',
 202 => 'Mały Tranporter',
 203 => 'Duży Tranporter',
 204 => 'Lekki Myśliwiec',
@@ -123,8 +149,7 @@ $LNG['tech'] = array(
 219 => 'Giga-Recycler',
 220 => 'Inter. DM-Collector',
 
-
-	400 => 'Obrona Planetarna',
+400 => 'Obrona Planetarna',
 401 => 'Wyrzutnia Rakiet',
 402 => 'Lekki Laser',
 403 => 'Cięzki Laser',
@@ -137,7 +162,8 @@ $LNG['tech'] = array(
 410 => 'Działo Grawitonowe',
 411 => 'Orbitalna Platforma Obronna',
 
-	502 => 'Antyrakieta',
+500 => 'Rakiety',
+502 => 'Antyrakieta',
 503 => 'Rakieta Międzyplanetarna',
 
 	600 => 'Oficerowie',
@@ -156,7 +182,6 @@ $LNG['tech'] = array(
 613 => 'Generał',
 614 => 'Zdobywca',
 615 => 'Imperator',
-
 
 	700 => 'Premium dodatki',
 	701 => 'Optymalizacja Broni',
@@ -177,25 +202,24 @@ $LNG['tech'] = array(
 
 $LNG['shortDescription'] = array(
 	1 => 'Wydobywa Metal, kopalnie metalu mają podstawowe znaczenie dla twojego imperium !.',
-2 => 'Wydobywa Kryształ, potrzebny do budowy komponentów elektronicznych !.',
-3 => 'Deuterium jest wydobywane przez ekstraktor, służy jako paliwo jak element do budowy, bardzo cenne !.',
-4 => 'Elektrownia słoneczna pobiera energie ze słońca, Wszytkie budynki wymagają energii !!',
-
-6 => 'Skraca czas badań na każdy levl o 8%.',
+	2 => 'Wydobywa Kryształ, potrzebny do budowy komponentów elektronicznych !.',
+	3 => 'Deuterium jest wydobywane przez ekstraktor, służy jako paliwo jak element do budowy, bardzo cenne !.',
+	4 => 'Elektrownia słoneczna pobiera energie ze słońca, Wszytkie budynki wymagają energii !!',
+	6 => 'Skraca czas badań na każdy levl o 8%.',
 	12 => 'Reaktor fuzyjny dzieki fuzji deuteru wytwarza energie !',
-14 => 'Fabryka Robotów, przyspiesza budowe, każdy level sprawia iż budynki są budowane i upgradeowane szybciej',
-15 => 'Zwięczenie rozwoju robotyki, każdy poziom zwiększa szybkość budowy statków, instalacji obronnych i budynków !',
+	14 => 'Fabryka Robotów, przyspiesza budowe, każdy level sprawia iż budynki są budowane i upgradeowane szybciej',
+	15 => 'Zwięczenie rozwoju robotyki, każdy poziom zwiększa szybkość budowy statków, instalacji obronnych i budynków !',
 	21 => 'W stoczni budujesz instalacje obronne jak i wszystkie typy stacji, Im wyższy poziom tym sie szybciej buduje !',
-22 => 'Zwiększa ilość przechowywanego metalu.',
-23 => 'Zwiększa ilość przechowywanego kryształu.',
-24 => 'Zwiększa ilość przechowywanego deuterium',
+	22 => 'Zwiększa ilość przechowywanego metalu.',
+	23 => 'Zwiększa ilość przechowywanego kryształu.',
+	24 => 'Zwiększa ilość przechowywanego deuterium',
 	31 => 'Konieczne do tego by móc odkrywać nowe technologie .',
-33 => 'Terraformer przez terraforming zwiększa ilość dostępnych pól do zabudowy na planecie !',
-34 => 'Zasila w paliwo sojusznicza flote na orbicie.',
+	33 => 'Terraformer przez terraforming zwiększa ilość dostępnych pól do zabudowy na planecie !',
+	34 => 'Zasila w paliwo sojusznicza flote na orbicie.',
 	41 => 'Jako iż na księzycu nie ma atmosfery musisz najpierw zbudować baze księżycową.',
-42 => 'Falanga pozwala obrserwować aktywne floty w jej zasięgu, każdy level zwiększa maksymalny zasięg.',
-43 => 'Teleporter pozwala przenosić floty bez staraty cennego czasu !.',
-44 => 'używane do przechowywania rakiet i antyrakiet.',
+	42 => 'Falanga pozwala obrserwować aktywne floty w jej zasięgu, każdy level zwiększa maksymalny zasięg.',
+	43 => 'Teleporter pozwala przenosić floty bez staraty cennego czasu !.',
+	44 => 'używane do przechowywania rakiet i antyrakiet.',
 
 	106 => 'Informacje o innych planetach i księżycach mogą być zbierane dzięki tej technologi !.',
 	108 => 'Dzięki rozwojowi technologi komputerowej możesz zarządzać większą ilością flot, każdy level zwiększa ilość flot którymi możesz zarządzać o 1',
@@ -268,20 +292,20 @@ $LNG['shortDescription'] = array(
 	614 => 'Członek cesarskiej armii, jego zdolności to nawigacja flotą, jest w tym niezastąpiony.',
 	615 => 'Pod jego poleceniami są wszyscy inni oficerowie. To on decyduje kto i kiedy kombinując ich umiejętności wspiera cie w tworzeniu Imperium jakiego świat nie widział ',
 
-	701 => 'Podnosi na jakiś czas zdolność ataku i obrony statków %s%%.',
-702 => 'Podnosi na jakiś czas siłe osłony i obrony o %s%%.',
-703 => 'Podnosi na jakiś czas prędkość powstawania budowli o  %s%%.',
-704 => 'Podnosi na jakiś czas prędkość wydobywania surowców o %s%%.',
-705 => 'Podnosi na jakiś czas produkcje energii o %s%%.',
-706 => 'Skraca na jakiś czas długość badań o %s%%.',
-707 => 'Skraca czas lotu floty  o %s%%. Bonus działa tylko jakiś czas i nie ma wpływu na ekspedycje !.',
+	701 => 'Podnosi na jakiś czas zdolność ataku i obrony statków.',
+702 => 'Podnosi na jakiś czas siłe osłony i obrony.',
+703 => 'Podnosi na jakiś czas prędkość powstawania budowli.',
+704 => 'Podnosi na jakiś czas prędkość wydobywania surowców.',
+705 => 'Podnosi na jakiś czas produkcje energii.',
+706 => 'Skraca na jakiś czas długość badań.',
+707 => 'Skraca czas lotu floty. Bonus działa tylko jakiś czas i nie ma wpływu na ekspedycje !.',
 );
+
 $LNG['longDescription'] = array(
 	1 => 'Metal to podstawowy budulec na twojej planecie. Dzięki rozwojowi kopalni możesz go wydobywać z głębszych pokładów gdzie jest go więcej !',
 	2 => 'Podstawowy budulec elementów elektronicznych. Kopalnie wymagają więcej energii niż metal bo obróbka kryształu jest bardziej skomplikowana. Kryształ jest potrzebny wszędzie tam gdzie elektronika poczynając od fabryki robotów a na najmniejszych statkach kończąc',
 	3 => 'Deuterium jest również zwane ciężka wodą. Służy jako paliwo, jest również potrzebny do niektórych badań, pozatym potrzebujesz duże ilości by móc używać Falangi.',
 	4 => 'Gigantyczne panele słoneczne zbierają i koncentrują energie. Wraz z rozwojem na wyższe levele ilość paneli zwiększa się dzieki czemu produkcja energi również rośnie',
-	
 	6 => 'Skraca czas badań o 8% na każdy level',
 	12 => 'W elektrowniach Jądrowych jądra ciężkiego wodoru łączą się tworząc jądra helu. Podczas tego procesu wydzielają się niesamowite ilości ciepła i energii. Z jednego grama Deuterium produkujesz 41,32*10^-13 J energii. Im wiekszy poziom rozbudowy reaktora, tym więcej energi produkuje na godzine',
 	14 => 'Fabryka robotów dostarcza podstawowej siły roboczej na twojej planecie, z każdym levelem wzrasta szybkość budowy budynków.',
@@ -378,4 +402,3 @@ $LNG['longDescription'] = array(
 );
 
 // Translated into Polish by Sirgomo . All rights reversed (C) 2012
-?>

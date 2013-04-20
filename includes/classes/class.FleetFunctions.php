@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id: class.FleetFunctions.php 2197 2012-04-18 20:47:51Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: class.FleetFunctions.php 2677 2013-04-18 10:05:22Z lordmegger@googlemail.com $
+ * @link http://2moons.cc/
  */
 
 class FleetFunctions 
@@ -48,25 +47,28 @@ class FleetFunctions
 		global $pricelist;
 		
 		$techSpeed	= $pricelist[$Ship]['tech'];
+        $baseSpeed = $pricelist[$Ship]['speed'];
 		
 		if($techSpeed == 4) {
 			$techSpeed = $Player['impulse_motor_tech'] >= 5 ? 2 : 1;
+            $baseSpeed = $pricelist[$Ship]['speed2'];
 		}
 		if($techSpeed == 5) {
 			$techSpeed = $Player['hyperspace_motor_tech'] >= 8 ? 3 : 2;
+            $baseSpeed = $pricelist[$Ship]['speed2'];
 		}
 			
 		
 		switch($techSpeed)
 		{
 			case 1:
-				$speed	= $pricelist[$Ship]['speed'] * (1 + (0.1 * $Player['combustion_tech']));
+				$speed	= $baseSpeed * (1 + (0.1 * $Player['combustion_tech']));
 			break;
 			case 2:
-				$speed	= $pricelist[$Ship]['speed'] * (1 + (0.2 * $Player['impulse_motor_tech']));
+				$speed	= $baseSpeed * (1 + (0.2 * $Player['impulse_motor_tech']));
 			break;
 			case 3:
-				$speed	= $pricelist[$Ship]['speed'] * (1 + (0.3 * $Player['hyperspace_motor_tech']));
+				$speed	= $baseSpeed * (1 + (0.3 * $Player['hyperspace_motor_tech']));
 			break;
 			default:
 				$speed	= 0;
@@ -74,6 +76,16 @@ class FleetFunctions
 		}
 
 		return $speed;
+	}
+	
+	public static function getExpeditionLimit($USER)
+	{
+		return floor(sqrt($USER[$GLOBALS['resource'][124]]));
+	}
+	
+	public static function getDMMissionLimit($USER)
+	{
+		return Config::get('max_dm_missions');
 	}
 	
 	public static function getMissileRange($Level)
@@ -107,7 +119,20 @@ class FleetFunctions
 		$SpeedFactor	+= 10;
 		$SpeedFactor	/= $GameSpeed;
 		
+		if(isset($USER['factor']['FlyTime']))
+		{
+			$SpeedFactor	*= max(0, 1 + $USER['factor']['FlyTime']);
+		}
+		
 		return max($SpeedFactor, MIN_FLEET_TIME);
+	}
+ 
+	public static function GetMIPDuration($startSystem, $targetSystem)
+	{
+		$Distance = abs($startSystem - $targetSystem);
+		$Duration = max(round((30 + 60 * $Distance) / self::GetGameSpeedFactor()), MIN_FLEET_TIME);
+		
+		return $Duration;
 	}
 
 	public static function GetGameSpeedFactor()
@@ -162,12 +187,12 @@ class FleetFunctions
 
 	public static function GetFleetMissions($USER, $MisInfo, $Planet)
 	{
-		global $resource, $CONF;
+		global $resource;
 		$Missions	= self::GetAvailableMissions($USER, $MisInfo, $Planet);
 		$stayBlock	= array();;
 		if (in_array(15, $Missions)) {
 			for($i = 1;$i <= $USER[$resource[124]];$i++) {	
-				$stayBlock[$i]	= round($i / $CONF['halt_speed'], 2);
+				$stayBlock[$i]	= round($i / Config::get('halt_speed'), 2);
 			}
 		}
 		elseif(in_array(11, $Missions)) 
@@ -187,7 +212,7 @@ class FleetFunctions
 				if(empty($FleetGroup))
 			return 0;
 			
-		$GetAKS 	= $GLOBALS['DATABASE']->countquery("SELECT ankunft FROM ".AKS." WHERE id = ".$FleetGroup.";");
+		$GetAKS 	= $GLOBALS['DATABASE']->getFirstCell("SELECT ankunft FROM ".AKS." WHERE id = ".$FleetGroup.";");
 
 		return !empty($GetAKS) ? $GetAKS - TIMESTAMP : 0;
 	}
@@ -212,7 +237,7 @@ class FleetFunctions
 	public static function GetCurrentFleets($USERID, $Mission = 0)
 	{
 		
-		$ActualFleets = $GLOBALS['DATABASE']->uniquequery("SELECT COUNT(*) as state FROM ".FLEETS." WHERE fleet_owner = '".$USERID."' AND ".(($Mission != 0)?"fleet_mission = '".$Mission."'":"fleet_mission != 10").";");
+		$ActualFleets = $GLOBALS['DATABASE']->getFirstRow("SELECT COUNT(*) as state FROM ".FLEETS." WHERE fleet_owner = '".$USERID."' AND ".(($Mission != 0)?"fleet_mission = '".$Mission."'":"fleet_mission != 10").";");
 		return $ActualFleets['state'];
 	}	
 	
@@ -220,7 +245,7 @@ class FleetFunctions
 	{
 			
 
-		$FleetRow = $GLOBALS['DATABASE']->uniquequery("SELECT start_time, fleet_mission, fleet_group, fleet_owner, fleet_mess FROM ".FLEETS." WHERE fleet_id = '". $FleetID ."';");
+		$FleetRow = $GLOBALS['DATABASE']->getFirstRow("SELECT start_time, fleet_mission, fleet_group, fleet_owner, fleet_mess FROM ".FLEETS." WHERE fleet_id = '". $FleetID ."';");
 		if ($FleetRow['fleet_owner'] != $USER['id'] || $FleetRow['fleet_mess'] == 1)
 			return;
 			
@@ -228,7 +253,7 @@ class FleetFunctions
 
 		if($FleetRow['fleet_mission'] == 1 && $FleetRow['fleet_group'] != 0)
 		{
-			$acsResult = $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".USERS_ACS." WHERE acsID = ".$FleetRow['fleet_group'].";");
+			$acsResult = $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".USERS_ACS." WHERE acsID = ".$FleetRow['fleet_group'].";");
 
 			if($acsResult != 0)
 			{
@@ -247,6 +272,7 @@ class FleetFunctions
 						  fleet_end_stay = ".TIMESTAMP.",
 						  fleet_end_time = ".$fleetEndTime.", 
 						  fleet_mess = 1,
+						  hasCanceled = 1,
 						  time = ".$fleetEndTime."
 						  WHERE ".$sqlWhere." = ".$FleetID." AND fleet_id = fleetID;
 						  UPDATE ".LOG_FLEETS." SET
@@ -280,12 +306,11 @@ class FleetFunctions
 	
 	public static function GetAvailableMissions($USER, $MissionInfo, $GetInfoPlanet)
 	{	
-		global $CONF;
 		$YourPlanet				= (!empty($GetInfoPlanet['id_owner']) && $GetInfoPlanet['id_owner'] == $USER['id']) ? true : false;
 		$UsedPlanet				= (!empty($GetInfoPlanet['id_owner'])) ? true : false;
 		$avalibleMissions		= array();
 		
-		if ($MissionInfo['planet'] == ($CONF['max_planets'] + 1) && isModulAvalible(MODULE_MISSION_EXPEDITION))
+		if ($MissionInfo['planet'] == (Config::get('max_planets') + 1) && isModulAvalible(MODULE_MISSION_EXPEDITION))
 			$avalibleMissions[]	= 15;	
 		elseif ($MissionInfo['planettype'] == 2) {
 			if ((isset($MissionInfo['Ship'][209]) || isset($MissionInfo['Ship'][219])) && isModulAvalible(MODULE_MISSION_RECYCLE) && !($GetInfoPlanet['der_metal'] == 0 && $GetInfoPlanet['der_crystal'] == 0))
@@ -294,9 +319,6 @@ class FleetFunctions
 			if (!$UsedPlanet) {
 				if (isset($MissionInfo['Ship'][208]) && $MissionInfo['planettype'] == 1 && isModulAvalible(MODULE_MISSION_COLONY))
 					$avalibleMissions[]	= 7;
-
-				if (isset($MissionInfo['Ship'][220]) && $MissionInfo['planettype'] == 1 && isModulAvalible(MODULE_MISSION_COLONY))
-					$avalibleMissions[]	= 12;
 			} else {
 				if(isModulAvalible(MODULE_MISSION_TRANSPORT))
 					$avalibleMissions[]	= 3;
@@ -333,7 +355,7 @@ class FleetFunctions
 		if(!BASH_ON)
 			return false;
 			
-		$Count	= $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM uni1_log_fleets
+		$Count	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".LOG_FLEETS."
 		WHERE fleet_owner = ".$USER['id']." 
 		AND fleet_end_id = ".$Target." 
 		AND fleet_state != 2 
@@ -349,11 +371,12 @@ class FleetFunctions
 		$fleetData		= array();
 		$planetQuery	= "";
 		foreach($fleetArray as $ShipID => $ShipCount) {
-			$fleetData[]	= $ShipID.','.$ShipCount;
-			$planetQuery[]	= $resource[$ShipID]." = ".$resource[$ShipID]." - ".$ShipCount;
+			$fleetData[]	= $ShipID.','.floattostring($ShipCount);
+			$planetQuery[]	= $resource[$ShipID]." = ".$resource[$ShipID]." - ".floattostring($ShipCount);
 		}
 		
 		$SQL	= "LOCK TABLE ".LOG_FLEETS." WRITE, ".FLEETS_EVENT." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE;
+				   UPDATE ".PLANETS." SET ".implode(", ", $planetQuery)." WHERE id = ".$fleetStartPlanetID.";
 				   INSERT INTO ".FLEETS." SET
 				   fleet_owner              = ".$fleetStartOwner.",
 				   fleet_target_owner       = ".$fleetTargetOwner.",
@@ -411,9 +434,8 @@ class FleetFunctions
 				   fleet_group              = ".$fleetGroup.",
 				   fleet_target_obj         = ".$missleTarget.",
 				   start_time               = ".TIMESTAMP.";
-				   UPDATE ".PLANETS." SET ".implode(", ", $planetQuery)." WHERE id = ".$fleetStartPlanetID.";
 				   UNLOCK TABLES;";
+				   
 		$GLOBALS['DATABASE']->multi_query($SQL);
 	}
 }
-?>

@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,16 +18,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id: ShowInformationPage.php 2193 2012-04-17 20:23:07Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: ShowInformationPage.php 2632 2013-03-18 19:05:14Z slaver7 $
+ * @link http://2moons.cc/
  */
 
-if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) exit;
+if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) throw new Exception("Permission error!");
 
 function ShowInformationPage()
 {
@@ -39,16 +38,26 @@ function ShowInformationPage()
 		$Lines	= 0;
 	
 	try {
-		$dateTimeZoneServer = new DateTimeZone($CONF['timezone']);
+		$dateTimeZoneServer = new DateTimeZone(Config::get('timezone'));
+	} catch (Exception $e) {
+		$dateTimeZoneServer	= new DateTimeZone(date_default_timezone_get());
+	}
+	
+	try {
 		$dateTimeZoneUser	= new DateTimeZone($USER['timezone']);
 	} catch (Exception $e) {
-		$dateTimeZoneServer	= null;
-		$dateTimeZoneUser	= null;
+		$dateTimeZoneUser	= new DateTimeZone(date_default_timezone_get());
+	}
+	
+	try {
+		$dateTimeZonePHP	= new DateTimeZone(ini_get('date.timezone'));
+	} catch (Exception $e) {
+		$dateTimeZonePHP	= new DateTimeZone(date_default_timezone_get());
 	}
 	
 	$dateTimeServer		= new DateTime("now", $dateTimeZoneServer);
 	$dateTimeUser		= new DateTime("now", $dateTimeZoneUser);
-	$dateTimePHP		= new DateTime("now");
+	$dateTimePHP		= new DateTime("now", $dateTimeZonePHP);
 	
 	$template	= new template();
 	$template->assign_vars(array(
@@ -56,7 +65,7 @@ function ShowInformationPage()
 		'info'				=> $_SERVER['SERVER_SOFTWARE'],
 		'vPHP'				=> PHP_VERSION,
 		'vAPI'				=> PHP_SAPI,
-		'vGame'				=> $CONF['VERSION'],
+		'vGame'				=> Config::get('VERSION'),
 		'vMySQLc'			=> $GLOBALS['DATABASE']->getVersion(),
 		'vMySQLs'			=> $GLOBALS['DATABASE']->getServerVersion(),
 		'root'				=> $_SERVER['SERVER_NAME'],
@@ -78,5 +87,3 @@ function ShowInformationPage()
 
 	$template->show('ShowInformationPage.tpl');
 }
-
-?>

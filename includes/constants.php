@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,22 +18,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id: constants.php 2246 2012-06-16 16:05:09Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: constants.php 2632 2013-03-18 19:05:14Z slaver7 $
+ * @link http://2moons.cc/
  */
 
 //SET TIMEZONE (if Server Timezone are not correct)
 //date_default_timezone_set('America/Chicago');
+
 //TEMPLATES DEFAULT SETTINGS
 define('DEFAULT_THEME'	 		    , 'gow');
 define('HTTPS'						, isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"]  == 'on');
 define('PROTOCOL'					, HTTPS ? 'https://' : 'http://');
-define('HTTP_ROOT'					, str_replace('\\', '/', str_replace(basename($_SERVER['SCRIPT_FILENAME']), '', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))));
+
+define('HTTP_BASE'					, str_replace(array('\\', '//'), '/', dirname($_SERVER['SCRIPT_NAME']).'/'));
+define('HTTP_ROOT'					, str_replace(basename($_SERVER['SCRIPT_FILENAME']), '', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));
+
+define('HTTP_FILE'					, basename($_SERVER['SCRIPT_NAME']));
 define('HTTP_HOST'					, $_SERVER['HTTP_HOST']);
 define('HTTP_PATH'					, PROTOCOL.HTTP_HOST.HTTP_ROOT);
 
@@ -51,9 +55,6 @@ define('DEFAULT_LANG'				, 'de');
 // SUPPORT WILDCAST DOMAINS
 define('UNIS_WILDCAST'				, false);
 
-// SUPPORT MULTIPLY UNIVERSE VIA HTACCESS (BETA; COMMENT OUT THE REWRITE SELECTION)
-define('UNIS_HTACCESS'				, false);
-
 // FIELDS FOR EACH LEVEL OF THE LUNAR BASE
 define('FIELDS_BY_MOONBASIS_LEVEL'	, 3);
 
@@ -68,9 +69,6 @@ define('INACTIVE_LONG'				, 2419200);
 
 // FEE FOR CANCEL QUEUE IN SHIPYARD
 define('FACTOR_CANCEL_SHIPYARD'		, 0.6);
-
-// ADDED PLANET PRO 2 TECH LEVELS
-define('PLANETS_PER_TECH'			, 1);	
 
 // MINIMUM FLEET TIME
 define('MIN_FLEET_TIME'				, 5);	
@@ -109,15 +107,29 @@ define('SESSION_LIFETIME'			, 43200);
 // ENABLE Mutlialert on sending fleets
 define('ENABLE_MULTIALERT'			, true);
 
-// DISCLAMER INFOS
-define('DICLAMER_NAME'				, "Edit constans.php!");
-define('DICLAMER_ADRESS1'			, "Edit constans.php!");
-define('DICLAMER_ADRESS2'			, "Edit constans.php!");
-define('DICLAMER_TEL'				, "Edit constans.php!");
-define('DICLAMER_EMAIL'				, "Edit constans.php!");
-
 // UTF-8 support for names (required for non-english chars!)
 define('UTF8_SUPPORT'				, true);
+
+// Define, how its more hard to spy all inforation
+/*
+	if [Spy tech level of sender] > [Spy tech level of target]
+		min amount of spies = -1 * (abs([Spy tech level of sender] - [Spy tech level of target]) * SPY_DIFFENCE_FACTOR) ^ 2;
+	else
+		min amount of spies = -1 * (abs([Spy tech level of sender] - [Spy tech level of target]) * SPY_DIFFENCE_FACTOR) ^ 2;
+	
+*/
+define('SPY_DIFFENCE_FACTOR'		, 1);
+
+// Define, how its more hard to spy all inforation
+/*
+	min amount of spies = see MissionCaseSpy.php#78
+
+	To see Fleet		= {min amount of spies}
+	To see Defense		= {min amount of spies} + 1 * SPY_VIEW_FACTOR
+	To see Buildings	= {min amount of spies} + 3 * SPY_VIEW_FACTOR
+	To see Technology	= {min amount of spies} + 5 * SPY_VIEW_FACTOR
+*/
+define('SPY_VIEW_FACTOR'			, 1);
 
 // Bash Settings
 define('BASH_ON'					, false);	
@@ -131,13 +143,6 @@ define('BASH_WAR'					, 0);
 
 // MINIMUM FLEET TIME MUST HIGHER THEN BASH_TIME
 define('FLEETLOG_AGE'				, 86400);	
-
-// EXPERIMENAL FUNCTION: DATABASE UPDATE
-define('ENABLE_DATABASE_BACKUP'		, false);
-// IT'S REQUIRED TO CHANGE TO DIR.
-// ADDIONALLY, ITS REQUIRED, PHP CAN WRITE INTO THIS DIR.
-// ALSO, ITS HIGHLY RECOMMEND TO FORBIDDEN THE DIR FOR HTTP USERS (.htaccess Protection)	
-define('STORAGE_BACKUP_TO_DIR'		, '/tmp/');
 
 // Root IDs
 define('ROOT_UNI'					, 1);	

@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,28 +18,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id: class.statbuilder.php 2325 2012-09-01 21:07:28Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: class.statbuilder.php 2641 2013-03-24 13:43:52Z slaver7 $
+ * @link http://2moons.cc/
  */
 
 class statbuilder
 {
 	function __construct()
 	{
-		global $CONF;
 		$this->starttime   	= microtime(true);
 		$this->memory		= array(round(memory_get_usage() / 1024,1),round(memory_get_usage(1) / 1024,1));
 		$this->time   		= TIMESTAMP;
 
 		$this->recordData  	= array();
 		
-		$this->Unis			= array($CONF['uni']);
-		$Query				= $GLOBALS['DATABASE']->query("SELECT uni FROM ".CONFIG." WHERE uni != '".$CONF['uni']."' ORDER BY uni ASC;");
+		$this->Unis			= array();
+		$Query				= $GLOBALS['DATABASE']->query("SELECT uni FROM ".CONFIG." ORDER BY uni ASC;");
 		while($Uni	= $GLOBALS['DATABASE']->fetch_array($Query)) {
 			$this->Unis[]	= $Uni['uni'];
 		}
@@ -57,16 +55,11 @@ class statbuilder
 		);
 	}
 	
-	private function AnotherCronJobs()
-	{
-
-	}	
-	
 	private function CheckUniverseAccounts($UniData)
 	{
 		$UniData	= $UniData + array_combine($this->Unis, array_fill(1, count($this->Unis), 0));
 		foreach($UniData as $Uni => $Amount) {
-			update_config(array('users_amount' => $Amount), $Uni);
+			Config::update(array('users_amount' => $Amount), $Uni);
 		}
 	}
 	
@@ -91,6 +84,10 @@ class statbuilder
 		}	
 		
 		foreach($reslist['defense'] as $Defense){
+			$select_defenses	.= " SUM(p.".$resource[$Defense].") as ".$resource[$Defense].",";
+		}
+		
+		foreach($reslist['missile'] as $Defense){
 			$select_defenses	.= " SUM(p.".$resource[$Defense].") as ".$resource[$Defense].",";
 		}
 		
@@ -156,7 +153,7 @@ class statbuilder
 
 	private function GetTechnoPoints($USER) 
 	{
-		global $resource, $reslist, $pricelist, $CONF;
+		global $resource, $reslist, $pricelist;
 		$TechCounts = 0;
 		$TechPoints = 0;
 
@@ -175,12 +172,12 @@ class statbuilder
 			$this->setRecords($USER['id'], $Techno, $USER[$resource[$Techno]]);
 		}
 		
-		return array('count' => $TechCounts, 'points' => ($TechPoints / $CONF['stat_settings']));
+		return array('count' => $TechCounts, 'points' => ($TechPoints / Config::get('stat_settings')));
 	}
 
 	private function GetBuildPoints($PLANET) 
 	{
-		global $resource, $reslist, $pricelist, $CONF;
+		global $resource, $reslist, $pricelist;
 		$BuildCounts = 0;
 		$BuildPoints = 0;
 		
@@ -198,16 +195,16 @@ class statbuilder
 			
 			$this->setRecords($PLANET['id_owner'], $Build, $PLANET[$resource[$Build]]);
 		}
-		return array('count' => $BuildCounts, 'points' => ($BuildPoints / $CONF['stat_settings']));
+		return array('count' => $BuildCounts, 'points' => ($BuildPoints / Config::get('stat_settings')));
 	}
 
 	private function GetDefensePoints($USER) 
 	{
-		global $resource, $reslist, $pricelist, $CONF;
+		global $resource, $reslist, $pricelist;
 		$DefenseCounts = 0;
 		$DefensePoints = 0;
 				
-		foreach($reslist['defense'] as $Defense) {
+		foreach(array_merge($reslist['defense'], $reslist['missile']) as $Defense) {
 			if($USER[$resource[$Defense]] == 0) continue;
 			
 			$Units			= $pricelist[$Defense]['cost'][901] + $pricelist[$Defense]['cost'][902] + $pricelist[$Defense]['cost'][903];
@@ -217,12 +214,12 @@ class statbuilder
 			$this->setRecords($USER['id'], $Defense, $USER[$resource[$Defense]]);
 		}
 		
-		return array('count' => $DefenseCounts, 'points' => ($DefensePoints / $CONF['stat_settings']));
+		return array('count' => $DefenseCounts, 'points' => ($DefensePoints / Config::get('stat_settings')));
 	}
 
 	private function GetFleetPoints($USER) 
 	{
-		global $resource, $reslist, $pricelist, $CONF;
+		global $resource, $reslist, $pricelist;
 		$FleetCounts = 0;
 		$FleetPoints = 0;
 	
@@ -236,19 +233,17 @@ class statbuilder
 			$this->setRecords($USER['id'], $Fleet, $USER[$resource[$Fleet]]);
 		}
 		
-		return array('count' => $FleetCounts, 'points' => ($FleetPoints / $CONF['stat_settings']));
+		return array('count' => $FleetCounts, 'points' => ($FleetPoints / Config::get('stat_settings')));
 	}
 	
 	private function SetNewRanks()
 	{
-		global $CONF;	
-		
 		$QryUpdateStats = "";
 		foreach($this->Unis as $Uni)
 		{
 			$tech			= array();
 			$Rank           = 1;
-			$RankQry        = $GLOBALS['DATABASE']->query("SELECT s.id_owner FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.universe = '".$Uni."' AND s.stat_type = '1' AND s.id_owner = u.id ".(($CONF['stat'] == 2)?'AND u.authlevel < '.$CONF['stat_level'].' ':'')." ORDER BY tech_points DESC;");
+			$RankQry        = $GLOBALS['DATABASE']->query("SELECT s.id_owner FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.universe = '".$Uni."' AND s.stat_type = '1' AND s.id_owner = u.id ".((Config::get('stat') == 2)?'AND u.authlevel < '.Config::get('stat_level').' ':'')." ORDER BY tech_points DESC;");
 			while ($CurUser = $GLOBALS['DATABASE']->fetch_array($RankQry))
 			{
 				$tech[$CurUser['id_owner']]	= $Rank;
@@ -259,7 +254,7 @@ class statbuilder
 
 			$build			= array();
 			$Rank           = 1;
-			$RankQry        = $GLOBALS['DATABASE']->query("SELECT s.id_owner FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.universe = '".$Uni."' AND  s.stat_type = '1' AND s.id_owner = u.id ".(($CONF['stat'] == 2)?'AND u.authlevel < '.$CONF['stat_level'].' ':'')." ORDER BY build_points DESC;");
+			$RankQry        = $GLOBALS['DATABASE']->query("SELECT s.id_owner FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.universe = '".$Uni."' AND  s.stat_type = '1' AND s.id_owner = u.id ".((Config::get('stat') == 2)?'AND u.authlevel < '.Config::get('stat_level').' ':'')." ORDER BY build_points DESC;");
 			while ($CurUser = $GLOBALS['DATABASE']->fetch_array($RankQry))
 			{
 				$build[$CurUser['id_owner']] = $Rank;
@@ -270,7 +265,7 @@ class statbuilder
 				
 			$defs			= array();
 			$Rank           = 1;
-			$RankQry        = $GLOBALS['DATABASE']->query("SELECT s.id_owner FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.universe = '".$Uni."' AND  s.stat_type = '1' AND s.id_owner = u.id ".(($CONF['stat'] == 2)?'AND u.authlevel < '.$CONF['stat_level'].' ':'')." ORDER BY defs_points DESC;");
+			$RankQry        = $GLOBALS['DATABASE']->query("SELECT s.id_owner FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.universe = '".$Uni."' AND  s.stat_type = '1' AND s.id_owner = u.id ".((Config::get('stat') == 2)?'AND u.authlevel < '.Config::get('stat_level').' ':'')." ORDER BY defs_points DESC;");
 			while ($CurUser = $GLOBALS['DATABASE']->fetch_array($RankQry))
 			{
 				$defs[$CurUser['id_owner']]	= $Rank;
@@ -281,7 +276,7 @@ class statbuilder
 				
 			$fleet			= array();
 			$Rank           = 1;
-			$RankQry        = $GLOBALS['DATABASE']->query("SELECT s.id_owner FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.universe = '".$Uni."' AND  s.stat_type = '1' AND s.id_owner = u.id ".(($CONF['stat'] == 2)?'AND u.authlevel < '.$CONF['stat_level'].' ':'')." ORDER BY fleet_points DESC;");
+			$RankQry        = $GLOBALS['DATABASE']->query("SELECT s.id_owner FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.universe = '".$Uni."' AND  s.stat_type = '1' AND s.id_owner = u.id ".((Config::get('stat') == 2)?'AND u.authlevel < '.Config::get('stat_level').' ':'')." ORDER BY fleet_points DESC;");
 			while ($CurUser = $GLOBALS['DATABASE']->fetch_array($RankQry))
 			{
 				$fleet[$CurUser['id_owner']] = $Rank;
@@ -291,7 +286,7 @@ class statbuilder
 			$GLOBALS['DATABASE']->free_result($RankQry);
 				
 			$Rank           = 1;
-			$RankQry        = $GLOBALS['DATABASE']->query("SELECT s.id_owner FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.universe = '".$Uni."' AND  s.stat_type = '1' AND s.id_owner = u.id ".(($CONF['stat'] == 2)?'AND u.authlevel < '.$CONF['stat_level'].' ':'')." ORDER BY total_points DESC;");
+			$RankQry        = $GLOBALS['DATABASE']->query("SELECT s.id_owner FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.universe = '".$Uni."' AND  s.stat_type = '1' AND s.id_owner = u.id ".((Config::get('stat') == 2)?'AND u.authlevel < '.Config::get('stat_level').' ':'')." ORDER BY total_points DESC;");
 
 			while($CurUser = $GLOBALS['DATABASE']->fetch_array($RankQry))
 			{
@@ -362,7 +357,7 @@ class statbuilder
 	
 	final public function MakeStats()
 	{
-		global $CONF, $resource;
+		global $resource;
 		$AllyPoints	= array();
 		$UserPoints	= array();
 		$TotalData	= $this->GetUsersInfosFromDB();
@@ -371,7 +366,7 @@ class statbuilder
 		
 		while($PlanetData = $GLOBALS['DATABASE']->fetch_array($TotalData['Planets']))
 		{		
-			if((in_array($CONF['stat'], array(1, 2)) && $PlanetData['authlevel'] >= $CONF['stat_level']) || !empty($PlanetData['bana'])) continue;
+			if((in_array(Config::get('stat'), array(1, 2)) && $PlanetData['authlevel'] >= Config::get('stat_level')) || !empty($PlanetData['bana'])) continue;
 			
  			if(!isset($UserPoints[$PlanetData['id_owner']])) {
 				$UserPoints[$PlanetData['id_owner']]['build']['count'] = $UserPoints[$PlanetData['id_owner']]['build']['points'] = 0;
@@ -393,7 +388,7 @@ class statbuilder
 			
 			$UniData[$UserData['universe']]++;
 				
-			if ((in_array($CONF['stat'], array(1, 2)) && $UserData['authlevel'] >= $CONF['stat_level']) || !empty($UserData['bana']))
+			if ((in_array(Config::get('stat'), array(1, 2)) && $UserData['authlevel'] >= Config::get('stat_level')) || !empty($UserData['bana']))
 			{	
 				$FinalSQL  .= "(".$UserData['id'].",".$UserData['ally_id'].",1,".$UserData['universe'].",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0), ";
 				continue;
@@ -415,8 +410,15 @@ class statbuilder
 			$UserPoints[$UserData['id']]['techno']['count'] 	= $TechnoPoints['count'];
 			$UserPoints[$UserData['id']]['techno']['points'] 	= $TechnoPoints['points'];
 			
-			$UserPoints[$UserData['id']]['total']['count'] 		= $UserPoints[$UserData['id']]['techno']['count'] + $UserPoints[$UserData['id']]['build']['count'] + $UserPoints[$UserData['id']]['defense']['count'] + $UserPoints[$UserData['id']]['fleet']['count'];
-			$UserPoints[$UserData['id']]['total']['points'] 	= $UserPoints[$UserData['id']]['techno']['points'] + $UserPoints[$UserData['id']]['build']['points'] + $UserPoints[$UserData['id']]['defense']['points'] + $UserPoints[$UserData['id']]['fleet']['points'];
+			$UserPoints[$UserData['id']]['total']['count'] 		= $UserPoints[$UserData['id']]['techno']['count']
+																+ $UserPoints[$UserData['id']]['build']['count']
+																+ $UserPoints[$UserData['id']]['defense']['count']
+																+ $UserPoints[$UserData['id']]['fleet']['count'];
+																
+			$UserPoints[$UserData['id']]['total']['points'] 	= $UserPoints[$UserData['id']]['techno']['points']
+																+ $UserPoints[$UserData['id']]['build']['points']
+																+ $UserPoints[$UserData['id']]['defense']['points'] 
+																+ $UserPoints[$UserData['id']]['fleet']['points'];
 
 			if($UserData['ally_id'] != 0)
 			{
@@ -509,10 +511,7 @@ class statbuilder
 
 		$this->SaveDataIntoDB($RankSQL);
 		$this->CheckUniverseAccounts($UniData);		
-		$this->writeRecordData();		
-		$this->AnotherCronJobs();		
+		$this->writeRecordData();	
 		return $this->SomeStatsInfos();
 	}
 }
-
-?>

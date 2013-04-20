@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,16 +18,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id: class.ShowFleetMissilePage.php 2261 2012-06-27 19:23:45Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: class.ShowFleetMissilePage.php 2640 2013-03-23 19:23:26Z slaver7 $
+ * @link http://2moons.cc/
  */
 
-require_once(ROOT_PATH . 'includes/classes/class.FleetFunctions.php');
+require_once('includes/classes/class.FleetFunctions.php');
 
 class ShowFleetMissilePage extends AbstractPage
 {
@@ -50,7 +49,7 @@ class ShowFleetMissilePage extends AbstractPage
 		$anz 				= min(HTTP::_GP('SendMI',0), $iraks);
 		$pziel 				= HTTP::_GP('Target', 0);
 		
-		$target 			= $GLOBALS['DATABASE']->uniquequery("SELECT `id`, `id_owner` FROM ".PLANETS." WHERE `universe` = '".$UNI."' AND  `galaxy` = '".$targetGalaxy."' AND `system` = '".$targetSystem."' AND `planet` = '".$targetPlanet."' AND `planet_type` = ".$targetType.";");
+		$target 			= $GLOBALS['DATABASE']->getFirstRow("SELECT `id`, `id_owner` FROM ".PLANETS." WHERE `universe` = '".$UNI."' AND  `galaxy` = '".$targetGalaxy."' AND `system` = '".$targetSystem."' AND `planet` = '".$targetPlanet."' AND `planet_type` = ".$targetType.";");
 		
 		$Range				= FleetFunctions::GetMissileRange($USER[$resource[117]]);
 		$systemMin			= $PLANET['system'] - $Range;
@@ -77,15 +76,14 @@ class ShowFleetMissilePage extends AbstractPage
 
 		$targetUser	   	= GetUserByID($target['id_owner'], array('onlinetime', 'banaday', 'urlaubs_modus', 'authattack'));
 		
-		if ($CONF['adm_attack'] == 1 && $targetUser['authattack'] > $USER['authlevel'])
-			$error = $LNG['fl_admins_cannot_be_attacked'];	
+		if (Config::get('adm_attack') == 1 && $targetUser['authattack'] > $USER['authlevel'])
+			$error = $LNG['fl_admin_attack'];	
 		elseif($targetUser['urlaubs_modus'])
 			$error = $LNG['fl_in_vacation_player'];
 			
-		$UserPoints   	= $USER;
-		$User2Points  	= $GLOBALS['DATABASE']->uniquequery("SELECT `total_points` FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `id_owner` = '".$target['id_owner']."';");
+		$User2Points  	= $GLOBALS['DATABASE']->getFirstRow("SELECT `total_points` FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `id_owner` = '".$target['id_owner']."';");
 		
-		$IsNoobProtec	= CheckNoobProtec($UserPoints, $User2Points, $targetUser);
+		$IsNoobProtec	= CheckNoobProtec($USER, $User2Points, $targetUser);
 			
 		if ($IsNoobProtec['NoobPlayer'])
 			$error = $LNG['fl_week_player'];
@@ -95,14 +93,11 @@ class ShowFleetMissilePage extends AbstractPage
 		if ($error != "")
 		{
 			$this->printMessage($error);
-			exit;
 		}
 		
-		$SpeedFactor	= FleetFunctions::GetGameSpeedFactor();
-		$Distance		= FleetFunctions::GetTargetDistance(array($PLANET['galaxy'], $PLANET['system'], $PLANET['planet']), array($targetGalaxy, $targetSystem, $targetPlanet));
-		$Duration		= max(round((30 + (60 * $Distance) / $SpeedFactor)),30);
+		$Duration		= FleetFunctions::GetMIPDuration($PLANET['system'], $targetSystem);
 
-		$DefenseLabel 		 = ($pziel == 0) ? $LNG['ma_all'] : $LNG['tech'][$pziel];
+		$DefenseLabel 	= ($pziel == 0) ? $LNG['ma_all'] : $LNG['tech'][$pziel];
 		
 		if(connection_aborted())
 			exit;
@@ -121,7 +116,6 @@ class ShowFleetMissilePage extends AbstractPage
 		
 		FleetFunctions::sendFleet($fleetArray, 10, $USER['id'], $PLANET['id'], $PLANET['galaxy'], $PLANET['system'], $PLANET['planet'], $PLANET['planet_type'], $target['id_owner'], $target['id'], $targetGalaxy, $targetSystem, $targetPlanet, $targetType, $fleetRessource, $fleetStartTime, $fleetStayTime, $fleetEndTime, 0, $pziel);
 
-		$this->printMessage("<b>".$anz."</b>". $LNG['ma_missiles_sended'] .$DefenseLabel, "game.php?page=overview", 3);
+		$this->printMessage("<b>".$anz."</b>". $LNG['ma_missiles_sended'].$DefenseLabel);
 	}
 }
-?>

@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/svn/!svn/ver/2677/trunk/includes
+END
+vars.php
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/2632/trunk/includes/vars.php
+END
+constants.php
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/2632/trunk/includes/constants.php
+END
+FleetHandler.php
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/2640/trunk/includes/FleetHandler.php
+END
+PlanetData.php
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/2632/trunk/includes/PlanetData.php
+END
+dbtables.php
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/2490/trunk/includes/dbtables.php
+END
+config.sample.php
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/2126/trunk/includes/config.sample.php
+END
+.htaccess
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/2126/trunk/includes/.htaccess
+END
+GeneralFunctions.php
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/2653/trunk/includes/GeneralFunctions.php
+END
+FIRST_INSTALL
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/2130/trunk/includes/FIRST_INSTALL
+END
+common.php
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/2647/trunk/includes/common.php
+END

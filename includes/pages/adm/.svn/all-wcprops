@@ -1,0 +1,251 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/2675/trunk/includes/pages/adm
+END
+ShowVertify.php
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/2640/trunk/includes/pages/adm/ShowVertify.php
+END
+ShowCronjobPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2640/trunk/includes/pages/adm/ShowCronjobPage.php
+END
+ShowBanPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/2632/trunk/includes/pages/adm/ShowBanPage.php
+END
+ShowRightsPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2640/trunk/includes/pages/adm/ShowRightsPage.php
+END
+ShowUniversePage.php
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2632/trunk/includes/pages/adm/ShowUniversePage.php
+END
+ShowChatConfigPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2632/trunk/includes/pages/adm/ShowChatConfigPage.php
+END
+ShowConfigBasicPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2632/trunk/includes/pages/adm/ShowConfigBasicPage.php
+END
+ShowTopnavPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2632/trunk/includes/pages/adm/ShowTopnavPage.php
+END
+ShowFlyingFleetPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2640/trunk/includes/pages/adm/ShowFlyingFleetPage.php
+END
+ShowLoginPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2632/trunk/includes/pages/adm/ShowLoginPage.php
+END
+ShowFacebookPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2632/trunk/includes/pages/adm/ShowFacebookPage.php
+END
+ShowTeamspeakPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2632/trunk/includes/pages/adm/ShowTeamspeakPage.php
+END
+ShowClearCachePage.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2632/trunk/includes/pages/adm/ShowClearCachePage.php
+END
+ShowGiveawayPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2490/trunk/includes/pages/adm/ShowGiveawayPage.php
+END
+ShowStatUpdatePage.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2640/trunk/includes/pages/adm/ShowStatUpdatePage.php
+END
+ShowSendMessagesPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2640/trunk/includes/pages/adm/ShowSendMessagesPage.php
+END
+ShowConfigUniPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2675/trunk/includes/pages/adm/ShowConfigUniPage.php
+END
+ShowLogPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/2490/trunk/includes/pages/adm/ShowLogPage.php
+END
+ShowResetPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2632/trunk/includes/pages/adm/ShowResetPage.php
+END
+ShowQuickEditorPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2632/trunk/includes/pages/adm/ShowQuickEditorPage.php
+END
+ShowAccountDataPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2640/trunk/includes/pages/adm/ShowAccountDataPage.php
+END
+ShowStatsPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2632/trunk/includes/pages/adm/ShowStatsPage.php
+END
+ShowCreatorPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2640/trunk/includes/pages/adm/ShowCreatorPage.php
+END
+ShowAutoCompletePage.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2632/trunk/includes/pages/adm/ShowAutoCompletePage.php
+END
+ShowAccountEditorPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2632/trunk/includes/pages/adm/ShowAccountEditorPage.php
+END
+ShowDisclamerPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2632/trunk/includes/pages/adm/ShowDisclamerPage.php
+END
+ShowMenuPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2632/trunk/includes/pages/adm/ShowMenuPage.php
+END
+ShowSearchPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2640/trunk/includes/pages/adm/ShowSearchPage.php
+END
+ShowDumpPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2640/trunk/includes/pages/adm/ShowDumpPage.php
+END
+ShowOverviewPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2640/trunk/includes/pages/adm/ShowOverviewPage.php
+END
+ShowIndexPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2632/trunk/includes/pages/adm/ShowIndexPage.php
+END
+ShowLogoutPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2632/trunk/includes/pages/adm/ShowLogoutPage.php
+END
+ShowActivePage.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2632/trunk/includes/pages/adm/ShowActivePage.php
+END
+ShowNewsPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2632/trunk/includes/pages/adm/ShowNewsPage.php
+END
+ShowSupportPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2640/trunk/includes/pages/adm/ShowSupportPage.php
+END
+ShowMessageListPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2632/trunk/includes/pages/adm/ShowMessageListPage.php
+END
+ShowPassEncripterPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2632/trunk/includes/pages/adm/ShowPassEncripterPage.php
+END
+ShowUpdatePage.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2640/trunk/includes/pages/adm/ShowUpdatePage.php
+END
+ShowMultiIPPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2632/trunk/includes/pages/adm/ShowMultiIPPage.php
+END
+ShowModulePage.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2632/trunk/includes/pages/adm/ShowModulePage.php
+END
+ShowInformationPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2632/trunk/includes/pages/adm/ShowInformationPage.php
+END

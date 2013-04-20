@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,34 +18,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id: game.php 2127 2012-03-12 15:19:18Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: game.php 2643 2013-03-26 17:13:31Z slaver7 $
+ * @link http://2moons.cc/
  */
 
 define('MODE', 'INGAME');
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
+set_include_path(ROOT_PATH);
 
-require(ROOT_PATH.'includes/pages/game/class.AbstractPage.php');
-require(ROOT_PATH.'includes/pages/game/class.ShowErrorPage.php');
-require(ROOT_PATH.'includes/classes/class.BuildFunctions.php');
-require(ROOT_PATH.'includes/common.php');
+require 'includes/pages/game/class.AbstractPage.php';
+require 'includes/pages/game/class.ShowErrorPage.php';
+require 'includes/common.php';
 
 $page 		= HTTP::_GP('page', 'overview');
 $mode 		= HTTP::_GP('mode', 'show');
 $mode		= str_replace(array('_', '\\', '/', '.', "\0"), '', $mode);
 $pageClass	= 'Show'.ucwords($page).'Page';
 
-if(!file_exists(ROOT_PATH . 'includes/pages/game/class.'.$pageClass.'.php')) {
+if(!file_exists('includes/pages/game/class.'.$pageClass.'.php')) {
 	ShowErrorPage::printError($LNG['page_doesnt_exist']);
 }
 
 // Added Autoload in feature Versions
-require(ROOT_PATH . 'includes/pages/game/class.'.$pageClass.'.php');
+require('includes/pages/game/class.'.$pageClass.'.php');
 
 $pageObj	= new $pageClass;
 // PHP 5.2 FIX
@@ -64,5 +63,3 @@ if(!is_callable(array($pageObj, $mode))) {
 }
 
 $pageObj->{$mode}();
-
-?>

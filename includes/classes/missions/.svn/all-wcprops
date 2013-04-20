@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/2657/trunk/includes/classes/missions
+END
+MissionCaseTransport.php
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2632/trunk/includes/classes/missions/MissionCaseTransport.php
+END
+MissionCaseFoundDM.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2632/trunk/includes/classes/missions/MissionCaseFoundDM.php
+END
+calculateMIPAttack.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2632/trunk/includes/classes/missions/calculateMIPAttack.php
+END
+MissionCaseColonisation.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/2640/trunk/includes/classes/missions/MissionCaseColonisation.php
+END
+MissionCaseStayAlly.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2632/trunk/includes/classes/missions/MissionCaseStayAlly.php
+END
+MissionCaseDestruction.php
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/2657/trunk/includes/classes/missions/MissionCaseDestruction.php
+END
+MissionCaseACS.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2632/trunk/includes/classes/missions/MissionCaseACS.php
+END
+MissionCaseAttack.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2657/trunk/includes/classes/missions/MissionCaseAttack.php
+END
+MissionCaseExpedition.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/2632/trunk/includes/classes/missions/MissionCaseExpedition.php
+END
+MissionCaseSpy.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2640/trunk/includes/classes/missions/MissionCaseSpy.php
+END
+MissionCaseRecycling.php
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2632/trunk/includes/classes/missions/MissionCaseRecycling.php
+END
+MissionCaseStay.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2640/trunk/includes/classes/missions/MissionCaseStay.php
+END
+MissionCaseMIP.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2632/trunk/includes/classes/missions/MissionCaseMIP.php
+END
+calculateAttack.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2632/trunk/includes/classes/missions/calculateAttack.php
+END
+calculateSteal.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2632/trunk/includes/classes/missions/calculateSteal.php
+END
+GenerateReport.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2632/trunk/includes/classes/missions/GenerateReport.php
+END

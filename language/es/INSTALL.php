@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,23 +18,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id: INSTALL.php 2314 2012-08-22 18:07:52Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: INSTALL.php 2632 2013-03-18 19:05:14Z slaver7 $
+ * @link http://2moons.cc/
  */
 
 
 $LNG['back']					= 'Atras';
 $LNG['continue'] = 'Continuar';
+$LNG['continueUpgrade']			= 'Actualización!';
 $LNG['login']					= 'Login';
 
 $LNG['menu_intro'] = 'Intro';
 $LNG['menu_install'] = 'Instalar';
 $LNG['menu_license'] = 'Licencia';
+$LNG['menu_upgrade']			= 'Actualizar';
 
 $LNG['title_install'] = 'Instalador';
 
@@ -42,14 +43,24 @@ $LNG['intro_lang'] = 'Idioma';
 $LNG['intro_install'] = 'Instalación';
 $LNG['intro_welcome'] = 'Bienvenido a 2Moons!';
 $LNG['intro_text'] = '2Moons es uno de los mejores clones de OGame. <br> 2Moons es la última y más estable versión de un servidor basado en Xnova que ah sido desarrollada. Los puntos clave de 2Moons son su facilidad, estabilidad, flexibilidad, dinamismo y calidad. En 2Moons siempre esperamos a ser más que sus expectativas. <br> El sistema de instalación le guiará a través de la instalación o la actualización de una versión previa a la última. <br>  Si tiene preguntas o problemas, por favor, no dude en comunicarse en nuestro foro de desarrollo y soporte. <br> 2Moons es un proyecto de código abierto y está bajo licencia GNU GPL v3. Para conocer la licencia, por favor haga click en la opción del menú correspondiente. <br> Antes de comenzar la instalación se lleva a cabo una prueba para saber si el servidor cumple los requisitos mínimos.';
+$LNG['intro_upgrade_head']		= '2Moons ya instalado?';
+$LNG['intro_upgrade_text']		= '<p>2Moons ya está instalado y sólo desea actualizarlo?</p>Aquí usted puede actualizar su base de datos antigua con unos pocos clics</p>';
 
-$LNG['licence_head']			= 'Lizenzbestimmungen';
-$LNG['licence_desc']			= 'Bitte lesen Sie die folgenden Lizenzbestimmungen. Verwenden Sie die Bildlaufleiste, um das gesamte Dokument anzuzeigen.';
-$LNG['licence_accept']			= 'Akzeptieren Sie sämtliche Bedingungen der Lizenzbestimmungen? Sie können die Software nur installieren, wenn Sie die Lizenzbestimmungen akzeptieren.';
-$LNG['licence_need_accept']		= 'Um mit der Installation fortfahren zu können, müssen Sie die Lizenzbestimmungen akzeptieren.';
+$LNG['upgrade_success']			= 'Actualización de la base de datos correcta. Base de datos Corresponde ahora al estado de la revisión %s.';
+$LNG['upgrade_nothingtodo']		= 'No se requiere acción. Base de datos ya está en actualizada hasta la fecha de la revisión %s.';
+$LNG['upgrade_back']			= 'Atrás';
+$LNG['upgrade_intro_welcome']	= 'Bienvenido al actualizador de la base de datos!';
+$LNG['upgrade_available']		= 'Hay actualizaciones disponibles para su base de datos! La base de datos está actualizada a la revisión %s y hay una actualización de la revisión %s para actualizar.<br><br>Por favor, seleccione en el menú siguiente, el primero en instalar la actualización de SQL:';
+$LNG['upgrade_notavailable']	= 'La actualización utiliza la revisión %s es el más reciente de la base de datos.';
+$LNG['upgrade_required_rev']	= 'La actualización sólo se puede utilizar desde la r2579 (2Moons v1.7) o superior.';
 
-$LNG['req_head']				= 'Benötigte Systemvoraussetzungen';
-$LNG['req_desc']				= 'Bevor die Installation fortgesetzt werden kann, wird 2Moons einige Tests zu deiner Server-Konfiguration und deinen Dateien durchführen, um sicherzustellen, dass du 2Moons installieren und benutzen kannst. Bitte lies die Ergebnisse aufmerksam durch und fahre nicht weiter fort, bevor alle erforderlichen Tests bestanden sind. Falls du irgendeine der Funktionen, die unter den optionalen Modulen aufgeführt sind, nutzen möchtest, solltest du sicherstellen, dass die entsprechenden Tests auch bestanden werden.';
+$LNG['licence_head']			= 'Aviso Legal';
+$LNG['licence_desc']			= 'Por favor, lea el siguiente acuerdo de licencia. Utilice la barra de desplazamiento para ver el documento completo.';
+$LNG['licence_accept']			= '¿Acepta todas las condiciones del contrato de licencia? Puede instalar el software sólo si acepta los términos de la licencia.';
+$LNG['licence_need_accept']		= 'Para continuar con la instalación, debe aceptar los términos de la licencia.';
+
+$LNG['req_head']				= 'Systema Requerido';
+$LNG['req_desc']				= 'Antes de que la instalación pueda continuar, 2Moons realizará algunas pruebas en la configuración de su servidor y los archivos para asegurarse de que se puede instalar y utilizar 2Moons. Por favor, lea cuidadosamente los resultados y no van más allá de todas las pruebas necesarias hasta que haya sido aprobada. Si desea utilizar cualquiera de las funciones que se enumeran en los módulos opcionales, debe asegurarse de que las pruebas adecuadas también se pasan.';
 $LNG['reg_yes'] = 'Sí';
 $LNG['reg_no'] = 'No';
 $LNG['reg_found'] = 'Encontrado';
@@ -118,4 +129,3 @@ $LNG['sql_close_reason'] = 'El juego está actualmente cerrado';
 $LNG['sql_welcome'] = 'Bienvenido a ';
 
 // Translated into Spanish by Scofield06 . All rights reversed (C) 2011
-?>

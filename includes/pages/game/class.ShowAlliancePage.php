@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id: class.ShowAlliancePage.php 2278 2012-06-30 18:07:01Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: class.ShowAlliancePage.php 2640 2013-03-23 19:23:26Z slaver7 $
+ * @link http://2moons.cc/
  */
 
 class ShowAlliancePage extends AbstractPage
@@ -48,6 +47,7 @@ class ShowAlliancePage extends AbstractPage
 		'DIPLOMATIC',
 		'RANKS',
 		'MANAGEUSERS',
+		'EVENTS'
 	);
 	
 	function __construct() 
@@ -64,14 +64,14 @@ class ShowAlliancePage extends AbstractPage
 	private function setAllianceData($allianceID)
 	{
 		global $USER;
-		$this->allianceData	= $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".ALLIANCE." WHERE id = ".$allianceID.";");
+		$this->allianceData	= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".ALLIANCE." WHERE id = ".$allianceID.";");
 		
 		if($USER['ally_id'] == $allianceID)
 		{
 			if ($this->allianceData['ally_owner'] == $USER['id']) {
 				$this->rights	= array_combine($this->avalibleRanks, array_fill(0, count($this->avalibleRanks), true));
 			} elseif($USER['ally_rank_id'] != 0) {
-				$this->rights	= $GLOBALS['DATABASE']->uniquequery("SELECT ".implode(", ", $this->avalibleRanks)." FROM ".ALLIANCE_RANK." WHERE allianceID = ".$allianceID." AND rankID = ".$USER['ally_rank_id'].";");
+				$this->rights	= $GLOBALS['DATABASE']->getFirstRow("SELECT ".implode(", ", $this->avalibleRanks)." FROM ".ALLIANCE_RANK." WHERE allianceID = ".$allianceID." AND rankID = ".$USER['ally_rank_id'].";");
 			}
 			
 			if(!isset($this->rights)) {
@@ -82,7 +82,7 @@ class ShowAlliancePage extends AbstractPage
 			{
 				$this->tplObj->assign_vars(array(
 					'rights'		=> $this->rights,
-					'AllianceOwner'	=> $USER['ally_rank_id'] == 0,
+					'AllianceOwner'	=> $this->allianceData['ally_owner'] == $USER['id'],
 				));
 			}
 		}
@@ -91,7 +91,7 @@ class ShowAlliancePage extends AbstractPage
 	private function isApply()
 	{
 		global $USER;
-		return $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".ALLIANCE_REQUEST." WHERE userID = ".$USER['id'].";");
+		return $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".ALLIANCE_REQUEST." WHERE userID = ".$USER['id'].";");
 	}
 	
 	function info() 
@@ -107,7 +107,7 @@ class ShowAlliancePage extends AbstractPage
 			$this->printMessage($LNG['al_not_exists']);
 		}
 		
-		require_once(ROOT_PATH.'includes/functions/BBCode.php');
+		require_once('includes/functions/BBCode.php');
 		
 		if ($this->allianceData['ally_diplo'] == 1)
 		{
@@ -118,7 +118,7 @@ class ShowAlliancePage extends AbstractPage
 		
 		if ($this->allianceData['ally_stats'] == 1)
 		{
-			$StatsData 					= $GLOBALS['DATABASE']->uniquequery("SELECT SUM(wons) as wons, SUM(loos) as loos, SUM(draws) as draws, SUM(kbmetal) as kbmetal, SUM(kbcrystal) as kbcrystal, SUM(lostunits) as lostunits, SUM(desunits) as desunits FROM ".USERS." WHERE ally_id='" . $this->allianceData['id'] . "';");
+			$StatsData 					= $GLOBALS['DATABASE']->getFirstRow("SELECT SUM(wons) as wons, SUM(loos) as loos, SUM(draws) as draws, SUM(kbmetal) as kbmetal, SUM(kbcrystal) as kbcrystal, SUM(lostunits) as lostunits, SUM(desunits) as desunits FROM ".USERS." WHERE ally_id='" . $this->allianceData['id'] . "';");
 
 			$this->tplObj->assign_vars(array(
 				'totalfight'	=> $StatsData['wons'] + $StatsData['loos'] + $StatsData['draws'],
@@ -131,17 +131,21 @@ class ShowAlliancePage extends AbstractPage
 				'dercrystal'	=> pretty_number($StatsData['kbcrystal']),
 			));
 		}
+
 		$this->tplObj->assign_vars(array(
-			'ally_description' 			=> bbcode($this->allianceData['ally_description']),
-			'ally_id'	 				=> $this->allianceData['id'],
-			'ally_image' 				=> $this->allianceData['ally_image'],
-			'ally_web'					=> $this->allianceData['ally_web'],
-			'ally_member_scount' 		=> $this->allianceData['ally_members'],
-			'ally_name' 				=> $this->allianceData['ally_name'],
-			'ally_tag' 					=> $this->allianceData['ally_tag'],
-			'ally_stats' 				=> $this->allianceData['ally_stats'],
-			'ally_diplo' 				=> $this->allianceData['ally_diplo'],
-			'ally_request'          	=> !$this->hasAlliance && !$this->hasApply && $this->allianceData['ally_request_notallow'] == 0,
+			'ally_description' 				=> bbcode($this->allianceData['ally_description']),
+			'ally_id'	 					=> $this->allianceData['id'],
+			'ally_image' 					=> $this->allianceData['ally_image'],
+			'ally_web'						=> $this->allianceData['ally_web'],
+			'ally_member_scount' 			=> $this->allianceData['ally_members'],
+			'ally_max_members' 				=> $this->allianceData['ally_max_members'],
+			'ally_name' 					=> $this->allianceData['ally_name'],
+			'ally_tag' 						=> $this->allianceData['ally_tag'],
+			'ally_stats' 					=> $this->allianceData['ally_stats'],
+			'ally_diplo' 					=> $this->allianceData['ally_diplo'],
+			'ally_request'              	=> !$this->hasAlliance && !$this->hasApply && $this->allianceData['ally_request_notallow'] == 0 && $this->allianceData['ally_max_members'] > $this->allianceData['ally_members'],
+			'ally_request_min_points'		=> $USER['total_points'] >= $this->allianceData['ally_request_min_points'],
+			'ally_request_min_points_info'  => sprintf($LNG['al_requests_min_points'], pretty_number($this->allianceData['ally_request_min_points']))
 		));
 		
 		$this->display('page.alliance.info.tpl');
@@ -172,7 +176,7 @@ class ShowAlliancePage extends AbstractPage
 	{
 		global $USER, $LNG;
 		
-		$allianceResult = $GLOBALS['DATABASE']->uniquequery("SELECT a.ally_tag FROM ".ALLIANCE_REQUEST." r INNER JOIN ".ALLIANCE." a ON a.id = r.allianceID WHERE r.userID = ".$USER['id'].";");
+		$allianceResult = $GLOBALS['DATABASE']->getFirstRow("SELECT a.ally_tag FROM ".ALLIANCE_REQUEST." r INNER JOIN ".ALLIANCE." a ON a.id = r.allianceID WHERE r.userID = ".$USER['id'].";");
 		$this->tplObj->assign_vars(array(
 			'request_text'	=> sprintf($LNG['al_request_wait_message'], $allianceResult['ally_tag']),
 		));     
@@ -238,7 +242,7 @@ class ShowAlliancePage extends AbstractPage
 		$text		= HTTP::_GP('text' , '', true);
 		$allianceID	= HTTP::_GP('id', 0);
 			
-		$allianceResult = $GLOBALS['DATABASE']->uniquequery("SELECT ally_tag, ally_request, ally_request_notallow FROM ".ALLIANCE." WHERE id = ".$allianceID." AND ally_universe = ".$UNI.";");
+		$allianceResult = $GLOBALS['DATABASE']->getFirstRow("SELECT ally_tag, ally_request, ally_request_notallow FROM ".ALLIANCE." WHERE id = ".$allianceID." AND ally_universe = ".$UNI.";");
 
 		if (!isset($allianceResult)) {
 			$this->redirectToHome();
@@ -277,7 +281,7 @@ class ShowAlliancePage extends AbstractPage
 			$this->redirectToHome();
 		}
 		
-		$allyquery 	= $GLOBALS['DATABASE']->uniquequery("SELECT a.ally_tag FROM ".ALLIANCE_REQUEST." r INNER JOIN ".ALLIANCE." a ON a.id = r.allianceID WHERE r.userID = ".$USER['id'].";");
+		$allyquery 	= $GLOBALS['DATABASE']->getFirstRow("SELECT a.ally_tag FROM ".ALLIANCE_REQUEST." r INNER JOIN ".ALLIANCE." a ON a.id = r.allianceID WHERE r.userID = ".$USER['id'].";");
 		$GLOBALS['DATABASE']->query("DELETE FROM ".ALLIANCE_REQUEST." WHERE userID = ".$USER['id'].";");
 		
 		$this->printMessage(sprintf($LNG['al_request_deleted'], $allyquery['ally_tag']));
@@ -289,11 +293,22 @@ class ShowAlliancePage extends AbstractPage
 			$this->redirectToHome();
 		}
 		
-		$action	= $this->getAction();
+		$user_points = $GLOBALS['USER']['total_points'];
+		$min_points = $GLOBALS['CONF']['alliance_create_min_points'];
+		
+		if($user_points >= $min_points)
+		{
+			$action    = $this->getAction();
 		if($action == "send") {
 			$this->createAlliance();
 		} else {
 			$this->display('page.alliance.create.tpl');
+		}
+	}
+		else
+		{
+			$diff_points = $min_points - $user_points;
+			$this->printMessage(sprintf($GLOBALS['LNG']['al_make_ally_insufficient_points'], pretty_number($min_points), pretty_number($diff_points)));
 		}
 	}
 	
@@ -325,7 +340,7 @@ class ShowAlliancePage extends AbstractPage
 			$this->printMessage($LNG['al_newname_specialchar'], true, array("?page=alliance&mode=create", 3));
 		}
 		
-		$allianceCount = $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".ALLIANCE." WHERE ally_universe = ".$UNI." AND (ally_tag = '".$GLOBALS['DATABASE']->sql_escape($atag)."' OR ally_name = '".$GLOBALS['DATABASE']->sql_escape($aname)."');");
+		$allianceCount = $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".ALLIANCE." WHERE ally_universe = ".$UNI." AND (ally_tag = '".$GLOBALS['DATABASE']->sql_escape($atag)."' OR ally_name = '".$GLOBALS['DATABASE']->sql_escape($aname)."');");
 
 		if ($allianceCount != 0) {
 			$this->printMessage(sprintf($LNG['al_already_exists'], $aname), true, array("?page=alliance&mode=create", 3));
@@ -342,13 +357,15 @@ class ShowAlliancePage extends AbstractPage
 						SET @allianceID = LAST_INSERT_ID();
 						UPDATE ".USERS." SET
 						ally_id					= @allianceID,
+						ally_rank_id			= 0,
 						ally_register_time 		= ".TIMESTAMP."
 						WHERE id = ".$USER['id'].";
 						UPDATE ".STATPOINTS." SET
 						id_ally 				= @allianceID
 						WHERE id_owner = ".$USER['id'].";");
 						
-		$this->printMessage(sprintf($LNG['al_created'], $aname.' ['.$atag.']'), true, array("?page=alliance", 3));
+		$this->printMessage(sprintf($LNG['al_created'], $aname.' ['.$atag.']'), true, array('?page=alliance', 3));
+
 	}
 	
 	private function getDiplomatic()
@@ -370,30 +387,63 @@ class ShowAlliancePage extends AbstractPage
 	private function homeAlliance()
 	{
 		global $USER, $UNI, $LNG;
-		require_once(ROOT_PATH.'includes/functions/BBCode.php');
+		require_once('includes/functions/BBCode.php');
 		
 		if ($this->allianceData['ally_owner'] == $USER['id']) {
 			$rankName	= ($this->allianceData['ally_owner_range'] != '') ? $this->allianceData['ally_owner_range'] : $LNG['al_founder_rank_text'];
 		} elseif ($USER['ally_rank_id'] != 0) {
-			$rankName	= $GLOBALS['DATABASE']->countquery("SELECT rankName FROM ".ALLIANCE_RANK." WHERE rankID = ".$USER['ally_rank_id'].";");	
+			$rankName	= $GLOBALS['DATABASE']->getFirstCell("SELECT rankName FROM ".ALLIANCE_RANK." WHERE rankID = ".$USER['ally_rank_id'].";");	
 		}
 		
 		if (empty($rankName)) {
 			$rankName	= $LNG['al_new_member_rank_text'];
 		}
 		
-		$StatsData 					= $GLOBALS['DATABASE']->uniquequery("SELECT SUM(wons) as wons, SUM(loos) as loos, SUM(draws) as draws, 
+		$StatsData 					= $GLOBALS['DATABASE']->getFirstRow("SELECT SUM(wons) as wons, SUM(loos) as loos, SUM(draws) as draws, 
 														SUM(kbmetal) as kbmetal, SUM(kbcrystal) as kbcrystal, 
 														SUM(lostunits) as lostunits, SUM(desunits) as desunits 
 														FROM ".USERS." WHERE ally_id = ".$this->allianceData['id'].";");
 														
-		$ApplyCount					= $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".ALLIANCE_REQUEST." WHERE allianceID = ".$this->allianceData['id'].";");
+		$ApplyCount					= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".ALLIANCE_REQUEST." WHERE allianceID = ".$this->allianceData['id'].";");
+		
+		
+		
+		$ally_events = array();
+		
+		if(!empty($this->allianceData['ally_events']))
+		{
+			$sql = "
+			SELECT
+				`id`,
+				`username`
+			FROM
+				`". USERS ."`
+			WHERE
+				`ally_id` = ". $this->allianceData['id'] .";";
+			
+			$result = $GLOBALS['DATABASE']->query($sql);
+
+			require_once('includes/classes/class.FlyingFleetsTable.php');
+			$FlyingFleetsTable = new FlyingFleetsTable;
+			
+			$this->tplObj->loadscript('overview.js');
+			
+			while($row = $result->fetch_assoc())
+			{
+				$FlyingFleetsTable->setUser($row['id']);
+				$FlyingFleetsTable->setMissions($this->allianceData['ally_events']);
+				$ally_events[$row['username']] = $FlyingFleetsTable->renderTable();
+			}
+			
+			$ally_events = array_filter($ally_events);
+		}
 		
 		$this->tplObj->assign_vars(array(
 			'DiploInfo'					=> $this->getDiplomatic(),
 			'ally_web'					=> $this->allianceData['ally_web'],
 			'ally_tag'	 				=> $this->allianceData['ally_tag'],
 			'ally_members'	 			=> $this->allianceData['ally_members'],
+			'ally_max_members'	 		=> $this->allianceData['ally_members'],
 			'ally_name'					=> $this->allianceData['ally_name'],
 			'ally_image'				=> $this->allianceData['ally_image'],
 			'ally_description'			=> bbcode($this->allianceData['ally_description']),
@@ -410,6 +460,7 @@ class ShowAlliancePage extends AbstractPage
 			'dermetal'					=> pretty_number($StatsData['kbmetal']),
 			'dercrystal'				=> pretty_number($StatsData['kbcrystal']),
 			'isOwner'					=> $this->allianceData['ally_owner'] == $USER['id'],
+			'ally_events'				=> $ally_events
 		));
 		
 		$this->display('page.alliance.home.tpl');
@@ -441,7 +492,7 @@ class ShowAlliancePage extends AbstractPage
 		{
 			if ($this->allianceData['ally_owner'] == $memberListRow['id'])
 				$memberListRow['ally_rankName'] = empty($this->allianceData['ally_owner_range']) ? $LNG['al_founder_rank_text'] : $this->allianceData['ally_owner_range'];
-			elseif ($memberListRow['ally_rank_id'] != 0)
+			elseif ($memberListRow['ally_rank_id'] != 0 && isset($rankList[$memberListRow['ally_rank_id']]))
 				$memberListRow['ally_rankName'] = $rankList[$memberListRow['ally_rank_id']];
 			else
 				$memberListRow['ally_rankName'] = $LNG['al_new_member_rank_text'];
@@ -553,7 +604,7 @@ class ShowAlliancePage extends AbstractPage
 	
 	private function adminOverview() 
 	{
-		global $LNG;
+		global $LNG, $UNI;
 		$send 		= HTTP::_GP('send', 0);
 		$textMode  	= HTTP::_GP('textMode', 'external');
 		
@@ -563,9 +614,43 @@ class ShowAlliancePage extends AbstractPage
 			$this->allianceData['ally_web'] 				= filter_var(HTTP::_GP('web', ''), FILTER_VALIDATE_URL);
 			$this->allianceData['ally_image'] 				= filter_var(HTTP::_GP('image', ''), FILTER_VALIDATE_URL);
 			$this->allianceData['ally_request_notallow'] 	= HTTP::_GP('request_notallow', 0);
+			$this->allianceData['ally_max_members'] 		= max(HTTP::_GP('ally_max_members', ''), $this->allianceData['ally_members']);
+			$this->allianceData['ally_request_min_points']  = filter_var(HTTP::_GP('request_min_points', 0), FILTER_VALIDATE_INT);
 			$this->allianceData['ally_stats'] 				= HTTP::_GP('stats', 0);
 			$this->allianceData['ally_diplo'] 				= HTTP::_GP('diplo', 0);
+			$this->allianceData['ally_events'] 				= implode(',', HTTP::_GP('events', array()));
 
+			$new_ally_tag 	= HTTP::_GP('ally_tag', '', UTF8_SUPPORT);
+			$new_ally_name	= HTTP::_GP('ally_name', '', UTF8_SUPPORT);
+		
+			if(!empty($new_ally_tag) && $this->allianceData['ally_tag'] != $new_ally_tag)
+			{
+				$allianceCount = $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".ALLIANCE." WHERE ally_universe = ".$UNI." AND ally_tag = '".$GLOBALS['DATABASE']->sql_escape($new_ally_tag)."';");
+
+				if($allianceCount != 0) 
+				{
+					$this->printMessage(sprintf($LNG['al_already_exists'], $new_ally_tag));
+				}
+				else
+				{
+					$this->allianceData['ally_tag'] = $new_ally_tag;
+				}
+			}
+			
+			if(!empty($new_ally_name) && $this->allianceData['ally_name'] != $new_ally_name)
+			{
+				$allianceCount = $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".ALLIANCE." WHERE ally_universe = ".$UNI." AND ally_tag = '".$GLOBALS['DATABASE']->sql_escape($new_ally_name)."';");
+
+				if($allianceCount != 0)
+				{
+					$this->printMessage(sprintf($LNG['al_already_exists'], $new_ally_name));
+				}
+				else
+				{
+					$this->allianceData['ally_name'] = $new_ally_name;
+				}
+			}
+			
 			if ($this->allianceData['ally_request_notallow'] != 0 && $this->allianceData['ally_request_notallow'] != 1) {
 				$this->allianceData['ally_request_notallow']	= 0;
 			}
@@ -590,12 +675,17 @@ class ShowAlliancePage extends AbstractPage
 			
 			$GLOBALS['DATABASE']->query("UPDATE ".ALLIANCE." SET
 			".$textSQL."
+			ally_tag = '".$GLOBALS['DATABASE']->sql_escape($this->allianceData['ally_tag'])."',
+			ally_name = '".$GLOBALS['DATABASE']->sql_escape($this->allianceData['ally_name'])."',
 			ally_owner_range = '".$GLOBALS['DATABASE']->sql_escape($this->allianceData['ally_owner_range'])."',
 			ally_image = '".$GLOBALS['DATABASE']->sql_escape($this->allianceData['ally_image'])."',
 			ally_web = '".$GLOBALS['DATABASE']->sql_escape($this->allianceData['ally_web'])."',
 			ally_request_notallow = ".$this->allianceData['ally_request_notallow'].",
+			ally_max_members = ".$this->allianceData['ally_max_members'].",
+			ally_request_min_points = ".$this->allianceData['ally_request_min_points'].",
 			ally_stats = ".$this->allianceData['ally_stats'].",
-			ally_diplo = ".$this->allianceData['ally_diplo']."
+			ally_diplo = ".$this->allianceData['ally_diplo'].",
+			ally_events = '".$this->allianceData['ally_events']."'
 			WHERE id = ".$this->allianceData['id'].";");
 		} else {
 			switch($textMode)
@@ -617,12 +707,19 @@ class ShowAlliancePage extends AbstractPage
 			'YesNoSelector'				=> array(1 => $LNG['al_go_out_yes'], 0 => $LNG['al_go_out_no']),
 			'textMode' 					=> $textMode,
 			'text' 						=> $text,
+			'ally_tag' 					=> $this->allianceData['ally_tag'],
+			'ally_name'					=> $this->allianceData['ally_name'],
 			'ally_web' 					=> $this->allianceData['ally_web'],
 			'ally_image'				=> $this->allianceData['ally_image'],
 			'ally_request_notallow' 	=> $this->allianceData['ally_request_notallow'],
+			'ally_members' 				=> $this->allianceData['ally_members'],
+			'ally_max_members' 			=> $this->allianceData['ally_max_members'],
+			'ally_request_min_points'   => $this->allianceData['ally_request_min_points'],
 			'ally_owner_range'			=> $this->allianceData['ally_owner_range'],
 			'ally_stats_data'			=> $this->allianceData['ally_stats'],
 			'ally_diplo_data'			=> $this->allianceData['ally_diplo'],
+			'ally_events'				=> explode(',', $this->allianceData['ally_events']),
+			'aviable_events'			=> $LNG['type_mission']
 		));
 		
 		$this->display('page.alliance.admin.overview.tpl');
@@ -642,42 +739,6 @@ class ShowAlliancePage extends AbstractPage
 		$this->redirectToHome();
 	}
 	
-	private function adminChangeTag() {
-		global $UNI, $LNG;
-		
-		$name = HTTP::_GP('newname', '', UTF8_SUPPORT);
-		
-		if(!empty($name) && $name != $this->allianceData['ally_tag']) {
-			$allianceCount = $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".ALLIANCE." WHERE ally_universe = ".$UNI." AND ally_tag = '".$GLOBALS['DATABASE']->sql_escape($name)."';");
-
-			if ($allianceCount != 0) {
-				$this->printMessage(sprintf($LNG['al_already_exists'], $name));
-			}
-			
-			$GLOBALS['DATABASE']->query("UPDATE ".ALLIANCE." SET ally_tag = '".$GLOBALS['DATABASE']->sql_escape($name)."' WHERE id = ".$this->allianceData['id'].";");
-		}
-
-		$this->display('page.alliance.admin.rename.tag.tpl');
-	}
-	
-	private function adminChangeName() {
-		global $UNI, $LNG;
-		
-		$name = HTTP::_GP('newname', '', UTF8_SUPPORT);
-		
-		if(!empty($name) && $name != $this->allianceData['ally_name']) {
-			$allianceCount = $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".ALLIANCE." WHERE ally_universe = ".$UNI." AND ally_name = '".$GLOBALS['DATABASE']->sql_escape($name)."';");
-
-			if ($allianceCount != 0) {
-				$this->printMessage(sprintf($LNG['al_already_exists'], $name));
-			}
-			
-			$GLOBALS['DATABASE']->query("UPDATE ".ALLIANCE." SET ally_name = '".$GLOBALS['DATABASE']->sql_escape($name)."' WHERE id = ".$this->allianceData['id'].";");
-		}
-
-		$this->display('page.alliance.admin.rename.name.tpl');
-	}
-	
 	private function adminTransfer()
 	{
 		global $LNG, $USER;
@@ -688,7 +749,7 @@ class ShowAlliancePage extends AbstractPage
 		$postleader = HTTP::_GP('newleader', 0);
 		if (!empty($postleader))
 		{
-			$Rank = $GLOBALS['DATABASE']->uniquequery("SELECT ally_rank_id FROM ".USERS." WHERE id = ".$postleader.";");
+			$Rank = $GLOBALS['DATABASE']->getFirstRow("SELECT ally_rank_id FROM ".USERS." WHERE id = ".$postleader.";");
 			$GLOBALS['DATABASE']->multi_query("UPDATE ".USERS." SET ally_rank_id = '".$Rank['ally_rank_id']."' WHERE id = '".$USER['id']."';
 			UPDATE ".USERS." SET ally_rank_id = 0 WHERE id = ".$postleader.";UPDATE ".ALLIANCE." SET ally_owner = ".$postleader." WHERE id = ".$this->allianceData['id'].";");
 			$this->redirectToHome();
@@ -752,16 +813,73 @@ class ShowAlliancePage extends AbstractPage
 			$this->redirectToHome();
 		}
 
-		$id	= HTTP::_GP('id', 0);
+		$id    = HTTP::_GP('id', 0);
 
-		$applyDetail = $GLOBALS['DATABASE']->uniquequery("SELECT applyID, u.username, r.time, r.text FROM ".ALLIANCE_REQUEST." r LEFT JOIN ".USERS." u ON r.userID = u.id WHERE applyID = ".$id.";");
+		$sql = "
+		SELECT
+			r.`applyID`, 
+			r.`time`, 
+			r.`text`, 
+			u.`username`, 
+			u.`register_time`, 
+			u.`onlinetime`,
+			u.`galaxy`,
+			u.`system`,
+			u.`planet`,
+			CONCAT_WS(':', u.`galaxy`, u.`system`, u.`planet`) AS `coordinates`,
+			@total_fights := u.`wons` + u.`loos` + u.`draws`,
+			@total_fights_percentage := @total_fights / 100,
+			@total_fights AS `total_fights`,
+			u.`wons`,
+			ROUND(u.`wons` / @total_fights_percentage, 2) AS `wons_percentage`,
+			u.`loos`,
+			ROUND(u.`loos` / @total_fights_percentage, 2) AS `loos_percentage`,
+			u.`draws`,
+			ROUND(u.`draws` / @total_fights_percentage, 2) AS `draws_percentage`,
+			u.`kbmetal`,
+			u.`kbcrystal`,
+			u.`lostunits`,
+			u.`desunits`,
+			stat.`tech_rank`, 
+			stat.`tech_points`,
+			stat.`build_rank`, 
+			stat.`build_points`, 
+			stat.`defs_rank`, 
+			stat.`defs_points`, 
+			stat.`fleet_rank`, 
+			stat.`fleet_points`,
+			stat.`total_rank`,
+			stat.`total_points`,
+			p.`name`
+		FROM 
+			". ALLIANCE_REQUEST ." AS r 
+		LEFT JOIN 
+			". USERS ." AS u ON r.userID = u.id 
+		INNER JOIN 
+			". STATPOINTS ." AS stat 
+		LEFT JOIN 
+			". PLANETS ." AS p ON p.id = u.id_planet
+		WHERE 
+			applyID = ". $id .";";
+
+		$applyDetail = $GLOBALS['DATABASE']->uniquequery($sql);
 
 		if(empty($applyDetail)) {
 			$this->printMessage($LNG['al_apply_not_exists']);
 		}
 		
+		require_once('includes/functions/BBCode.php');
+		$applyDetail['text']    	= bbcode($applyDetail['text']);
+		$applyDetail['kbmetal']    	= pretty_number($applyDetail['kbmetal']);
+		$applyDetail['kbcrystal']   = pretty_number($applyDetail['kbcrystal']);
+		$applyDetail['lostunits']   = pretty_number($applyDetail['lostunits']);
+		$applyDetail['desunits']    = pretty_number($applyDetail['desunits']);
+		
 		$this->tplObj->assign_vars(array(
-			'applyDetail'		=> $applyDetail,
+			'applyDetail'	=> $applyDetail,
+			'apply_time'    => _date($LNG['php_tdformat'], $applyDetail['time'], $USER['timezone']),
+			'register_time' => _date($LNG['php_tdformat'], $applyDetail['register_time'], $USER['timezone']),
+			'onlinetime'    => _date($LNG['php_tdformat'], $applyDetail['onlinetime'], $USER['timezone']),
 		));
 		
 		$this->display('page.alliance.admin.detailApply.tpl');
@@ -778,7 +896,7 @@ class ShowAlliancePage extends AbstractPage
 		$answer		= HTTP::_GP('answer', '');
 		
 		$applyID	= HTTP::_GP('id', 0);
-		$userID 	= $GLOBALS['DATABASE']->countquery("SELECT id FROM ".ALLIANCE_REQUEST." LEFT JOIN ".USERS." ON userID = id WHERE applyID = ".$applyID.";");
+		$userID 	= $GLOBALS['DATABASE']->getFirstCell("SELECT id FROM ".ALLIANCE_REQUEST." LEFT JOIN ".USERS." ON userID = id WHERE applyID = ".$applyID.";");
 
 		if ($answer == 'yes')
 		{
@@ -828,30 +946,44 @@ class ShowAlliancePage extends AbstractPage
 			$this->redirectToHome();
 		}
 		
-		$newrank	= HTTP::_GP('newrank', '', true);
+		$newrank	= HTTP::_GP('newrank', array(), true);
 		$delete		= HTTP::_GP('deleteRank', 0);
 		$rankData	= HTTP::_GP('rank', array());
 		
-		if(!empty($newrank)) {
-			$GLOBALS['DATABASE']->query("INSERT INTO ".ALLIANCE_RANK." SET rankName = '".$GLOBALS['DATABASE']->sql_escape($newrank)."', allianceID = ".$this->allianceData['id'].";");
-		}
+		if(!empty($newrank['rankName'])) 
+		{
+			$sql = "INSERT INTO `".ALLIANCE_RANK."` SET "; 
+
+			foreach($newrank as $key => $value)
+				$sql .= "`" . $GLOBALS['DATABASE']->sql_escape($key) ."` = '" . $GLOBALS['DATABASE']->sql_escape($value) . "',";
 		
-		if(!empty($delete)) {
-			$GLOBALS['DATABASE']->query("DELETE FROM ".ALLIANCE_RANK." WHERE rankID = ".$delete." AND allianceID = ".$this->allianceData['id'].";");
-		}
-		
-		foreach($rankData as $rankID => $rankRow) {
-			$SQL	= array();
-			foreach($this->avalibleRanks as $rankName) {
-				if(!$this->rights[$rankName]) {
-					continue;
-				}
+			$sql .= "`allianceID` = ".$this->allianceData['id']."";
 				
-				$SQL[]	= $rankName." = ".(isset($rankRow[$rankName]) ? 1 : 0);
+			$GLOBALS['DATABASE']->query($sql);
+		} else {
+			if(!empty($delete)) 
+			{
+				$GLOBALS['DATABASE']->query("DELETE FROM ".ALLIANCE_RANK." WHERE rankID = ".$delete." AND allianceID = ".$this->allianceData['id'].";");
+				$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET ally_rank_id = 0 WHERE ally_rank_id = ".$delete." AND ally_id = ".$this->allianceData['id'].";");
 			}
-			
-			$SQL[]	= "rankName = '".$GLOBALS['DATABASE']->sql_escape($rankRow['name'])."'";			
-			$GLOBALS['DATABASE']->query("UPDATE ".ALLIANCE_RANK." SET ".implode(", ", $SQL)." WHERE rankID = ".((int) $rankID)." AND allianceID = ".$this->allianceData['id'].";");
+			else
+			{
+				$Query = '';
+				foreach ($rankData as $k => $rankRow)
+				{
+					$SQL	= array();
+					foreach($this->avalibleRanks as $rankName) 
+					{
+						if(!$this->rights[$rankName])
+							continue;
+						
+						$SQL[]	= $rankName." = ".(isset($rankRow[$rankName]) ? 1 : 0);
+					}
+					$SQL[]	= "rankName = '".$GLOBALS['DATABASE']->sql_escape($rankRow['name'])."'";
+					$Query .= "UPDATE ".ALLIANCE_RANK." SET ".implode(", ", $SQL)." WHERE rankID = ".((int) $GLOBALS['DATABASE']->sql_escape($k))." AND allianceID = ".$this->allianceData['id'].";";
+				}
+				$GLOBALS['DATABASE']->multi_query($Query);
+			}
 		}
 		
 		$this->redirectTo('game.php?page=alliance&mode=admin&action=permissions');
@@ -942,7 +1074,7 @@ class ShowAlliancePage extends AbstractPage
 					continue;
 			}
 			
-			$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET ally_rank_id = ".((int) $rankID)." WHERE id = ".((int) $userID).";");
+			$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET ally_rank_id = ".((int) $rankID)." WHERE id = ".((int) $userID)." AND ally_id = ".$this->allianceData['id'].";");
 		}
 		
 		$this->redirectTo('game.php?page=alliance&mode=admin&action=members');
@@ -1052,12 +1184,20 @@ class ShowAlliancePage extends AbstractPage
 		$this->initTemplate();
 		$this->setWindow('popup');
 		
-		
 		$diploMode	= HTTP::_GP('diploMode', 0);
-				
 		
+		$diploAlly	= $GLOBALS['DATABASE']->query("SELECT ally_tag,ally_name,id FROM ".ALLIANCE." WHERE id != ".$USER['ally_id']." ORDER BY ally_tag ASC;");
+		$AllyList = array();
+		$IdList = array();
+		while ($i = $GLOBALS['DATABASE']->fetch_array($diploAlly))
+		{
+			$IdList[] = $i['id'];
+			$AllyList[] = $i['ally_name'];
+		}
 		$this->tplObj->assign_vars(array(
 			'diploMode'	=> $diploMode,
+			'AllyList'	=> $AllyList,
+			'IdList'	=> $IdList,
 		));
 		
 		$this->display('page.alliance.admin.diplomacy.create.tpl');
@@ -1070,14 +1210,21 @@ class ShowAlliancePage extends AbstractPage
 			$this->redirectToHome();
 		}
 		
-		$name	= HTTP::_GP('name', '', UTF8_SUPPORT);
+		$id	= HTTP::_GP('ally_id', '', UTF8_SUPPORT);
 		
-		$targetAlliance	= $GLOBALS['DATABASE']->uniquequery("SELECT id, ally_owner, ally_tag FROM ".ALLIANCE." WHERE ally_universe = ".$UNI." AND ally_name = '".$GLOBALS['DATABASE']->sql_escape($name)."';");
+		$targetAlliance	= $GLOBALS['DATABASE']->getFirstRow("SELECT id, ally_name, ally_owner, ally_tag, (SELECT level FROM ".DIPLO." WHERE (owner_1 = ".$GLOBALS['DATABASE']->sql_escape($id)." AND owner_2 = ".$USER['ally_id'].") OR (owner_2 = ".$GLOBALS['DATABASE']->sql_escape($id)." AND owner_1 = ".$USER['ally_id'].")) as diplo FROM ".ALLIANCE." WHERE ally_universe = ".$UNI." AND id = '".$GLOBALS['DATABASE']->sql_escape($id)."';");
 		
 		if(empty($targetAlliance)) {
 			$this->sendJSON(array(
 				'error'		=> true,
-				'message'	=> sprintf($LNG['al_diplo_no_alliance'], $name),
+				'message'	=> sprintf($LNG['al_diplo_no_alliance'], $targetAlliance['id']),
+			));	
+		}
+		
+		if(!empty($targetAlliance['diplo'])) {
+			$this->sendJSON(array(
+				'error'		=> true,
+				'message'	=> sprintf($LNG['al_diplo_exists'], $targetAlliance['ally_name']),
 			));	
 		}
 		if($targetAlliance['id'] == $this->allianceData['id']) {
@@ -1092,22 +1239,22 @@ class ShowAlliancePage extends AbstractPage
 		$level	= HTTP::_GP('level', 0);
 		$text	= HTTP::_GP('text', '', true);
 		
-		if($level == 6)
+		if($level == 5)
 		{
-			SendSimpleMessage($targetAlliance['ally_owner'], $USER['id'], 0, 1, $LNG['al_circular_alliance'].$this->allianceData['ally_tag'], $LNG['al_diplo_war'], sprintf($LNG['al_diplo_war_mes'], $this->allianceData['ally_tag'], $targetAlliance['ally_tag'], $LNG['al_diplo_level'][$level], $text));
+			SendSimpleMessage($targetAlliance['ally_owner'], $USER['id'], TIMESTAMP, 1, $LNG['al_circular_alliance'].$this->allianceData['ally_tag'], $LNG['al_diplo_war'], sprintf($LNG['al_diplo_war_mes'], "[".$this->allianceData['ally_tag']."] ".$this->allianceData['ally_name'], "[".$targetAlliance['ally_tag']."] ".$targetAlliance['ally_name'], $LNG['al_diplo_level'][$level], $text));
 		}
 		else
 		{
-			SendSimpleMessage($targetAlliance['ally_owner'], $USER['id'], 0, 1, $LNG['al_circular_alliance'].$this->allianceData['ally_tag'], $LNG['al_diplo_ask'], sprintf($LNG['al_diplo_ask_mes'], $LNG['al_diplo_level'][$level], $this->allianceData['ally_tag'], $targetAlliance['ally_tag'], $text));
+			SendSimpleMessage($targetAlliance['ally_owner'], $USER['id'], TIMESTAMP, 1, $LNG['al_circular_alliance'].$this->allianceData['ally_tag'], $LNG['al_diplo_ask'], sprintf($LNG['al_diplo_ask_mes'], $LNG['al_diplo_level'][$level], "[".$this->allianceData['ally_tag']."] ".$this->allianceData['ally_name'], "[".$targetAlliance['ally_tag']."] ".$targetAlliance['ally_name'], $text));
 		}
 		
 		$GLOBALS['DATABASE']->query("INSERT INTO ".DIPLO." SET 
-		owner_1		= ".$this->allianceData['id'].",
-		owner_2		= ".$targetAlliance['id'].", 
-		level		= ".$level.", 
-		accept		= 0, 
-		accept_text	= '".$GLOBALS['DATABASE']->sql_escape($text)."', 
-		universe	= ".$UNI.";");
+			owner_1		= ".$this->allianceData['id'].",
+			owner_2		= ".$targetAlliance['id'].", 
+			level		= ".$level.", 
+			accept		= 0, 
+			accept_text	= '".$GLOBALS['DATABASE']->sql_escape($text)."', 
+			universe	= ".$UNI.";");
 		
 		$this->sendJSON(array(
 			'error'		=> false,
@@ -1115,4 +1262,3 @@ class ShowAlliancePage extends AbstractPage
 		));
 	}
 }
-?>

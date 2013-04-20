@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id: class.ShowBuildingsPage.php 2279 2012-06-30 18:19:23Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: class.ShowBuildingsPage.php 2632 2013-03-18 19:05:14Z slaver7 $
+ * @link http://2moons.cc/
  */
 
 class ShowBuildingsPage extends AbstractPage
@@ -151,7 +150,7 @@ class ShowBuildingsPage extends AbstractPage
 		
 		$CurrentMaxFields  	= CalculateMaxPlanetFields($PLANET);
 		
-		if (($CONF['max_elements_build'] != 0 && $ActualCount == $CONF['max_elements_build']) || ($AddMode && $PLANET["field_current"] >= ($CurrentMaxFields - $ActualCount)))
+		if ((Config::get('max_elements_build') != 0 && $ActualCount == Config::get('max_elements_build')) || ($AddMode && $PLANET["field_current"] >= ($CurrentMaxFields - $ActualCount)))
 			return;
 	
 		$BuildMode 			= $AddMode ? 'build' : 'destroy';
@@ -212,17 +211,19 @@ class ShowBuildingsPage extends AbstractPage
 		global $LNG, $CONF, $PLANET, $USER;
 		
 		$scriptData		= array();
-		$buildLevels	= array();
+		$quickinfo		= array();
 		
 		if ($PLANET['b_building'] == 0 || $PLANET['b_building_id'] == "")
-			return array();
+			return array('queue' => $scriptData, 'quickinfo' => $quickinfo);
 		
 		$buildQueue		= unserialize($PLANET['b_building_id']);
 		
 		foreach($buildQueue as $BuildArray) {
 			if ($BuildArray[3] < TIMESTAMP)
 				continue;
-
+			
+			$quickinfo[$BuildArray[0]]	= $BuildArray[1];
+			
 			$scriptData[] = array(
 				'element'	=> $BuildArray[0], 
 				'level' 	=> $BuildArray[1], 
@@ -234,7 +235,7 @@ class ShowBuildingsPage extends AbstractPage
 			);
 		}
 		
-		return $scriptData;
+		return array('queue' => $scriptData, 'quickinfo' => $quickinfo);
 	}
 
 	public function show()
@@ -267,9 +268,10 @@ class ShowBuildingsPage extends AbstractPage
 			$this->redirectTo('game.php?page=buildings');
 		}
 		
-		$Queue	 			= $this->getQueueData();
+		$queueData	 		= $this->getQueueData();
+		$Queue	 			= $queueData['queue'];
 		$QueueCount			= count($Queue);
-		$CanBuildElement 	= isVacationMode($USER) || $CONF['max_elements_build'] == 0 || $QueueCount < $CONF['max_elements_build'];
+		$CanBuildElement 	= isVacationMode($USER) || Config::get('max_elements_build') == 0 || $QueueCount < Config::get('max_elements_build');
 		$CurrentMaxFields   = CalculateMaxPlanetFields($PLANET);
 		
 		$RoomIsOk 			= $PLANET['field_current'] < ($CurrentMaxFields - $QueueCount);
@@ -289,12 +291,21 @@ class ShowBuildingsPage extends AbstractPage
 
 			$infoEnergy	= "";
 			
+			if(isset($queueData['quickinfo'][$Element]))
+			{
+				$levelToBuild	= $queueData['quickinfo'][$Element];
+			}
+			else
+			{
+				$levelToBuild	= $PLANET[$resource[$Element]];
+			}
+			
 			if(in_array($Element, $reslist['prod']))
 			{
 				$BuildLevel	= $PLANET[$resource[$Element]];
 				$Need		= round(eval(ResourceUpdate::getProd($ProdGrid[$Element]['production'][911])));
 									
-				$BuildLevel	+= 1;
+				$BuildLevel	= $levelToBuild + 1;
 				$Prod		= round(eval(ResourceUpdate::getProd($ProdGrid[$Element]['production'][911])));
 					
 				$requireEnergy	= $Prod - $Need;
@@ -306,7 +317,7 @@ class ShowBuildingsPage extends AbstractPage
 				}
 			}
 			
-			$costRessources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
+			$costRessources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element, false, $levelToBuild);
 			$costOverflow		= BuildFunctions::getRestPrice($USER, $PLANET, $Element, $costRessources);
 			$elementTime    	= BuildFunctions::getBuildingTime($USER, $PLANET, $Element, $costRessources);
 			$destroyRessources	= BuildFunctions::getElementPrice($USER, $PLANET, $Element, true);
@@ -325,6 +336,7 @@ class ShowBuildingsPage extends AbstractPage
 				'destroyTime'		=> $destroyTime,
 				'destroyOverflow'	=> $destroyOverflow,
 				'buyable'			=> $buyable,
+				'levelToBuild'		=> $levelToBuild,
 			);
 		}
 
@@ -345,4 +357,3 @@ class ShowBuildingsPage extends AbstractPage
 		$this->display('page.buildings.default.tpl');
 	}
 }
-?>

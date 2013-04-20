@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id: MissionCaseAttack.php 2341 2012-09-08 23:26:09Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: MissionCaseAttack.php 2657 2013-03-31 12:29:08Z slaver7 $
+ * @link http://2moons.cc/
  */
 
 class MissionCaseAttack extends MissionFunctions
@@ -36,7 +35,7 @@ class MissionCaseAttack extends MissionFunctions
 	
 	function TargetEvent()
 	{	
-		global $resource, $reslist, $LANG;
+		global $resource, $reslist;
 		
 		$fleetAttack	= array();
 		$fleetDefend	= array();
@@ -57,14 +56,11 @@ class MissionCaseAttack extends MissionFunctions
 		
 		$debrisRessource	= array(901, 902);
 		
-		$userAttack		= array();
-		$userDefend		= array();
-		
 		$messageHTML	= <<<HTML
 <div class="raportMessage">
 	<table>
 		<tr>
-			<td colspan="2"><a href="CombatReport.php?raport=%s" target="_blank"><span class="%s">%s %s</span></a></td>
+			<td colspan="2"><a href="CombatReport.php?raport=%s" target="_blank"><span class="%s">%s %s (%s)</span></a></td>
 		</tr>
 		<tr>
 			<td>%s</td><td><span class="%s">%s: %s</span>&nbsp;<span class="%s">%s: %s</span></td>
@@ -81,8 +77,8 @@ HTML;
 		//Minize HTML
 		$messageHTML	= str_replace(array("\n", "\t", "\r"), "", $messageHTML);
 		
-		$targetPlanet 	= $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".PLANETS." WHERE id = '".$this->_fleet['fleet_end_id']."';");
-		$targetUser   	= $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".USERS." WHERE id = '".$targetPlanet['id_owner']."';");
+		$targetPlanet 	= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".PLANETS." WHERE id = '".$this->_fleet['fleet_end_id']."';");
+		$targetUser   	= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".USERS." WHERE id = '".$targetPlanet['id_owner']."';");
 		
 		$targetUser['factor']	= getFactors($targetUser, 'basic', $this->_fleet['fleet_start_time']);
 		$planetUpdater	= new ResourceUpdate();
@@ -109,7 +105,7 @@ HTML;
 		foreach($incomingFleets as $fleetID => $fleetDetail)
 		{
 			$fleetAttack[$fleetID]['fleetDetail']		= $fleetDetail;
-			$fleetAttack[$fleetID]['player']			= $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".USERS." WHERE id = '".$fleetDetail['fleet_owner']."';");
+			$fleetAttack[$fleetID]['player']			= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".USERS." WHERE id = '".$fleetDetail['fleet_owner']."';");
 			$fleetAttack[$fleetID]['player']['factor']	= getFactors($fleetAttack[$fleetID]['player'], 'attack', $this->_fleet['fleet_start_time']);
 			$fleetAttack[$fleetID]['unit']				= fleetAmountToArray($fleetDetail['fleet_array']);
 			
@@ -122,7 +118,7 @@ HTML;
 			$fleetID	= $fleetDetail['fleet_id'];
 			
 			$fleetDefend[$fleetID]['fleetDetail']		= $fleetDetail;
-			$fleetDefend[$fleetID]['player']			= $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".USERS." WHERE id = '".$fleetDetail['fleet_owner']."';");
+			$fleetDefend[$fleetID]['player']			= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".USERS." WHERE id = '".$fleetDetail['fleet_owner']."';");
 			$fleetDefend[$fleetID]['player']['factor']	= getFactors($fleetDefend[$fleetID]['player'], 'attack', $this->_fleet['fleet_start_time']);
 			$fleetDefend[$fleetID]['unit']				= fleetAmountToArray($fleetDetail['fleet_array']);
 			
@@ -137,13 +133,14 @@ HTML;
 			'fleet_start_galaxy'	=> $targetPlanet['galaxy'], 
 			'fleet_start_system'	=> $targetPlanet['system'], 
 			'fleet_start_planet'	=> $targetPlanet['planet'], 
+			'fleet_start_type'		=> $targetPlanet['planet_type'], 
 		);
 		
 		$fleetDefend[0]['unit']				= array();
 		
 		foreach(array_merge($reslist['fleet'], $reslist['defense']) as $elementID)
 		{
-			if ($elementID >= 500 || empty($targetPlanet[$resource[$elementID]])) continue;
+			if (empty($targetPlanet[$resource[$elementID]])) continue;
 
 			$fleetDefend[0]['unit'][$elementID] = $targetPlanet[$resource[$elementID]];
 		}
@@ -255,7 +252,7 @@ HTML;
 			// Use planet debris, if attack on moons
 			$targetPlanet 		= array_merge(
 				$targetPlanet,
-				$GLOBALS['DATABASE']->uniquequery("SELECT der_metal, der_crystal FROM ".PLANETS." WHERE id_luna = ".$this->_fleet['fleet_end_id'].";")
+				$GLOBALS['DATABASE']->getFirstRow("SELECT der_metal, der_crystal FROM ".PLANETS." WHERE id_luna = ".$this->_fleet['fleet_end_id'].";")
 			);
 		}
 		
@@ -293,12 +290,12 @@ HTML;
 			'fleetDestroySuccess'	=> null,
 		);
 		
-		$randChance	= mt_rand(0, 100);
+		$randChance	= mt_rand(1, 100);
 		if ($randChance <= $chanceCreateMoon)
 		{		
-			require_once(ROOT_PATH.'includes/functions/CreateOneMoonRecord.php');
+			require_once('includes/functions/CreateOneMoonRecord.php');
 			
-			$LNG					= $LANG->GetUserLang($targetUser['id'], array('FLEET', 'INGAME'));
+			$LNG					= $this->getLanguage($targetUser['lang']);
 			$raportInfo['moonName']	= $LNG['type_planet'][3];
 			
 			CreateOneMoonRecord(
@@ -308,8 +305,8 @@ HTML;
 				$this->_fleet['fleet_universe'],
 				$targetUser['id'],
 				$raportInfo['moonName'],
-				$this->_fleet['fleet_start_time'],
-				$chanceCreateMoon
+				$chanceCreateMoon,
+				$this->_fleet['fleet_start_time']
 			);
 			
 			if($GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['debris_moon'] == 1)
@@ -346,14 +343,20 @@ HTML;
 			break;
 		}
 		
-		$sqlQuery = "INSERT INTO ".RW." SET raport = '".serialize($raportData)."', time = '".$this->_fleet['fleet_start_time']."';";
+		$raportID	= md5(uniqid('', true).TIMESTAMP);
+		
+		$sqlQuery	= "INSERT INTO ".RW." SET 
+		rid = '".$raportID."',
+		raport = '".serialize($raportData)."',
+		time = '".$this->_fleet['fleet_start_time']."',
+		attacker = '".implode(',', array_keys($userAttack))."',
+		defender = '".implode(',', array_keys($userDefend))."';";
 		$GLOBALS['DATABASE']->query($sqlQuery);
-		$raportID	= $GLOBALS['DATABASE']->GetInsertID();
 		
 		$sqlQuery		= "";
 		foreach($userAttack as $userID => $userName)
 		{
-			$LNG		= $LANG->GetUserLang($userID);
+			$LNG		= $this->getLanguage(NULL, $userID);
 			
 			$message	= sprintf($messageHTML,
 				$raportID,
@@ -365,6 +368,7 @@ HTML;
 					$this->_fleet['fleet_end_system'],
 					$this->_fleet['fleet_end_planet']
 				),
+				$LNG['type_planet_short'][$this->_fleet['fleet_end_type']],
 				$LNG['sys_lost'],
 				$attackClass,
 				$LNG['sys_attack_attacker_pos'],
@@ -389,15 +393,16 @@ HTML;
 			SendSimpleMessage($userID, 0, $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_attack_report'], $message);
 			
 			$sqlQuery	.= "INSERT INTO ".TOPKB_USERS." SET ";
-			$sqlQuery	.= "rid = ".$raportID.", ";
+			$sqlQuery	.= "rid = '".$raportID."', ";
 			$sqlQuery	.= "role = 1, ";
+			$sqlQuery	.= "username = '".$GLOBALS['DATABASE']->escape($userName)."', ";
 			$sqlQuery	.= "uid = ".$userID.";";
 		}
 		
 		
 		foreach($userDefend as $userID => $userName)
 		{
-			$LNG		= $LANG->GetUserLang($userID);
+			$LNG		= $this->getLanguage(NULL, $userID);
 			
 			$message	= sprintf($messageHTML,
 				$raportID,
@@ -409,6 +414,7 @@ HTML;
 					$this->_fleet['fleet_end_system'],
 					$this->_fleet['fleet_end_planet']
 				),
+				$LNG['type_planet_short'][$this->_fleet['fleet_end_type']],
 				$LNG['sys_lost'],
 				$defendClass,
 				$LNG['sys_attack_attacker_pos'],
@@ -433,8 +439,9 @@ HTML;
 			SendSimpleMessage($userID, 0, $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_attack_report'], $message);
 			
 			$sqlQuery	.= "INSERT INTO ".TOPKB_USERS." SET ";
-			$sqlQuery	.= "rid = ".$raportID.", ";
+			$sqlQuery	.= "rid = '".$raportID."', ";
 			$sqlQuery	.= "role = 2, ";
+			$sqlQuery	.= "username = '".$GLOBALS['DATABASE']->escape($userName)."', ";
 			$sqlQuery	.= "uid = ".$userID.";";
 		}
 		
@@ -460,7 +467,7 @@ HTML;
 						id = ".$this->_fleet['fleet_end_id'].";
 						INSERT INTO ".TOPKB." SET
 						units = ".($combatResult['unitLost']['attacker'] + $combatResult['unitLost']['defender']).",
-						rid = ".$raportID.",
+						rid = '".$raportID."',
 						time = ".$this->_fleet['fleet_start_time'].",
 						universe = ".$this->_fleet['fleet_universe'].",
 						result = '".$combatResult['won'] ."';
@@ -476,10 +483,10 @@ HTML;
 						".$defendStatus." = ".$defendStatus." + 1,
 						kbmetal = kbmetal + ".$debris[901].",
 						kbcrystal = kbcrystal + ".$debris[902].",
-						lostunits = lostunits + ".$combatResult['unitLost']['attacker'].",
-						desunits = desunits + ".$combatResult['unitLost']['defender']."
+						lostunits = lostunits + ".$combatResult['unitLost']['defender'].",
+						desunits = desunits + ".$combatResult['unitLost']['attacker']."
 						WHERE
-						id IN (".implode(',', array_keys($userAttack)).");";
+						id IN (".implode(',', array_keys($userDefend)).");";
 						
 		$GLOBALS['DATABASE']->multi_query($sqlQuery);
 		
@@ -494,9 +501,8 @@ HTML;
 	
 	function ReturnEvent()
 	{
-		global $LANG;
-		$LNG		= $LANG->GetUserLang($this->_fleet['fleet_owner']);
-		$TargetName	= $GLOBALS['DATABASE']->countquery("SELECT name FROM ".PLANETS." WHERE id = ".$this->_fleet['fleet_end_id'].";");
+		$LNG		= $this->getLanguage(NULL, $this->_fleet['fleet_owner']);
+		$TargetName	= $GLOBALS['DATABASE']->getFirstCell("SELECT name FROM ".PLANETS." WHERE id = ".$this->_fleet['fleet_start_id'].";");
 		$Message	= sprintf( $LNG['sys_fleet_won'], $TargetName, GetTargetAdressLink($this->_fleet, ''), pretty_number($this->_fleet['fleet_resource_metal']), $LNG['tech'][901], pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['tech'][902], pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['tech'][903]);
 
 		SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_fleetback'], $Message);
@@ -505,4 +511,3 @@ HTML;
 	}
 }
 	
-?>

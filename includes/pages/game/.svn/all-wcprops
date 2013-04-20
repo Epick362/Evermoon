@@ -1,0 +1,245 @@
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/2660/trunk/includes/pages/game
+END
+class.ShowBoardPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2632/trunk/includes/pages/game/class.ShowBoardPage.php
+END
+class.ShowChangelogPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2632/trunk/includes/pages/game/class.ShowChangelogPage.php
+END
+class.ShowNotesPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2632/trunk/includes/pages/game/class.ShowNotesPage.php
+END
+class.ShowStatisticsPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2632/trunk/includes/pages/game/class.ShowStatisticsPage.php
+END
+class.ShowPhalanxPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2640/trunk/includes/pages/game/class.ShowPhalanxPage.php
+END
+class.ShowSettingsPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2632/trunk/includes/pages/game/class.ShowSettingsPage.php
+END
+class.ShowRecordsPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2632/trunk/includes/pages/game/class.ShowRecordsPage.php
+END
+class.AbstractPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2643/trunk/includes/pages/game/class.AbstractPage.php
+END
+class.ShowBuddyListPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2632/trunk/includes/pages/game/class.ShowBuddyListPage.php
+END
+class.ShowFleetAjaxPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2640/trunk/includes/pages/game/class.ShowFleetAjaxPage.php
+END
+class.ShowTechtreePage.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2632/trunk/includes/pages/game/class.ShowTechtreePage.php
+END
+class.ShowSearchPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2632/trunk/includes/pages/game/class.ShowSearchPage.php
+END
+class.ShowOverviewPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2640/trunk/includes/pages/game/class.ShowOverviewPage.php
+END
+class.ShowRaportPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2632/trunk/includes/pages/game/class.ShowRaportPage.php
+END
+class.ShowMessagesPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2632/trunk/includes/pages/game/class.ShowMessagesPage.php
+END
+class.ShowAlliancePage.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2640/trunk/includes/pages/game/class.ShowAlliancePage.php
+END
+class.ShowLogoutPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2632/trunk/includes/pages/game/class.ShowLogoutPage.php
+END
+class.ShowResourcesPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2632/trunk/includes/pages/game/class.ShowResourcesPage.php
+END
+class.ShowBattleSimulatorPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/2640/trunk/includes/pages/game/class.ShowBattleSimulatorPage.php
+END
+class.ShowFleetDealerPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2632/trunk/includes/pages/game/class.ShowFleetDealerPage.php
+END
+class.ShowChatPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2632/trunk/includes/pages/game/class.ShowChatPage.php
+END
+class.ShowGalaxyPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2640/trunk/includes/pages/game/class.ShowGalaxyPage.php
+END
+class.ShowInformationPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2632/trunk/includes/pages/game/class.ShowInformationPage.php
+END
+class.ShowPlayerCardPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2632/trunk/includes/pages/game/class.ShowPlayerCardPage.php
+END
+class.ShowOfficierPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2632/trunk/includes/pages/game/class.ShowOfficierPage.php
+END
+class.ShowImperiumPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2632/trunk/includes/pages/game/class.ShowImperiumPage.php
+END
+class.ShowErrorPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2632/trunk/includes/pages/game/class.ShowErrorPage.php
+END
+class.ShowQuestionsPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2632/trunk/includes/pages/game/class.ShowQuestionsPage.php
+END
+class.ShowResearchPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2632/trunk/includes/pages/game/class.ShowResearchPage.php
+END
+class.ShowBanListPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2632/trunk/includes/pages/game/class.ShowBanListPage.php
+END
+class.ShowFleetTablePage.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2640/trunk/includes/pages/game/class.ShowFleetTablePage.php
+END
+class.ShowBattleHallPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2632/trunk/includes/pages/game/class.ShowBattleHallPage.php
+END
+class.ShowFleetStep1Page.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2640/trunk/includes/pages/game/class.ShowFleetStep1Page.php
+END
+class.ShowFleetStep2Page.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2640/trunk/includes/pages/game/class.ShowFleetStep2Page.php
+END
+class.ShowFleetStep3Page.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2640/trunk/includes/pages/game/class.ShowFleetStep3Page.php
+END
+class.ShowBuildingsPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2632/trunk/includes/pages/game/class.ShowBuildingsPage.php
+END
+class.ShowTraderPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2644/trunk/includes/pages/game/class.ShowTraderPage.php
+END
+class.ShowTicketPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2660/trunk/includes/pages/game/class.ShowTicketPage.php
+END
+class.ShowShipyardPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2632/trunk/includes/pages/game/class.ShowShipyardPage.php
+END
+class.ShowFleetMissilePage.php
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2640/trunk/includes/pages/game/class.ShowFleetMissilePage.php
+END

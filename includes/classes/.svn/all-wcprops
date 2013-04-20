@@ -1,0 +1,167 @@
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/!svn/ver/2677/trunk/includes/classes
+END
+HTTPRequest.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2607/trunk/includes/classes/HTTPRequest.class.php
+END
+class.BuildFunctions.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2641/trunk/includes/classes/class.BuildFunctions.php
+END
+class.FleetFunctions.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2677/trunk/includes/classes/class.FleetFunctions.php
+END
+PlayerUtil.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2641/trunk/includes/classes/PlayerUtil.class.php
+END
+Cronjob.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/2640/trunk/includes/classes/Cronjob.class.php
+END
+class.GalaxyRows.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2640/trunk/includes/classes/class.GalaxyRows.php
+END
+class.StatBanner.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2632/trunk/includes/classes/class.StatBanner.php
+END
+class.theme.php
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/2643/trunk/includes/classes/class.theme.php
+END
+class.SupportTickets.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2632/trunk/includes/classes/class.SupportTickets.php
+END
+class.FlyingFleetsTable.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2600/trunk/includes/classes/class.FlyingFleetsTable.php
+END
+class.Cache.php
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/2640/trunk/includes/classes/class.Cache.php
+END
+class.Database.php
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2632/trunk/includes/classes/class.Database.php
+END
+Config.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/2632/trunk/includes/classes/Config.class.php
+END
+class.FlyingFleetHandler.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2640/trunk/includes/classes/class.FlyingFleetHandler.php
+END
+class.MissionFunctions.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2632/trunk/includes/classes/class.MissionFunctions.php
+END
+class.template.php
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2641/trunk/includes/classes/class.template.php
+END
+ArrayUtil.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2418/trunk/includes/classes/ArrayUtil.class.php
+END
+SQLDumper.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2640/trunk/includes/classes/SQLDumper.class.php
+END
+class.BBCode.php
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/2464/trunk/includes/classes/class.BBCode.php
+END
+HTTP.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/2632/trunk/includes/classes/HTTP.class.php
+END
+class.Log.php
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/2490/trunk/includes/classes/class.Log.php
+END
+Mail.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/2662/trunk/includes/classes/Mail.class.php
+END
+class.statbuilder.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2641/trunk/includes/classes/class.statbuilder.php
+END
+class.Session.php
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/2618/trunk/includes/classes/class.Session.php
+END
+class.PlanetRessUpdate.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2632/trunk/includes/classes/class.PlanetRessUpdate.php
+END
+class.StringParser.php
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2464/trunk/includes/classes/class.StringParser.php
+END
+Language.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2657/trunk/includes/classes/Language.class.php
+END

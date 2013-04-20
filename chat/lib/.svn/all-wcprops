@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/svn/!svn/ver/2646/trunk/chat/lib
+END
+custom.php
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/2643/trunk/chat/lib/custom.php
+END
+classes.php
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/2126/trunk/chat/lib/classes.php
+END
+.htaccess
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/2126/trunk/chat/lib/.htaccess
+END
+config.php
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/2126/trunk/chat/lib/config.php
+END

@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,16 +18,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id: ShowSupportPage.php 2297 2012-08-09 17:51:32Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: ShowSupportPage.php 2640 2013-03-23 19:23:26Z slaver7 $
+ * @link http://2moons.cc/
  */
 
-if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) exit;
+if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) throw new Exception("Permission error!");
 		
 class ShowSupportPage
 {
@@ -35,7 +34,7 @@ class ShowSupportPage
 	
 	function __construct() 
 	{
-		require(ROOT_PATH.'includes/classes/class.SupportTickets.php');
+		require('includes/classes/class.SupportTickets.php');
 		$this->ticketObj	= new SupportTickets;
 		$this->tplObj		= new template();
 		// 2Moons 1.7TO1.6 PageClass Wrapper
@@ -76,22 +75,32 @@ class ShowSupportPage
 		$ticketID	= HTTP::_GP('id', 0);
 		$category	= HTTP::_GP('category', 0);
 		$message	= HTTP::_GP('message', '', true);
-		$change		= HTTP::_GP('change_status', '', true);
+		$change		= HTTP::_GP('change_status', 0);
 		
-		$ticketDetail	= $GLOBALS['DATABASE']->uniquequery("SELECT ownerID, subject, status FROM ".TICKETS." WHERE ticketID = ".$ticketID.";");
-		$status = ($change ? ($ticketDetail['status'] <= 1 ? 2 : 1) : ($ticketDetail['status'] == 0 ? 1 : 1));
-		if(empty($message)) {
-			if ($status == 2 && $change) {
-				$message = $LNG['ti_admin_close'];
-			} elseif ($status == 1 && $change) {
-				$message = $LNG['ti_admin_open'];
-			} else {
-				HTTP::redirectTo('admin.php?page=support&mode=view&id='.$ticketID);
-			}
+		$ticketDetail	= $GLOBALS['DATABASE']->getFirstRow("SELECT ownerID, subject, status FROM ".TICKETS." WHERE ticketID = ".$ticketID.";");
+		
+		$status = ($change ? ($ticketDetail['status'] <= 1 ? 2 : 1) : 1);
+		
+		
+		if(!$change && empty($message))
+		{
+			HTTP::redirectTo('admin.php?page=support&mode=view&id='.$ticketID);
 		}
-		$subject		= "RE: ".$ticketDetail['subject'];
 		
-		$this->ticketObj->createAnswer($ticketID, $USER['id'], $USER['username'], $subject, $message, $status);
+		if($change && $status == 1) {
+			$this->ticketObj->createAnswer($ticketID, $USER['id'], $USER['username'], $subject, $LNG['ti_admin_open'], $status);
+		}
+		
+		if(!empty($message))
+		{
+			$subject		= "RE: ".$ticketDetail['subject'];
+			$this->ticketObj->createAnswer($ticketID, $USER['id'], $USER['username'], $subject, $message, $status);
+		}
+		
+		if($change && $status == 2) {
+			$this->ticketObj->createAnswer($ticketID, $USER['id'], $USER['username'], $subject, $LNG['ti_admin_close'], $status);
+		}
+				
 		
 		SendSimpleMessage($ticketDetail['ownerID'], $USER['id'], TIMESTAMP, 4, $USER['username'], sprintf($LNG['sp_answer_message_title'], $ticketID), sprintf($LNG['sp_answer_message'], $ticketID)); 
 		HTTP::redirectTo('admin.php?page=support');
@@ -100,6 +109,8 @@ class ShowSupportPage
 	function view() 
 	{
 		global $USER, $LNG;
+		
+		require_once('includes/functions/BBCode.php');
 				
 		$ticketID			= HTTP::_GP('id', 0);
 		$answerResult		= $GLOBALS['DATABASE']->query("SELECT a.*, t.categoryID, t.status FROM ".TICKETS_ANSWER." a INNER JOIN ".TICKETS." t USING(ticketID) WHERE a.ticketID = ".$ticketID." ORDER BY a.answerID;");
@@ -110,6 +121,7 @@ class ShowSupportPage
 				$ticket_status = $answerRow['status'];
 			$answerRow['time']	= _date($LNG['php_tdformat'], $answerRow['time'], $USER['timezone']);
 			
+			$answerRow['message']	= bbcode($answerRow['message']);
 			$answerList[$answerRow['answerID']]	= $answerRow;
 		}
 		
@@ -127,4 +139,3 @@ class ShowSupportPage
 		$this->tplObj->show('page.ticket.view.tpl');		
 	}
 }	
-?>

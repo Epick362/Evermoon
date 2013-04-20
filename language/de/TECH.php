@@ -1,5 +1,31 @@
 <?php
 
+/**
+ *  2Moons
+ *  Copyright (C) 2012 Jan Kröpke
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package 2Moons
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
+ * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: TECH.php 2632 2013-03-18 19:05:14Z slaver7 $
+ * @link http://2moons.cc/
+ */
+
 //SHORT NAMES FOR COMBAT REPORTS
 
 $LNG['shortNames'] = array (
@@ -37,20 +63,24 @@ $LNG['shortNames'] = array (
 );
 
 $LNG['bonus'] = array(
-	'Attack'			=> '+%f%% Angriff',
-	'Defensive'			=> '+%f%% Verteidigung',
-	'Shield'			=> '+%f%% Schild',
-	'BuildTime'			=> '-%f%% Bauzeit',
-	'ResearchTime'		=> '-%f%% Forschungszeit',
-	'ShipTime'			=> '-%f%% Schiffbauzeit',
-	'DefensiveTime'		=> '-%f%% Verteidungsbauzeit',
-	'Resource'			=> '+%f%% Mienenertrag',
-	'Energy'			=> '+%f%% Energieerzeugung',
-	'ResourceStorage'	=> '+%f%% Speicher',
-	'ShipStorage'		=> '+%f%% Flottenkapazität',
-	'FlyTime'			=> '+%f%% Flugzeit',
-	'FleetSlots'		=> '+%f%% Flottenslots',
-	'Planets'			=> '+%f%% Planeten',
+	'Attack'			=> 'Angriff',
+	'Defensive'			=> 'Verteidigung',
+	'Shield'			=> 'Schild',
+	'BuildTime'			=> 'Bauzeit',
+	'ResearchTime'		=> 'Forschungszeit',
+	'ShipTime'			=> 'Schiffbauzeit',
+	'DefensiveTime'		=> 'Verteidungsbauzeit',
+	'Resource'			=> 'Mienenertrag',
+	'Energy'			=> 'Energieerzeugung',
+	'ResourceStorage'	=> 'Speicher',
+	'ShipStorage'		=> 'Flottenkapazität',
+	'FlyTime'			=> 'Flugzeit',
+	'FleetSlots'		=> 'Flottenslots',
+	'Planets'			=> 'Planeten',
+	'SpyPower'			=> 'Spionagepower',
+	'Expedition'		=> 'Expeditionen',
+	'GateCoolTime'		=> 'Sprungtoraufladungszeit',
+	'MoreFound'			=> 'Expeditionsfund',
 );
 					
 $LNG['tech'] = array(
@@ -130,7 +160,8 @@ $LNG['tech'] = array(
 	409 => 'Gigantische Schildkuppel',
 	410 => 'Gravitonkanone',
 	411 => 'Orbitale Verteidigungsplattform',
-
+	
+	500 => 'Raketen',
 	502 => 'Abfangrakete',
 	503 => 'Interplanetarrakete',
 
@@ -368,5 +399,3 @@ $LNG['longDescription'] = array(
 	706 => 'Der Bonus ist nur temporär.',
 	707 => 'Der Bonus ist nur temporär.',	
 );
-
-?>

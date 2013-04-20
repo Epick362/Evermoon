@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id: class.ShowRaportPage.php 2322 2012-09-01 16:10:24Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: class.ShowRaportPage.php 2632 2013-03-18 19:05:14Z slaver7 $
+ * @link http://2moons.cc/
  */
 
 class ShowRaportPage extends AbstractPage
@@ -38,15 +37,64 @@ class ShowRaportPage extends AbstractPage
 		parent::__construct();
 	}
 	
+	private function BCWrapperPreRev2321($CombatRaport)
+	{
+		if(isset($CombatRaport['moon']['desfail']))
+		{
+			$CombatRaport['moon']	= array(
+				'moonName'				=> $CombatRaport['moon']['name'],
+				'moonChance'			=> $CombatRaport['moon']['chance'],
+				'moonDestroySuccess'	=> !$CombatRaport['moon']['desfail'],
+				'fleetDestroyChance'	=> $CombatRaport['moon']['chance2'],
+				'fleetDestroySuccess'	=> !$CombatRaport['moon']['fleetfail']
+			);			
+		}
+		elseif(isset($CombatRaport['moon'][0]))
+		{
+			$CombatRaport['moon']	= array(
+				'moonName'				=> $CombatRaport['moon'][1],
+				'moonChance'			=> $CombatRaport['moon'][0],
+				'moonDestroySuccess'	=> !$CombatRaport['moon'][2],
+				'fleetDestroyChance'	=> $CombatRaport['moon'][3],
+				'fleetDestroySuccess'	=> !$CombatRaport['moon'][4]
+			);			
+		}
+		
+		if(isset($CombatRaport['simu']))
+		{
+			$CombatRaport['additionalInfo'] = $CombatRaport['simu'];
+		}
+		
+		if(isset($CombatRaport['debris'][0]))
+		{
+            $CombatRaport['debris'] = array(
+                901	=> $CombatRaport['debris'][0],
+                902	=> $CombatRaport['debris'][1]
+            );
+		}
+		
+		if (!empty($CombatRaport['steal']['metal']))
+		{
+			$CombatRaport['steal'] = array(
+				901	=> $CombatRaport['steal']['metal'],
+				902	=> $CombatRaport['steal']['crystal'],
+				903	=> $CombatRaport['steal']['deuterium']
+			);
+		}
+		
+		return $CombatRaport;
+	}
+	
 	function battlehall() 
 	{
 		global $LNG, $USER;
 		
+		$LNG->includeData(array('FLEET'));
 		$this->setWindow('popup');
 		
-		$RID		= HTTP::_GP('raport', 0);
+		$RID		= HTTP::_GP('raport', '');
 		
-		$Raport		= $GLOBALS['DATABASE']->uniquequery("SELECT 
+		$Raport		= $GLOBALS['DATABASE']->getFirstRow("SELECT 
 		raport, time,
 		(
 			SELECT 
@@ -61,7 +109,7 @@ class ShowRaportPage extends AbstractPage
 			WHERE id IN (SELECT uid FROM ".TOPKB_USERS." WHERE ".TOPKB_USERS.".rid = ".RW.".rid AND role = 2)
 		) as defender
 		FROM ".RW."
-		WHERE rid = ".$RID.";");
+		WHERE rid = '".$GLOBALS['DATABASE']->escape($RID)."';");
 		
 		$Info		= array($Raport["attacker"], $Raport["defender"]);
 		
@@ -71,10 +119,12 @@ class ShowRaportPage extends AbstractPage
 		
 		$CombatRaport			= unserialize($Raport['raport']);
 		$CombatRaport['time']	= _date($LNG['php_tdformat'], $CombatRaport['time'], $USER['timezone']);
-
+		$CombatRaport			= $this->BCWrapperPreRev2321($CombatRaport);
+		
 		$this->tplObj->assign_vars(array(
 			'Raport'	=> $CombatRaport,
 			'Info'		=> $Info,
+			'pageTitle'	=> $LNG['lm_topkb']
 		));
 		
 		$this->display('shared.mission.raport.tpl');
@@ -84,37 +134,39 @@ class ShowRaportPage extends AbstractPage
 	{
 		global $LNG, $USER;
 		
+		$LNG->includeData(array('FLEET'));		
 		$this->setWindow('popup');
 		
-		$RID		= HTTP::_GP('raport', 0);
+		$RID		= HTTP::_GP('raport', '');
 		
-		$Raport		= $GLOBALS['DATABASE']->countquery("SELECT raport FROM ".RW." WHERE rid = ".$RID.";");
-		$Info		= array();
+		$raportData		= $GLOBALS['DATABASE']->getFirstRow("SELECT raport,attacker,defender FROM ".RW." WHERE rid = '".$GLOBALS['DATABASE']->escape($RID)."';");
+
+		if(empty($raportData)) {
+			$this->printMessage($LNG['sys_raport_not_found']);
+		}
 		
-		if(!isset($Raport)) {
+		// empty is BC for pre r2484
+		$isAttacker = empty($raportData['attacker']) || in_array($USER['id'], explode(",", $raportData['attacker']));
+		$isDefender = empty($raportData['defender']) || in_array($USER['id'], explode(",", $raportData['defender']));
+		
+		if(empty($raportData) || (!$isAttacker && !$isDefender)) {
 			$this->printMessage($LNG['sys_raport_not_found']);
 		}
 
-		$CombatRaport	= unserialize($Raport);
-		$CombatRaport['time']	= _date($LNG['php_tdformat'], $CombatRaport['time'], (isset($USER['timezone']) ? $USER['timezone'] : $CONF['timezone']));
-		
-		if(isset($INFO['moon']['desfail']))
-		{
-			// 2Moons BC r2321
-			$CombatRaport['moon']	= array(
-				'moonName'				=> $CombatRaport['moon']['name'],
-				'moonChance'			=> $CombatRaport['moon']['chance'],
-				'moonDestroySuccess'	=> !$CombatRaport['moon']['desfail'],
-				'fleetDestroyChance'	=> $CombatRaport['moon']['chance2'],
-				'fleetDestroySuccess'	=> !$INFO['moon']['fleetfail']
-			);
+		$CombatRaport			= unserialize($raportData['raport']);
+		if($isAttacker && !$isDefender && $CombatRaport['result'] == 'r' && count($CombatRaport['rounds']) <= 2) {
+			$this->printMessage($LNG['sys_raport_lost_contact']);
 		}
+		
+		$CombatRaport['time']	= _date($LNG['php_tdformat'], $CombatRaport['time'], (isset($USER['timezone']) ? $USER['timezone'] : Config::get('timezone')));
+		
+		$CombatRaport			= $this->BCWrapperPreRev2321($CombatRaport);
 		
 		$this->tplObj->assign_vars(array(
 			'Raport'	=> $CombatRaport,
+			'pageTitle'	=> $LNG['sys_mess_attack_report']
 		));
 		
 		$this->display('shared.mission.raport.tpl');
 	}
 }
-?>

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/2640/trunk/includes/libs/phpmailer
+END
+LICENSE
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/2640/trunk/includes/libs/phpmailer/LICENSE
+END
+class.phpmailer.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2640/trunk/includes/libs/phpmailer/class.phpmailer.php
+END
+class.smtp.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2640/trunk/includes/libs/phpmailer/class.smtp.php
+END

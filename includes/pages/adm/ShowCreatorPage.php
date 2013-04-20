@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,21 +18,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id: ShowCreatorPage.php 2149 2012-03-15 22:24:13Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: ShowCreatorPage.php 2640 2013-03-23 19:23:26Z slaver7 $
+ * @link http://2moons.cc/
  */
 
-if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) exit;
+if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) throw new Exception("Permission error!");
 
 
 function ShowCreatorPage()
 {
-	global $LNG, $USER, $UNI, $LANG, $CONF;
+	global $LNG, $USER, $UNI, $CONF;
 
 	$template	= new template();
 
@@ -40,7 +39,7 @@ function ShowCreatorPage()
 	switch ($_GET['mode'])
 	{
 		case 'user':
-			$LANG->includeLang(array('PUBLIC'));
+			$LNG->includeData(array('PUBLIC'));
 			if ($_POST)
 			{
 				$UserName 	= HTTP::_GP('name', '', UTF8_SUPPORT);
@@ -54,8 +53,8 @@ function ShowCreatorPage()
 				$System 	= HTTP::_GP('system', 0);
 				$Planet 	= HTTP::_GP('planet', 0);
 					
-				$ExistsUser 	= $GLOBALS['DATABASE']->countquery("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE universe = ".$_SESSION['adminuni']." AND username = '".$GLOBALS['DATABASE']->sql_escape($UserName)."') + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE universe = ".$_SESSION['adminuni']." AND username = '".$GLOBALS['DATABASE']->sql_escape($UserName)."')");
-				$ExistsMails	= $GLOBALS['DATABASE']->countquery("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE universe = ".$_SESSION['adminuni']." AND (email = '".$GLOBALS['DATABASE']->sql_escape($UserMail)."' OR email_2 = '".$GLOBALS['DATABASE']->sql_escape($UserMail)."')) + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE universe = ".$_SESSION['adminuni']." AND email = '".$GLOBALS['DATABASE']->sql_escape($UserMail)."')");
+				$ExistsUser 	= $GLOBALS['DATABASE']->getFirstCell("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE universe = ".$_SESSION['adminuni']." AND username = '".$GLOBALS['DATABASE']->sql_escape($UserName)."') + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE universe = ".$_SESSION['adminuni']." AND username = '".$GLOBALS['DATABASE']->sql_escape($UserName)."')");
+				$ExistsMails	= $GLOBALS['DATABASE']->getFirstCell("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE universe = ".$_SESSION['adminuni']." AND (email = '".$GLOBALS['DATABASE']->sql_escape($UserMail)."' OR email_2 = '".$GLOBALS['DATABASE']->sql_escape($UserMail)."')) + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE universe = ".$_SESSION['adminuni']." AND email = '".$GLOBALS['DATABASE']->sql_escape($UserMail)."')");
 								
 				if (!ValidateAddress($UserMail)) 
 					$errors .= $LNG['invalid_mail_adress'];
@@ -85,7 +84,7 @@ function ShowCreatorPage()
 					$errors .= $LNG['planet_already_exists'];
 				}	
 				
-				if ($Galaxy > $CONF['max_galaxy'] || $System > $CONF['max_system'] || $Planet > $CONF['max_planets']) {
+				if ($Galaxy > Config::get('max_galaxy') || $System > Config::get('max_system') || $Planet > Config::get('max_planets')) {
 					$errors .= $LNG['po_complete_all2'];
 				}
 
@@ -107,13 +106,13 @@ function ShowCreatorPage()
 				onlinetime		= ".TIMESTAMP.",
 				register_time	= ".TIMESTAMP.",
 				dpath			= '".DEFAULT_THEME."',
-				timezone		= '".$CONF['timezone']."',
+				timezone		= '".Config::get('timezone')."',
 				uctime			= 0;";
 				$GLOBALS['DATABASE']->query($SQL);
 
 				$UserID = $GLOBALS['DATABASE']->GetInsertID();
 				
-				require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.php');
+				require_once('includes/functions/CreateOnePlanetRecord.php');
 				$PlanerID	= CreateOnePlanetRecord($Galaxy, $System, $Planet, $_SESSION['adminuni'], $UserID, $LNG['fcm_planet'], true, $UserAuth);
 								
 				$SQL = "UPDATE ".USERS." SET 
@@ -127,14 +126,14 @@ function ShowCreatorPage()
 				id_owner	= ".$UserID.",
 				universe	= ".$_SESSION['adminuni'].",
 				stat_type	= 1,
-				tech_rank	= ".($CONF['users_amount'] + 1).",
-				build_rank	= ".($CONF['users_amount'] + 1).",
-				defs_rank	= ".($CONF['users_amount'] + 1).",
-				fleet_rank	= ".($CONF['users_amount'] + 1).",
-				total_rank	= ".($CONF['users_amount'] + 1).";";
+				tech_rank	= ".(Config::get('users_amount') + 1).",
+				build_rank	= ".(Config::get('users_amount') + 1).",
+				defs_rank	= ".(Config::get('users_amount') + 1).",
+				fleet_rank	= ".(Config::get('users_amount') + 1).",
+				total_rank	= ".(Config::get('users_amount') + 1).";";
 				$GLOBALS['DATABASE']->multi_query($SQL);
 				
-				update_config(array('users_amount' => $CONF['users_amount'] + 1));
+				Config::update(array('users_amount' => Config::get('users_amount') + 1));
 				
 				$template->message($LNG['new_user_success'], '?page=create&mode=user', 5, true);
 				exit;
@@ -166,9 +165,9 @@ function ShowCreatorPage()
 				'email2_reg'			=> $LNG['email2_reg'],
 				'new_coord'				=> $LNG['new_coord'],
 				'new_range'				=> $LNG['new_range'],
-				'lang'					=> $LNG['op_lang'],		
+				'lang_reg'				=> $LNG['lang_reg'],		
 				'new_title'				=> $LNG['new_title'],
-				'Selector'				=> array('auth' => $AUTH, 'lang' => $LANG->getAllowedLangs(false)),  
+				'Selector'				=> array('auth' => $AUTH, 'lang' => $LNG->getAllowedLangs(false)),  
 			));
 			$template->show('CreatePageUser.tpl');
 		break;
@@ -180,16 +179,21 @@ function ShowCreatorPage()
 				$Diameter	= HTTP::_GP('diameter', 0);
 				$FieldMax	= HTTP::_GP('field_max', 0);
 			
-				$MoonPlanet	= $GLOBALS['DATABASE']->uniquequery("SELECT temp_max, temp_min, id_luna, galaxy, system, planet, planet_type, destruyed, id_owner FROM ".PLANETS." WHERE id = '".$PlanetID."' AND universe = '".$_SESSION['adminuni']."' AND planet_type = '1' AND destruyed = '0';");
+				$MoonPlanet	= $GLOBALS['DATABASE']->getFirstRow("SELECT temp_max, temp_min, id_luna, galaxy, system, planet, planet_type, destruyed, id_owner FROM ".PLANETS." WHERE id = '".$PlanetID."' AND universe = '".$_SESSION['adminuni']."' AND planet_type = '1' AND destruyed = '0';");
 
 				if (!isset($MoonPlanet)) {
 					$template->message($LNG['mo_planet_doesnt_exist'], '?page=create&mode=moon', 3, true);
 					exit;
 				}
 			
-				require_once(ROOT_PATH.'includes/functions/CreateOneMoonRecord.php');
+				require_once('includes/functions/CreateOneMoonRecord.php');
 				
-				if(CreateOneMoonRecord($MoonPlanet['galaxy'], $MoonPlanet['system'], $MoonPlanet['planet'], $_SESSION['adminuni'], $MoonPlanet['id_owner'], 0, $MoonName, 20, (($_POST['diameter_check'] == 'on') ? 0: $Diameter)) !== false)
+				if(empty($MoonName))
+				{
+					$MoonName = $LNG['type_planet'][3];
+				}
+				
+				if(CreateOneMoonRecord($MoonPlanet['galaxy'], $MoonPlanet['system'], $MoonPlanet['planet'], $_SESSION['adminuni'], $MoonPlanet['id_owner'], $MoonName, 20, TIMESTAMP, (($_POST['diameter_check'] == 'on') ? 0: $Diameter)) !== false)
 					$template->message($LNG['mo_moon_added'], '?page=create&mode=moon', 3, true);
 				else
 					$template->message($LNG['mo_moon_unavaible'], '?page=create&mode=moon', 3, true);
@@ -225,18 +229,18 @@ function ShowCreatorPage()
 				$name        = HTTP::_GP('name', '', UTF8_SUPPORT);
 				$field_max   = HTTP::_GP('field_max', 0);
 				
-				if($Galaxy > $CONF['max_galaxy'] || $System > $CONF['max_system'] || $Planet > $CONF['max_planets']) {
+				if($Galaxy > Config::get('max_galaxy') || $System > Config::get('max_system') || $Planet > Config::get('max_planets')) {
 					$template->message($LNG['po_complete_all2'], '?page=create&mode=planet', 3, true);
 					exit;					
 				}
 				
-				$ISUser		= $GLOBALS['DATABASE']->uniquequery("SELECT id, authlevel FROM ".USERS." WHERE id = '".$id."' AND universe = '".$_SESSION['adminuni']."';");
+				$ISUser		= $GLOBALS['DATABASE']->getFirstRow("SELECT id, authlevel FROM ".USERS." WHERE id = '".$id."' AND universe = '".$_SESSION['adminuni']."';");
 				if(CheckPlanetIfExist($Galaxy, $System, $Planet, $_SESSION['adminuni']) || !isset($ISUser)) {
 					$template->message($LNG['po_complete_all'], '?page=create&mode=planet', 3, true);
 					exit;
 				}
 				
-				require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.php');
+				require_once('includes/functions/CreateOnePlanetRecord.php');
 				CreateOnePlanetRecord($Galaxy, $System, $Planet, $_SESSION['adminuni'], $id, '', '', false) ; 
 						
 				$SQL  = "UPDATE ".PLANETS." SET ";
@@ -296,4 +300,3 @@ function ShowCreatorPage()
 		break;	
 	}
 }
-?>

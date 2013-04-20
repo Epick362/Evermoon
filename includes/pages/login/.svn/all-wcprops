@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/2645/trunk/includes/pages/login
+END
+ShowBoardPage.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2425/trunk/includes/pages/login/ShowBoardPage.class.php
+END
+ShowVertifyPage.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2640/trunk/includes/pages/login/ShowVertifyPage.class.php
+END
+ShowErrorPage.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2416/trunk/includes/pages/login/ShowErrorPage.class.php
+END
+ShowRulesPage.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2496/trunk/includes/pages/login/ShowRulesPage.class.php
+END
+ShowBanListPage.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2442/trunk/includes/pages/login/ShowBanListPage.class.php
+END
+ShowScreensPage.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2640/trunk/includes/pages/login/ShowScreensPage.class.php
+END
+AbstractPage.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2632/trunk/includes/pages/login/AbstractPage.class.php
+END
+ShowDisclamerPage.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2416/trunk/includes/pages/login/ShowDisclamerPage.class.php
+END
+ShowExternalAuthPage.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/2640/trunk/includes/pages/login/ShowExternalAuthPage.class.php
+END
+ShowLostPasswordPage.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/2645/trunk/includes/pages/login/ShowLostPasswordPage.class.php
+END
+ShowIndexPage.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2496/trunk/includes/pages/login/ShowIndexPage.class.php
+END
+ShowLoginPage.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2532/trunk/includes/pages/login/ShowLoginPage.class.php
+END
+ShowNewsPage.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2436/trunk/includes/pages/login/ShowNewsPage.class.php
+END
+ShowBattleHallPage.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2416/trunk/includes/pages/login/ShowBattleHallPage.class.php
+END
+ShowRegisterPage.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2641/trunk/includes/pages/login/ShowRegisterPage.class.php
+END

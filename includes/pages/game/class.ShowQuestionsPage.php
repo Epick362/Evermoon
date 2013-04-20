@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id: class.ShowQuestionsPage.php 2126 2012-03-11 21:11:32Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: class.ShowQuestionsPage.php 2632 2013-03-18 19:05:14Z slaver7 $
+ * @link http://2moons.cc/
  */
  
 class ShowQuestionsPage extends AbstractPage
@@ -38,18 +37,18 @@ class ShowQuestionsPage extends AbstractPage
 	
 	function show()
 	{
-		global $LNG, $LANG;
+		global $LNG;
 		
-		$LANG->includeLang(array('FAQ'));
+		$LNG->includeData(array('FAQ'));
 		
 		$this->display('page.questions.default.tpl');
 	}
 	
 	function single()
 	{
-		global $LNG, $LANG;
+		global $LNG;
 		
-		$LANG->includeLang(array('FAQ'));
+		$LNG->includeData(array('FAQ'));
 		
 		$categoryID	= HTTP::_GP('categoryID', 0);
 		$questionID	= HTTP::_GP('questionID', 0);
@@ -64,4 +63,3 @@ class ShowQuestionsPage extends AbstractPage
 		$this->display('page.questions.single.tpl');
 	}
 }
-?>

@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id: class.ShowPhalanxPage.php 2228 2012-05-14 09:53:15Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: class.ShowPhalanxPage.php 2640 2013-03-23 19:23:26Z slaver7 $
+ * @link http://2moons.cc/
  */
 
 
@@ -59,7 +58,7 @@ class ShowPhalanxPage extends AbstractPage
 	function show()
 	{
 		global $USER, $PLANET, $LNG, $UNI, $resource;
-		require_once(ROOT_PATH.'includes/classes/class.FlyingFleetsTable.php');
+		require_once('includes/classes/class.FlyingFleetsTable.php');
 		
 		$FlyingFleetsTable 	= new FlyingFleetsTable();
 		$this->initTemplate();
@@ -82,14 +81,14 @@ class ShowPhalanxPage extends AbstractPage
 
 		$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET `deuterium` = `deuterium` - ".PHALANX_DEUTERIUM." WHERE `id` = '".$PLANET['id']."';");
 		
-		$TargetInfo = $GLOBALS['DATABASE']->uniquequery("SELECT id, name, id_owner FROM ".PLANETS." WHERE`universe` = '".$UNI."' AND `galaxy` = '".$Galaxy."' AND `system` = '".$System."' AND `planet` = '".$Planet."' AND `planet_type` = '1';");
+		$TargetInfo = $GLOBALS['DATABASE']->getFirstRow("SELECT id, name, id_owner FROM ".PLANETS." WHERE`universe` = '".$UNI."' AND `galaxy` = '".$Galaxy."' AND `system` = '".$System."' AND `planet` = '".$Planet."' AND `planet_type` = '1';");
 		
 		if(empty($TargetInfo))
 		{
 			$this->printMessage($LNG['px_out_of_range']);
 		}
 		
-		require_once(ROOT_PATH . 'includes/classes/class.FlyingFleetsTable.php');
+		require_once('includes/classes/class.FlyingFleetsTable.php');
 		$fleetTableObj = new FlyingFleetsTable;
 		$fleetTableObj->setPhalanxMode();
 		$fleetTableObj->setUser($TargetInfo['id_owner']);
@@ -107,4 +106,3 @@ class ShowPhalanxPage extends AbstractPage
 		$this->display('page.phalanx.default.tpl');			
 	}
 }
-?>

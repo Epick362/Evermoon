@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,30 +18,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id: CreateOnePlanetRecord.php 2126 2012-03-11 21:11:32Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: CreateOnePlanetRecord.php 2640 2013-03-23 19:23:26Z slaver7 $
+ * @link http://2moons.cc/
  */
 
 function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOwnerID, $PlanetName = '', $HomeWorld = false, $AuthLevel = 0)
 {
 	global $LNG;
 
-	$CONF	= getConfig($Universe);
-
-	if ($CONF['max_galaxy'] < $Galaxy || 1 > $Galaxy) {
+	$CONF	= Config::getAll(NULL, $Universe);
+	if (Config::get('max_galaxy') < $Galaxy || 1 > $Galaxy) {
 		throw new Exception("Access denied for CreateOnePlanetRecord.php.<br>Try to create a planet at position:".$Galaxy.":".$System.":".$Position);
 	}	
 	
-	if ($CONF['max_system'] < $System || 1 > $System) {
+	if (Config::get('max_system') < $System || 1 > $System) {
 		throw new Exception("Access denied for CreateOnePlanetRecord.php.<br>Try to create a planet at position:".$Galaxy.":".$System.":".$Position);
 	}	
 	
-	if ($CONF['max_planets'] < $Position || 1 > $Position) {
+	if (Config::get('max_planets') < $Position || 1 > $Position) {
 		throw new Exception("Access denied for CreateOnePlanetRecord.php.<br>Try to create a planet at position:".$Galaxy.":".$System.":".$Position);
 	}
 	
@@ -49,12 +47,12 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 		return false;
 	}
 
-	$FieldFactor		= $CONF['planet_factor'];
-	require(ROOT_PATH.'includes/PlanetData.php');
-	$Pos                = ceil($Position / ($CONF['max_planets'] / count($PlanetData))); 
+	$FieldFactor		= Config::get('planet_factor');
+	require('includes/PlanetData.php');
+	$Pos                = ceil($Position / (Config::get('max_planets') / count($PlanetData))); 
 	$TMax				= $PlanetData[$Pos]['temp'];
 	$TMin				= $TMax - 40;
-	$Fields				= $PlanetData[$Pos]['fields'] * $CONF['planet_factor'];
+	$Fields				= $PlanetData[$Pos]['fields'] * Config::get('planet_factor');
 	$Types				= array_keys($PlanetData[$Pos]['image']);
 	$Type				= $Types[array_rand($Types)];
 	$Class				= $Type.'planet'.($PlanetData[$Pos]['image'][$Type] < 10 ? '0' : '').$PlanetData[$Pos]['image'][$Type];
@@ -71,16 +69,15 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 				planet_type = '1',
 				image = '".$Class."',
 				diameter = ".floor(1000 * sqrt($Fields)).",
-				field_max = ".(($HomeWorld) ? $CONF['initial_fields'] : floor($Fields)).",
+				field_max = ".(($HomeWorld) ? Config::get('initial_fields') : floor($Fields)).",
 				temp_min = ".$TMin.",
 				temp_max = ".$TMax.",
-				metal = ".$CONF['metal_start'].",
-				metal_perhour = ".$CONF['metal_basic_income'].",
-				crystal = ".$CONF['crystal_start'].",
-				crystal_perhour = ".$CONF['crystal_basic_income'].",
-				deuterium = ".$CONF['deuterium_start'].",
-				deuterium_perhour = ".$CONF['deuterium_basic_income'].";");
+				metal = ".Config::get('metal_start').",
+				metal_perhour = ".Config::get('metal_basic_income').",
+				crystal = ".Config::get('crystal_start').",
+				crystal_perhour = ".Config::get('crystal_basic_income').",
+				deuterium = ".Config::get('deuterium_start').",
+				deuterium_perhour = ".Config::get('deuterium_basic_income').";");
 
 	return $GLOBALS['DATABASE']->GetInsertID();
 }
-?>

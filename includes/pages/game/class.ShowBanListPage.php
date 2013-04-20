@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id: class.ShowBanListPage.php 2126 2012-03-11 21:11:32Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: class.ShowBanListPage.php 2632 2013-03-18 19:05:14Z slaver7 $
+ * @link http://2moons.cc/
  */
 
 class ShowBanListPage extends AbstractPage 
@@ -40,9 +39,9 @@ class ShowBanListPage extends AbstractPage
 	{
 		global $USER, $PLANET, $LNG, $UNI;
 		
-		$page  		= HTTP::_GP('site', 1);
+		$page  		= HTTP::_GP('side', 1);
 		
-		$banCount	= $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".BANNED." WHERE universe = ".$UNI." ORDER BY time DESC;");
+		$banCount	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".BANNED." WHERE universe = ".$UNI." ORDER BY time DESC;");
 		
 		$maxPage	= ceil($banCount / BANNED_USERS_PER_PAGE);
 		$page		= max(1, min($page, $maxPage));
@@ -75,4 +74,3 @@ class ShowBanListPage extends AbstractPage
 		$this->display('page.banList.default.tpl');
 	}
 }
-?>

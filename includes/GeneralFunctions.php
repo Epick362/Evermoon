@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,68 +18,124 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id: GeneralFunctions.php 2322 2012-09-01 16:10:24Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: GeneralFunctions.php 2653 2013-03-27 16:28:03Z lordmegger@googlemail.com $
+ * @link http://2moons.cc/
  */
 
 function getUniverse()
 {
-	if(defined('IN_ADMIN') && isset($_SESSION['adminuni'])) {
+	$gameConfig	= Config::getAll(NULL);
+	
+	if(MODE == 'ADMIN' && isset($_SESSION['adminuni']))
+	{
 		$UNI	= (int) $_SESSION['adminuni'];
-	} elseif(defined('LOGIN') && isset($_REQUEST['uni'])) {
-		$UNI	= (int) $_REQUEST['uni'];
-	} elseif(defined('LOGIN') && isset($_COOKIE['uni'])) {
-		$UNI	= (int) $_COOKIE['uni'];
-	} elseif(UNIS_HTACCESS === true) {
-		// Enable htaccess
-		if(isset($_SERVER["REDIRECT_UNI"])) {
-			$UNI	= $_SERVER["REDIRECT_UNI"];
-		} elseif(isset($_SERVER["REDIRECT_REDIRECT_UNI"])) {
-			// Patch for www.top-hoster.de - Hoster
-			$UNI	= $_SERVER["REDIRECT_REDIRECT_UNI"];
-		} else {
-			HTTP::redirectTo("uni".ROOT_UNI."/".basename($_SERVER['SCRIPT_FILENAME']).(!empty($_SERVER["QUERY_STRING"]) ? "?".$_SERVER["QUERY_STRING"]: ""));
+	}
+	elseif(MODE == 'LOGIN')
+	{
+		if(isset($_COOKIE['uni']))
+		{
+			$UNI	= (int) $_COOKIE['uni'];
 		}
-	} else {
+
+		if(isset($_REQUEST['uni']))
+		{
+			$UNI	= (int) $_REQUEST['uni'];
+		}
+	}
+	
+	if(!isset($UNI))
+	{
 		if(UNIS_WILDCAST === true) {
 			$UNI	= explode('.', $_SERVER['HTTP_HOST']);
 			$UNI	= substr($UNI[0], 3);
 			if(!is_numeric($UNI))
+			{
 				$UNI	= ROOT_UNI;
+			}
 		} else {
-			$UNI	= ROOT_UNI;
+			if(count($gameConfig) == 1)
+			{
+				if(HTTP_ROOT != HTTP_BASE)
+				{
+					HTTP::redirectTo(PROTOCOL.HTTP_HOST.HTTP_BASE.HTTP_FILE, true);
+				}
+				
+				$UNI = ROOT_UNI;
+			}
+			else
+			{
+				if(isset($_SERVER['REDIRECT_UNI'])) {
+					// Apache - faster then preg_match
+					$UNI	= $_SERVER["REDIRECT_UNI"];
+				}
+				elseif(isset($_SERVER['REDIRECT_REDIRECT_UNI']))
+				{
+					// Patch for www.top-hoster.de - Hoster
+					$UNI	= $_SERVER["REDIRECT_REDIRECT_UNI"];
+				}
+				elseif(strpos($_SERVER['SERVER_SOFTWARE'], 'Apache/') === false)
+				{
+					preg_match('!/uni([0-9]+)/!', HTTP_PATH, $match);
+					if(isset($match[1]))
+					{
+						$UNI	= $match[1];
+					}
+				}
+				
+				if(!isset($UNI) || !isset($gameConfig[$UNI]))
+				{
+					HTTP::redirectTo(PROTOCOL.HTTP_HOST.HTTP_BASE."uni".ROOT_UNI."/".HTTP_FILE, true);
+				}
+			}
 		}
 	}
 	
 	return $UNI;
 }
 
+function t($key)
+{
+	global $LNG;
+	
+	if(strpos($key, '.') === false)
+	{
+		$text = $LNG[$key];
+	}
+	else
+	{
+		$keys = explode('.', $key);
+		$text = $LNG[$keys[0]][$keys[1]];
+	}
+	
+	$args = func_get_args();
+	array_shift($args);
+	
+	switch (count($args)) {
+		case 0: return $text; break;
+		case 1: return sprintf($text, $args[0]); break;
+		case 2: return sprintf($text, $args[0], $args[1]); break;
+		case 3: return sprintf($text, $args[0], $args[1], $args[2]); break;
+		case 4: return sprintf($text, $args[0], $args[1], $args[2], $args[3]); break;
+		case 5: return sprintf($text, $args[0], $args[1], $args[2], $args[3], $args[4]); break;
+		case 6: return sprintf($text, $args[0], $args[1], $args[2], $args[3], $args[4], $args[5]); break;
+		case 7: return sprintf($text, $args[0], $args[1], $args[2], $args[3], $args[4], $args[5], $args[6]); break;
+		case 8: return sprintf($text, $args[0], $args[1], $args[2], $args[3], $args[4], $args[5], $args[6], $args[7]); break;
+		case 9: return sprintf($text, $args[0], $args[1], $args[2], $args[3], $args[4], $args[5], $args[6], $args[7], $args[8]); break;
+		case 10: return call_user_func_array('sprintf', $args); break;
+	}
+}
+
 function getFactors($USER, $Type = 'basic', $TIME = NULL) {
 	global $CONF, $resource, $pricelist, $reslist;
 	if(empty($TIME))
 		$TIME	= TIMESTAMP;
-		
-	$factor	= array(
-		'Attack'			=> 0,
-		'Defensive'			=> 0,
-		'Shield'			=> 0,
-		'BuildTime'			=> 0,
-		'ResearchTime'		=> 0,
-		'ShipTime'			=> 0,
-		'DefensiveTime'		=> 0,
-		'Resource'			=> 0,
-		'Energy'			=> 0,
-		'ResourceStorage'	=> 0,
-		'ShipStorage'		=> 0,
-		'FlyTime'			=> 0,
-		'FleetSlots'		=> 0,
-		'Planets'			=> 0,
-	);
+	
+	$bonusList	= BuildFunctions::getBonusList();
+	$factor		= ArrayUtil::combineArrayWithSingleElement($bonusList, 0);
 	
 	foreach($reslist['bonus'] as $elementID) {
 		$bonus = $pricelist[$elementID]['bonus'];
@@ -97,35 +153,15 @@ function getFactors($USER, $Type = 'basic', $TIME = NULL) {
 				continue;
 			}
 			
-			$factor['Attack']			+= $bonus['Attack'];
-			$factor['Defensive']		+= $bonus['Defensive'];
-			$factor['Shield']			+= $bonus['Shield'];
-			$factor['BuildTime']		+= $bonus['BuildTime'];
-			$factor['ResearchTime']		+= $bonus['ResearchTime'];
-			$factor['ShipTime']			+= $bonus['ShipTime'];
-			$factor['DefensiveTime']	+= $bonus['DefensiveTime'];
-			$factor['Resource']			+= $bonus['Resource'];
-			$factor['Energy']			+= $bonus['Energy'];
-			$factor['ResourceStorage']	+= $bonus['ResourceStorage'];
-			$factor['ShipStorage']		+= $bonus['ShipStorage'];
-			$factor['FlyTime']			+= $bonus['FlyTime'];
-			$factor['FleetSlots']		+= $bonus['FleetSlots'];
-			$factor['Planets']			+= $bonus['Planets'];
+			foreach($bonusList as $bonusKey)
+			{
+				$factor[$bonusKey]	+= $bonus[$bonusKey][0];
+			}
 		} else {
-			$factor['Attack']			+= $elementLevel * $bonus['Attack'];
-			$factor['Defensive']		+= $elementLevel * $bonus['Defensive'];
-			$factor['Shield']			+= $elementLevel * $bonus['Shield'];
-			$factor['BuildTime']		+= $elementLevel * $bonus['BuildTime'];
-			$factor['ResearchTime']		+= $elementLevel * $bonus['ResearchTime'];
-			$factor['ShipTime']			+= $elementLevel * $bonus['ShipTime'];
-			$factor['DefensiveTime']	+= $elementLevel * $bonus['DefensiveTime'];
-			$factor['Resource']			+= $elementLevel * $bonus['Resource'];
-			$factor['Energy']			+= $elementLevel * $bonus['Energy'];
-			$factor['ResourceStorage']	+= $elementLevel * $bonus['ResourceStorage'];
-			$factor['ShipStorage']		+= $elementLevel * $bonus['ShipStorage'];
-			$factor['FlyTime']			+= $elementLevel * $bonus['FlyTime'];
-			$factor['FleetSlots']		+= $elementLevel * $bonus['FleetSlots'];
-			$factor['Planets']			+= $elementLevel * $bonus['Planets'];
+			foreach($bonusList as $bonusKey)
+			{
+				$factor[$bonusKey]	+= $elementLevel * $bonus[$bonusKey][0];
+			}
 		}
 	}
 	
@@ -150,6 +186,8 @@ function getPlanets($USER)
 		$QryPlanets .= "name ". $Order;
 
 	$PlanetRAW = $GLOBALS['DATABASE']->query($QryPlanets);
+	
+	$Planets	= array();
 	
 	while($Planet = $GLOBALS['DATABASE']->fetch_array($PlanetRAW))
 		$Planets[$Planet['id']]	= $Planet;
@@ -204,6 +242,7 @@ function _date($format, $time = null, $toTimeZone = null, $LNG = NULL) {
 		$time	= TIMESTAMP;
 	}
 	
+		
 	if(isset($toTimeZone))
 	{
 		$date = new DateTime();
@@ -230,51 +269,6 @@ function _date($format, $time = null, $toTimeZone = null, $LNG = NULL) {
 	return date($format, $time);
 }
 
-function update_config($Values, $UNI = NULL)
-{
-	global $CONF;
-	$SQLBASE	= "";
-	$SQLUNI		= "";
-	$UNI		= (empty($UNI)) ? $GLOBALS['UNI'] : $UNI;
-	
-	foreach($Values as $Name => $Value) {
-		if(!isset($CONF[$Name]))
-			continue;
-			
-		$GLOBALS['CONFIG'][$UNI][$Name]	= $Value;
-		$GLOBALS['CONF'][$Name]			= $Value;
-		
-		if(in_array($Name, $GLOBALS['BASICCONFIG'])) {
-			$SQLBASE	.= $Name." = '".$GLOBALS['DATABASE']->sql_escape($Value)."', ";
-		} else {
-			$SQLUNI		.= $Name." = '".$GLOBALS['DATABASE']->sql_escape($Value)."', ";
-		}
-	}
-
-	if(!empty($SQLBASE))
-		$GLOBALS['DATABASE']->query("UPDATE ".CONFIG." SET ".substr($SQLBASE, 0, -2).";");
-	
-	if(!empty($SQLUNI))
-		$GLOBALS['DATABASE']->query("UPDATE ".CONFIG." SET ".substr($SQLUNI, 0, -2)." WHERE uni = '".$UNI."';");
-	
-}
-
-function getConfig($UNI) {
-	if(isset($GLOBALS['CONFIG'][$UNI])) {
-		return $GLOBALS['CONFIG'][$UNI];
-	}
-	
-	$CONF = $GLOBALS['DATABASE']->uniquequery("SELECT HIGH_PRIORITY * FROM ".CONFIG." WHERE uni = '".$UNI."';");
-	if(!isset($CONF))
-		HTTP::redirectTo('index.php');
-		
-	$CONF['moduls']			= explode(";", $CONF['moduls']);
-
-	
-	$GLOBALS['CONFIG'][$UNI]	= $CONF;
-	return $CONF;
-}
-
 function ValidateAddress($address) {
 	
 	if(function_exists('filter_var')) {
@@ -290,7 +284,7 @@ function ValidateAddress($address) {
 
 function message($mes, $dest = "", $time = "3", $topnav = false, $menu = true)
 {
-	require_once(ROOT_PATH . 'includes/classes/class.template.php');
+	require_once('includes/classes/class.template.php');
 	$template = new template();
 	$template->message($mes, $dest, $time, !$topnav);
 	exit;
@@ -340,6 +334,39 @@ function pretty_time($seconds)
 	return $time;
 }
 
+function pretty_fly_time($seconds)
+{
+	$hour	= floor($seconds / 3600);
+	$minute	= floor($seconds / 60 % 60);
+	$second	= floor($seconds % 60);
+	
+	$time  = '';
+	
+	if($hour >= 10) {
+		$time .= $hour;
+	} else {
+		$time .= '0'.$hour;
+	}
+	
+	$time .= ':';
+	
+	if($minute >= 10) {
+		$time .= $minute;
+	} else {
+		$time .= '0'.$minute;
+	}
+	
+	$time .= ':';
+	
+	if($second >= 10) {
+		$time .= $second;
+	} else {
+		$time .= '0'.$second;
+	}
+
+	return $time;
+}
+
 function GetStartAdressLink($FleetRow, $FleetType)
 {
 	return '<a href="game.php?page=galaxy&amp;galaxy='.$FleetRow['fleet_start_galaxy'].'&amp;system='.$FleetRow['fleet_start_system'].'" class="'. $FleetType .'">['.$FleetRow['fleet_start_galaxy'].':'.$FleetRow['fleet_start_system'].':'.$FleetRow['fleet_start_planet'].']</a>';
@@ -373,36 +400,8 @@ function GetUserByID($UserID, $GetInfo = "*")
 	else
 		$GetOnSelect = $GetInfo;
 	
-	$User = $GLOBALS['DATABASE']->uniquequery("SELECT ".$GetOnSelect." FROM ".USERS." WHERE id = '". $UserID ."';");
+	$User = $GLOBALS['DATABASE']->getFirstRow("SELECT ".$GetOnSelect." FROM ".USERS." WHERE id = '". $UserID ."';");
 	return $User;
-}
-
-function MailSend($MailTarget, $MailTargetName, $MailSubject, $MailContent)
-{
-	global $CONF;
-	require_once('./includes/classes/class.phpmailer.php');
-	$mail             	= new PHPMailer(true);
-	if($CONF['mail_use'] == 2) {
-		$mail->IsSMTP();  
-		$mail->SMTPAuth   	= true; 
-		$mail->SMTPSecure 	= $CONF['smtp_ssl'];  						
-		$mail->Host      	= $CONF['smtp_host'];
-		$mail->Port      	= $CONF['smtp_port'];
-		$mail->Username  	= $CONF['smtp_user'];
-		$mail->Password  	= $CONF['smtp_pass'];
-		$mail->SMTPDebug  	= ($CONF['debug'] == 1) ? 2 : 0;   
-	} elseif($CONF['mail_use'] == 1) {
-		$mail->IsSendmail();
-		$mai->Sendmail		= $CONF['smail_path'];
-	} else {
-		$mail->IsMail();
-	}
-	$mail->CharSet		= 'UTF-8';		
-	$mail->Subject   	= $MailSubject;
-	$mail->Body   		= $MailContent;
-	$mail->SetFrom($CONF['smtp_sendmail'], $CONF['game_name']);
-	$mail->AddAddress($MailTarget, $MailTargetName);
-	$mail->Send();	
 }
 
 function makebr($text)
@@ -416,7 +415,7 @@ function makebr($text)
 
 function CheckPlanetIfExist($Galaxy, $System, $Planet, $Universe, $Planettype = 1)
 {
-	$QrySelectGalaxy = $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".PLANETS." WHERE universe = '".$Universe."' AND galaxy = '".$Galaxy."' AND system = '".$System."' AND planet = '".$Planet."' AND planet_type = '".$Planettype."';");
+	$QrySelectGalaxy = $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".PLANETS." WHERE universe = '".$Universe."' AND galaxy = '".$Galaxy."' AND system = '".$System."' AND planet = '".$Planet."' AND planet_type = '".$Planettype."';");
 	return $QrySelectGalaxy ? true : false;
 }
 
@@ -424,9 +423,9 @@ function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $Player)
 {	
 	global $CONF;
 	if(
-		$CONF['noobprotection'] == 0 
-		|| $CONF['noobprotectiontime'] == 0 
-		|| $CONF['noobprotectionmulti'] == 0 
+		Config::get('noobprotection') == 0 
+		|| Config::get('noobprotectiontime') == 0 
+		|| Config::get('noobprotectionmulti') == 0 
 		|| $Player['banaday'] > TIMESTAMP
 		|| $Player['onlinetime'] < TIMESTAMP - INACTIVE
 	) {
@@ -441,16 +440,16 @@ function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $Player)
 				ODER weniger als 5.000 hat.
 			*/
 			// Addional Comment: Letzteres ist eigentlich sinnfrei, bitte testen.a
-			($TargetPlayer['total_points'] <= $CONF['noobprotectiontime']) && // Default: 25.000
-			($OwnerPlayer['total_points'] > $TargetPlayer['total_points'] * $CONF['noobprotectionmulti'])
+			($TargetPlayer['total_points'] <= Config::get('noobprotectiontime')) && // Default: 25.000
+			($OwnerPlayer['total_points'] > $TargetPlayer['total_points'] * Config::get('noobprotectionmulti'))
 		), 
 		'StrongPlayer' => (
 			/* WAHR: 
 				Wenn Spieler weniger als 5000 Punkte hat UND
 				Mehr als das funfache der eigende Punkte hat
 			*/
-			($OwnerPlayer['total_points'] < $CONF['noobprotectiontime']) && // Default: 5.000
-			($OwnerPlayer['total_points'] * $CONF['noobprotectionmulti'] < $TargetPlayer['total_points'])
+			($OwnerPlayer['total_points'] < Config::get('noobprotectiontime')) && // Default: 5.000
+			($OwnerPlayer['total_points'] * Config::get('noobprotectionmulti') < $TargetPlayer['total_points'])
 		),
 	);
 }
@@ -500,8 +499,7 @@ function shortly_number($number, $decial = NULL)
 		$number = $number / 1000;
 	}
 	
-	$decial	= !is_numeric($decial) ? ((int) ($number != 0 && $number < 100)) : $decial;
-	
+	$decial	= !is_numeric($decial) ? ((int) (((int)$number != $number) && $key != 0 && $number != 0 && $number < 100)) : $decial;
 	return pretty_number($negate * $number, $decial).'&nbsp;'.$unit[$key];
 }
 
@@ -514,12 +512,12 @@ function isModulAvalible($ID)
 	if(!isset($GLOBALS['CONF']['moduls'][$ID])) 
 		$GLOBALS['CONF']['moduls'][$ID] = 1;
 	
-	return $GLOBALS['CONF']['moduls'][$ID] == 1 || (isset($_SESSION) && $_SESSION['authlevel'] > AUTH_USR);
+	return $GLOBALS['CONF']['moduls'][$ID] == 1 || (isset($USER['authlevel']) && $USER['authlevel'] > AUTH_USR);
 }
 
 function ClearCache()
 {
-	$DIRS	= array('cache/');
+	$DIRS	= array('cache/', 'cache/templates/');
 	foreach($DIRS as $DIR) {
 		$FILES = array_diff(scandir($DIR), array('..', '.', '.htaccess'));
 		foreach($FILES as $FILE) {
@@ -529,62 +527,12 @@ function ClearCache()
 			unlink(ROOT_PATH.$DIR.$FILE);
 		}
 	}
+	
+	require_once 'includes/classes/Cronjob.class.php';
+	Cronjob::reCalculateCronjobs();
+	$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET eco_hash = '';");
+	clearstatcache();
 }
-
-function MaxPlanets($Level, $Universe)
-{
-	// http://owiki.de/index.php/Astrophysik#.C3.9Cbersicht
-	return min($GLOBALS['CONFIG'][$Universe]['min_player_planets'] + ceil($Level / 2) * PLANETS_PER_TECH, $GLOBALS['CONFIG'][$Universe]['max_player_planets']);
-}
-
-function allowPlanetPosition($Pos, $techLevel)
-{
-	// http://owiki.de/index.php/Astrophysik#.C3.9Cbersicht
-	
-	switch($Pos) {
-		case 1:
-		case 15:
-			return $techLevel >= 8;
-		break;
-		case 2:
-		case 14:
-			return $techLevel >= 6;
-		break;
-		case 3:
-		case 13:
-			return $techLevel >= 4;
-		break;
-		default:
-			return $techLevel >= 1;
-		break;
-	}
-	
-	
-	return min($GLOBALS['CONFIG'][$Universe]['min_player_planets'] + ceil($Level / 2) * PLANETS_PER_TECH, $GLOBALS['CONFIG'][$Universe]['max_player_planets']);
-}
-
-function GetCrons()
-{
-	global $CONF;
-	$Crons	= '';
-	$Crons .= TIMESTAMP >= ($CONF['stat_last_update'] + (60 * $CONF['stat_update_time'])) ? '<img src="./cronjobs.php?cron=stats" alt="" height="1" width="1">' : '';
-	
-	$Crons .= $CONF['ts_modon'] == 1 && TIMESTAMP >= ($CONF['ts_cron_last'] + 60 * $CONF['ts_cron_interval']) ? '<img src="./cronjobs.php?cron=teamspeak" alt="" height="1" width="1">' : '';
-	
-	$Crons .= TIMESTAMP >= ($CONF['stat_last_db_update'] + 86400) ? '<img src="./cronjobs.php?cron=daily" alt="" height="1" width="1">' : ''; //Daily Cronjob
-	
-	return $Crons;
-}
-
-function r_implode($glue, $pieces)
-{
-	$retVal	= array();
-	foreach($pieces as $r_pieces)
-	{
-		$retVal[] = is_array($r_pieces) ? r_implode($glue, $r_pieces) : $r_pieces;
-	}
-	return implode($glue, $retVal);
-} 
 
 function allowedTo($side)
 {
@@ -662,7 +610,7 @@ function exceptionHandler($exception)
 	global $CONF;
 	if(!headers_sent()) {
 		if (!class_exists('HTTP', false)) {
-			require_once(ROOT_PATH . 'includes/classes/HTTP.class.php');
+			require_once('includes/classes/HTTP.class.php');
 		}
 		
 		HTTP::sendHeader('HTTP/1.1 503 Service Unavailable');
@@ -690,8 +638,37 @@ function exceptionHandler($exception)
 		E_RECOVERABLE_ERROR	=> 'RECOVERABLE ERROR'
 	);
 	
-	$VERSION	= isset($CONF['VERSION']) ? $CONF['VERSION'] : 'UNKNOWN';
+	try
+	{
+		if(!class_exists('Config', false))
+		{
+			throw new Exception("No config class");
+		}
+		$VERSION	= Config::get('VERSION');
+	} catch(Exception $e) {
+		if(file_exists(ROOT_PATH.'install/VERSION'))
+		{
+			$VERSION	= file_get_contents(ROOT_PATH.'install/VERSION').' (FILE)';
+		}
+		else
+		{
+			$VERSION	= 'UNKNOWN';
+		}
+	}
+	
+	try
+	{
+		if(!class_exists('Config', false))
+		{
+			throw new Exception("No config class");
+		}
+		$gameName	= Config::get('game_name');
+	} catch(Exception $e) {
+		$gameName	= '-';
+	}
+	
 	$DIR		= MODE == 'INSTALL' ? '..' : '.';
+	ob_start();
 	echo '<!DOCTYPE html>
 <!--[if lt IE 7 ]> <html lang="de" class="no-js ie6"> <![endif]-->
 <!--[if IE 7 ]>    <html lang="de" class="no-js ie7"> <![endif]-->
@@ -699,17 +676,18 @@ function exceptionHandler($exception)
 <!--[if IE 9 ]>    <html lang="de" class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="de" class="no-js"> <!--<![endif]-->
 <head>
-	<title>'.(isset($CONF['game_name']) ? $CONF['game_name'].' - ' : '').$errorType[$errno].'</title>
+	<title>'.$gameName.' - '.$errorType[$errno].'</title>
 	<meta name="generator" content="2Moons '.$VERSION.'">
 	<!-- 
 		This website is powered by 2Moons '.$VERSION.'
 		2Moons is a free Space Browsergame initially created by Jan Kr�pke and licensed under GNU/GPL.
-		2Moons is copyright 2009-2012 of Jan Kr�pke. Extensions are copyright of their respective owners.
+		2Moons is copyright 2009-2013 of Jan Kröpke. Extensions are copyright of their respective owners.
 		Information and contribution at http://2moons.cc/
 	-->
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/css/boilerplate.css?v='.$VERSION.'">
-	<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/css/ingame.css?v='.$VERSION.'">
+	<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/resource/css/base/boilerplate.css?v='.$VERSION.'">
+	<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/resource/css/ingame/main.css?v='.$VERSION.'">
+	<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/resource/css/base/jquery.css?v='.$VERSION.'">
 	<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/theme/gow/formate.css?v='.$VERSION.'">
 	<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 	<script type="text/javascript">
@@ -751,22 +729,30 @@ function exceptionHandler($exception)
 			<b>Message: </b>'.$exception->getMessage().'<br>
 			<b>File: </b>'.$exception->getFile().'<br>
 			<b>Line: </b>'.$exception->getLine().'<br>
-			<b>URL: </b>'.PROTOCOL.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].(!empty($_SERVER['QUERY_STRING']) ? '?'.$_SERVER['QUERY_STRING']: '').'<br>
+			<b>URL: </b>'.PROTOCOL.HTTP_HOST.$_SERVER['REQUEST_URI'].'<br>
 			<b>PHP-Version: </b>'.PHP_VERSION.'<br>
 			<b>PHP-API: </b>'.php_sapi_name().'<br>
 			<b>MySQL-Cleint-Version: </b>'.mysqli_get_client_info().'<br>
-			<b>2Moons Version: </b>'.$CONF['VERSION'].'<br>
-			<b>Debug Backtrace:</b><br>'.makebr(str_replace($_SERVER['DOCUMENT_ROOT'], '.', htmlspecialchars($exception->getTraceAsString()))).'
+			<b>2Moons Version: </b>'.$VERSION.'<br>
+			<b>Debug Backtrace:</b><br>'.makebr(htmlspecialchars($exception->getTraceAsString())).'
 		</td>
 	</tr>
 </table>
 </body>
 </html>';
-	if($errno === 0) {
-		ini_set('display_errors', 0);
-		trigger_error("Exception: ".str_replace("<br>", "\r\n", $errstr)."\r\n\r\n".str_replace($_SERVER['DOCUMENT_ROOT'], '.', $exception->getTraceAsString()), E_USER_ERROR);
+
+	echo str_replace(array('\\', ROOT_PATH, substr(ROOT_PATH, 0, 15)), array('/', '/', 'FILEPATH '), ob_get_clean());
+	
+	$errorText	= date("[d-M-Y H:i:s]", TIMESTAMP).' '.$errorType[$errno].': "'.strip_tags($exception->getMessage())."\"\r\n";
+	$errorText	.= 'File: '.$exception->getFile().' | Line: '.$exception->getLine()."\r\n";
+	$errorText	.= 'URL: '.PROTOCOL.HTTP_HOST.$_SERVER['REQUEST_URI'].' | Version: '.$VERSION."\r\n";
+	$errorText	.= "Stack trace:\r\n";
+	$errorText	.= str_replace(ROOT_PATH, '/', htmlspecialchars(str_replace('\\', '/',$exception->getTraceAsString())))."\r\n";
+	
+	if(is_writable('includes/error.log'))
+	{
+		file_put_contents('includes/error.log', $errorText, FILE_APPEND);
 	}
-	exit;
 }
 
 function errorHandler($errno, $errstr, $errfile, $errline)
@@ -777,4 +763,49 @@ function errorHandler($errno, $errstr, $errfile, $errline)
 	
 	throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
 }
-?>
+
+// "workaround" for PHP version pre 5.3.0
+if (!function_exists('array_replace_recursive'))
+{
+    function array_replace_recursive($array, $array1)
+    {
+        if (!function_exists('recurse')) {
+            function recurse($array, $array1)
+            {
+                foreach ($array1 as $key => $value)
+                {
+                    // create new key in $array, if it is empty or not an array
+                    if (!isset($array[$key]) || (isset($array[$key]) && !is_array($array[$key])))
+                    {
+                        $array[$key] = array();
+                    }
+
+                    // overwrite the value in the base array
+                    if (is_array($value))
+                    {
+                        $value = recurse($array[$key], $value);
+                    }
+                    $array[$key] = $value;
+                }
+                return $array;
+            }
+        }
+
+        // handle the arguments, merge one by one
+        $args = func_get_args();
+        $array = $args[0];
+        if (!is_array($array))
+        {
+            return $array;
+        }
+        $count = count($args);
+        for ($i = 1; $i < $count; ++$i)
+        {
+            if (is_array($args[$i]))
+            {
+                $array = recurse($array, $args[$i]);
+            }
+        }
+        return $array;
+    }
+}

@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id: class.ShowResourcesPage.php 2239 2012-06-09 12:51:28Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @version 1.7.2 (2013-03-18)
+ * @info $Id: class.ShowResourcesPage.php 2632 2013-03-18 19:05:14Z slaver7 $
+ * @link http://2moons.cc/
  */
 
 class ShowResourcesPage extends AbstractPage
@@ -74,11 +73,19 @@ class ShowResourcesPage extends AbstractPage
 	{
 		global $LNG, $ProdGrid, $resource, $reslist, $CONF, $pricelist, $USER, $PLANET;
 		
-		if ($PLANET['planet_type'] == 3)
+		if($USER['urlaubs_modus'] == 1 || $PLANET['planet_type'] != 1)
 		{
-			$CONF['metal_basic_income']     	= 0;
-			$CONF['crystal_basic_income']   	= 0;
-			$CONF['deuterium_basic_income'] 	= 0;
+			$basicIncome[901]	= 0;
+			$basicIncome[902]	= 0;
+			$basicIncome[903]	= 0;
+			$basicIncome[911]	= 0;
+		}
+		else
+		{		
+			$basicIncome[901]	= Config::get($resource[901].'_basic_income');
+			$basicIncome[902]	= Config::get($resource[902].'_basic_income');
+			$basicIncome[903]	= Config::get($resource[903].'_basic_income');
+			$basicIncome[911]	= Config::get($resource[911].'_basic_income');
 		}
 		
 		$temp	= array(
@@ -129,8 +136,13 @@ class ShowResourcesPage extends AbstractPage
 					
 				$Production	= eval(ResourceUpdate::getProd($ProdGrid[$ProdID]['production'][$ID]));
 				
-				if($ID != 911) {
-					$Production	*= $prodLevel * $CONF['resource_multiplier'];
+				if($ID != 911)
+				{
+					$Production	*= $prodLevel * Config::get('resource_multiplier');
+				}
+				else
+				{
+					$Production	*= Config::get('energySpeed');
 				}
 				
 				$productionList[$ProdID]['production'][$ID]	= $Production;
@@ -152,10 +164,10 @@ class ShowResourcesPage extends AbstractPage
 		);
 		
 		$basicProduction	= array(
-			901 => $CONF[$resource[901].'_basic_income'] * $CONF['resource_multiplier'],
-			902 => $CONF[$resource[902].'_basic_income'] * $CONF['resource_multiplier'],
-			903	=> $CONF[$resource[903].'_basic_income'] * $CONF['resource_multiplier'],
-			911	=> $CONF[$resource[911].'_basic_income'] * $CONF['resource_multiplier'],
+			901 => $basicIncome[901] * Config::get('resource_multiplier'),
+			902 => $basicIncome[902] * Config::get('resource_multiplier'),
+			903	=> $basicIncome[903] * Config::get('resource_multiplier'),
+			911	=> $basicIncome[911] * Config::get('energySpeed'),
 		);
 		
 		$totalProduction	= array(
@@ -166,10 +178,10 @@ class ShowResourcesPage extends AbstractPage
 		);
 		
 		$bonusProduction	= array(
-			901 => $temp[901]['plus'] * $USER['factor']['Resource'],
-			902 => $temp[902]['plus'] * $USER['factor']['Resource'],
-			903	=> $temp[903]['plus'] * $USER['factor']['Resource'],
-			911	=> $temp[911]['plus'] * ($USER['factor']['Energy'] + 0.03 * $USER[$resource[113]]),
+			901 => $temp[901]['plus'] * ($USER['factor']['Resource'] + 0.02 * $USER[$resource[131]]),
+			902 => $temp[902]['plus'] * ($USER['factor']['Resource'] + 0.02 * $USER[$resource[132]]),
+			903	=> $temp[903]['plus'] * ($USER['factor']['Resource'] + 0.02 * $USER[$resource[133]]),
+			911	=> $temp[911]['plus'] * $USER['factor']['Energy'],
 		);
 		
 		$dailyProduction	= array(
@@ -207,5 +219,3 @@ class ShowResourcesPage extends AbstractPage
 		$this->display('page.resources.default.tpl');
 	}
 }
-
-?>

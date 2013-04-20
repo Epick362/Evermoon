@@ -23,7 +23,7 @@
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.6.1 (2011-11-19)
- * @info $Id: update_2080.php 2126 2012-03-11 21:11:32Z slaver7 $
+ * @info $Id: update_2080.php 2464 2012-12-21 20:03:22Z slaver7 $
  * @link http://code.google.com/p/2moons/
  */
  
@@ -75,4 +75,3 @@ while($raport = $db->fetch_array($RW)) {
 	$db->query("UPDATE ".RW." SET raport = '".serialize($NEW)."' WHERE rid = ".$raport['rid'].";");
 }
 	exit("Done");
-?>
