@@ -23,4 +23,4 @@ please contact the webmaster using the following email:
 mailto:%6$s
 
 Regards,
-%2$s - Team
+%2$s Team

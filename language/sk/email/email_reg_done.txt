@@ -1,10 +1,9 @@
-Hello %1$s,
+Vitaj %1$s,
 
 
-Thank you for registering at %2$s
+Ďakujeme za tvoju registráciu na %2$s
 
-We are glad that you chose to become a part of our community 
-and we hope you will enjoy yourself!
+Sme radi, že si sa rozhodol u nás zaregistrovať a dúfame, že sa ti hra bude páčiť.
 
-Regards,
-%2$s - Team
+S pozdravom,
+%2$s Team
