@@ -110,11 +110,11 @@ define('SESSION_LIFETIME'			, 43200);
 define('ENABLE_MULTIALERT'			, true);
 
 // DISCLAMER INFOS
-define('DICLAMER_NAME'				, "Edit constans.php!");
-define('DICLAMER_ADRESS1'			, "Edit constans.php!");
-define('DICLAMER_ADRESS2'			, "Edit constans.php!");
-define('DICLAMER_TEL'				, "Edit constans.php!");
-define('DICLAMER_EMAIL'				, "Edit constans.php!");
+define('DICLAMER_NAME'				, "Evermoon");
+define('DICLAMER_ADRESS1'			, "Slovakia");
+define('DICLAMER_ADRESS2'			, "");
+define('DICLAMER_TEL'				, "");
+define('DICLAMER_EMAIL'				, "admin@evermoon.sk");
 
 // UTF-8 support for names (required for non-english chars!)
 define('UTF8_SUPPORT'				, true);

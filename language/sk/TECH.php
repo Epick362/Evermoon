@@ -225,7 +225,7 @@ $LNG['shortDescription'] = array(
 217 => 'Is a development of the large cargo, it has more carry capacity and flies faster with the right techonology.',
 218 => 'The absolute worst case scenario, albeit very slowly.',
 219 => 'Is a huge cargo space and new engines, enable it to fly faster and gather more in debris fields .',
-220 => 'Desc.',
+220 => 'Nová verzie Kolonizačnej lode. Je rýchlejšia a má vačšie štíty.',
 
 401 => 'The Rocket Launcher is a simple but cost-effective defense.',
 402 => 'Light Lasers are simple ground based weapons that utilize special targeting systems to track the enemy and fire a high intensity laser designed to cut through the hull of the target.',
@@ -301,7 +301,7 @@ $LNG['longDescription'] = array(
 121 => 'A deadly beam of accelerated ions. This causes enormous damage when striking an object.',
 122 => 'A further development of ion technology which accelerates high-energy Plasma, a result of super-heating Ions. This has a devastating effect when striking an object.',
 123 => 'Researchers on different planets communicate via this network.',
-124 => 'With an astrophysics research module, ships can undertake long expeditions. Every second level of this technology will allow you to colonise an extra planet.',
+124 => 'With an astrophysics research module, ships can undertake long expeditions. Every second level of this technology will allow you to colonise an extra planet. <br/>Od úrovne 4 je možné osídľovať aj pozície 3 a 13.<br />Od úrovne 6 je možné osídľovať aj pozície 2 a 14.<br />Od úrovne 8 je možné osídľovať aj pozície 1 a 15.',
 199 => 'Firing a concentrated charge of graviton particles can create an artificial gravity field, which can destroy ships or even moons.',
 
 202 => 'The light cargo is an agile ship which can quickly transport resources to other planets.',
@@ -322,7 +322,7 @@ $LNG['longDescription'] = array(
 217 => 'Is a development of the large cargo, it has more carry capacity and flies faster with the right techonology.',
 218 => 'The absolute worst case scenario, albeit very slowly.',
 219 => 'Is a huge cargo space and new engines, enable it to fly faster and gather more in debris fields .',
-220 => 'Desc .',
+220 => 'Táto Kolonizačná loď vie zakladať kolónie a po kolonizovaní uz automaticky vystavá Doly na Kov a Doly na Kryštál na úroveň 10, Syntetizér Deutéria na úroveň 5, Solárnu Elektráreň na úroveň 12, Továreň na Roboty na úroveň 5 a Hangár na úroveň 6.',
 
 401 => 'The Rocket Launcher is a simple but cost-effective defense.',
 402 => 'Light Lasers are simple ground based weapons that utilize special targeting systems to track the enemy and fire a high intensity laser designed to cut through the hull of the target.',
