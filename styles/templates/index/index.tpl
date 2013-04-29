@@ -44,6 +44,13 @@
 						<input type="submit" class="btn btn-primary btn-block" value="{$login}">
 					</div>
 				</div>
+				{if $fb_active}
+				<div class="row-fluid" style="margin-top:5px;">
+					<div class="span12">
+						<a href="javascript:FBlogin();" class="fb_login btn btn-primary btn-block">Login with Facebook</a>
+					</div>
+				</div>
+				{/if}
 			</form>
 		</div>
 
@@ -79,6 +86,13 @@
 						<input name="submit" class="btn btn-primary btn-block" value="{$register}" type="button" onclick="Submit('reg');">
 					</div>
 				</div>
+				{if $fb_active}
+				<div class="row-fluid" style="margin-top:5px;">
+					<div class="span12">
+						<a href="javascript:FBlogin();" class="fb_login btn btn-primary btn-block">Connect with Facebook</a>
+					</div>
+				</div>
+				{/if}
 			</form>
 		</div>
 

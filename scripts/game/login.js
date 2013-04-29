@@ -52,16 +52,19 @@ function Content(action) {
 	$('#rules').hide();
 	$('#disclaimer').hide();
 	switch(action) {
+		case 'login':
+			showElement('#login', '180');
+		break;
 		case 'register':
 			showRecaptcha();
-			showElement('#register', '340');
+			showElement('#register', '380');
 		break;
 		case 'lost':
 			showElement('#lostpwd', '150');
 		break;
 		case 'back':
 			showElement('#info', '180');
-			showElement('#login', '150');	
+			showElement('#login', '180');	
 		break;
 		case 'news':
 			$('#news').show();
@@ -138,12 +141,98 @@ function initFormHandler() {
 	});
 }
 
+
+function FBinit() {
+        FB.init({appId: CONF['FBKey'], status: false, cookie: true});
+}
+
+function FBlogin() {
+        FBUniverse      = $('#universe').val();
+        FB.getLoginStatus(function(response) {
+        		console.log('FB.getLoginStatus Response:');
+        		console.log(response);
+                if (response.session) {
+                        FBCheckRegister(response.session);
+                        console.log('Session Active');
+                } else {
+                        FB.login(function(login) {
+                        		console.log(login);
+                                if (login.status == 'connected') {
+                                        FBCheckUser();
+                                        console.log('Login successful: New session');
+                                }
+                        }, {scope:'publish_stream,offline_access,email'});
+                }
+        });
+}
+
+function FBCheckRegister(ID){
+        $.getJSON('?uni='+FBUniverse+'&page=reg&action=check&mode=fbid&value='+ID, function(data) {
+                if(data.exists === true) {
+                		//Content('login');
+                        document.location.href = '?uni='+FBUniverse+'&page=extauth&method=facebook';
+                        console.log('User exists, sending to login');
+                } else {
+                        FBCheckUser();
+                }
+        });
+}
+
+function FBCheckUser(user) {
+        if(typeof user !== "object") {
+                FBgetUser(FBCheckUser);
+                console.log('FBgetUser');
+                return;
+        }
+        
+        FBUniverse = $('#universe').val();
+        $.getJSON('?uni='+FBUniverse+'&page=reg&action=check&mode=email&value='+user.email, function(data) {
+                if(data.exists) {
+                		//Content('login');
+                        document.location.href = '?uni='+FBUniverse+'&page=extauth&method=facebook';
+                        console.log('Email in DB, sending him to login');
+                } else {
+                        FBRegister(user);
+                        console.log('Email not in DB, sending him to register');
+                }
+        });
+}
+
+function FBRegister(data) {
+		console.log(data);
+        if(typeof data !== "object") {
+                FBgetUser(FBRegister);
+                return;
+        }
+        Content('register');
+        $('.fb_login').remove();
+        $('#fb_id').val(data.id);
+        $('#reg_email').val(data.email);
+        $('#reg_email_2').val(data.email);
+}
+
+function FBgetUser(callback) {
+        FB.api('/me', callback);
+}
+
+function FBHandler(data, UNI) {
+        $.getJSON('?uni='+UNI+'page=reg&action=check&mode=fbid&value='+data.id, function(data) {
+                if(data.exists) {
+                        return;
+                } else {
+                        if($.inArray(data.locale.substr(0, 2), CONF['avaLangs']) !== -1)
+                                setLNG(data.locale.substr(0, 2), '?fb=reg');
+                }
+        });
+}
+
+
 $(function() {
 	initFormHandler();
 	initLangs();
 	initCloseReg();
 	showElement('#info', '180');
-	showElement('#login', '150');
+	showElement('#login', '180');
 	if(CONF['ref_active'] == 1 && document.location.search.search('/?ref=') !== -1) {
 		Content('register');
 	}
@@ -162,14 +251,13 @@ $(function() {
 		});
 	}
 
-	if (navigator.userAgent.toLowerCase().indexOf("chrome") >= 0) {
-	    $(window).load(function(){
-	        $('input:-webkit-autofill').each(function(){
-	            var text = $(this).val();
-	            var name = $(this).attr('name');
-	            $(this).after(this.outerHTML).remove();
-	            $('input[name=' + name + ']').val(text);
-	        });
-	    });
-	}
+	$("form").submit(function() {
+		var button = $(this).find(':submit');
+		button.val('Odosielam...');
+		button.addClass('disabled');
+		$(this).submit(function() {
+			return false;
+		});
+		return true;
+	});
 });

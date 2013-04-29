@@ -216,9 +216,9 @@ switch ($page) {
 				$SQL .= "ip = '".$_SERVER['REMOTE_ADDR']."', ";
 				$SQL .= "ref_id = ".$RefID."; ";
 				$GLOBALS['DATABASE']->query($SQL);
-				
+
 				if(!empty($FACEBOOK) || $CONF['user_valid'] == 0 || $CONF['mail_active'] == 0) {
-					HTTP::redirectTo("index.php?uni=".$UNI."&page=reg&action=valid&clef=".$clef);
+					HTTP::redirectTo("index.php?uni=".$UNI."&page=reg&action=valid&fb=".$FACEBOOK."&clef=".$clef);
 				} else {
 					$MailSubject 	= $LNG['reg_mail_message_pass'];
 					$MailRAW		= $LANG->getMail('email_vaild_reg');
@@ -234,6 +234,7 @@ switch ($page) {
 			break;
 			case 'valid' :
 				$clef 		= HTTP::_GP('clef', '');
+				$FACEBOOK 	= HTTP::_GP('fb', 0);
 				$admin 	 	= HTTP::_GP('admin', 0);
 				$userData	= $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".USERS_VALID." WHERE cle = '".$GLOBALS['DATABASE']->sql_escape($clef)."' AND universe = ".$UNI.";");
 				$GLOBALS['DATABASE']->query("DELETE FROM ".USERS_VALID." WHERE cle = '".$GLOBALS['DATABASE']->sql_escape($clef)."' AND universe = ".$UNI.";");
@@ -279,6 +280,12 @@ switch ($page) {
 				$GLOBALS['DATABASE']->query($SQL);
 				
 				$userID = $GLOBALS['DATABASE']->GetInsertID();
+
+				if($CONF['fb_on'] == 1 && !empty($FACEBOOK)) {
+					require(ROOT_PATH.'/includes/extauth/facebook.php');
+					$authObj = new FacebookAuth;
+					$authObj->register();
+				}
 
 				$LastSettedGalaxyPos = $CONF['LastSettedGalaxyPos'];
 				$LastSettedSystemPos = $CONF['LastSettedSystemPos'];
@@ -450,8 +457,9 @@ switch ($page) {
 		
 		$template->show('index_pranger.tpl');
 		break;
-		*/
+		
 	break;
+	*/
 	case 'extauth':
 		$method			= HTTP::_GP('method', '');
 		$method			= str_replace(array('_', '\\', '/', '.', "\0"), '', $method);
@@ -476,7 +484,7 @@ switch ($page) {
 		$loginData	= $authObj->getLoginData();
 		
 		if(empty($loginData)) {
-			HTTP::redirectTo('index.php?code=5');
+			HTTP::redirectTo('index.php?code=1');
 		}
 		
 		$SESSION       	= new Session();
