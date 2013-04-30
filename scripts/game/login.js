@@ -90,6 +90,9 @@ function Submit(action) {
 		case 'reg':
 			form =	$('#reg');
 			$('.error').removeClass('error');
+			var button = $(form).find('input[type=button]');
+			button.val('Odosielam...');
+			button.addClass('disabled');
 			$.post(form.attr('action'), form.serialize(), function(data) {
 				data	= $.parseJSON(data);
 				if(data.error === false) {

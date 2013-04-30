@@ -28,7 +28,7 @@
  */
 
 
-function calculateAttack(&$attackers, &$defenders, $FleetTF, $DefTF)
+function calculateAttack(&$attackers, &$defenders, $FleetTF, $DefTF, $targetPlanet)
 {
 	global $pricelist, $CombatCaps, $resource;
 
